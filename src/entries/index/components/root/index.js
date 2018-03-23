@@ -240,7 +240,7 @@ export default class Root extends PureComponent {
                     this.setState({
                         sendable: true
                     },function(){
-                        that.toSend();
+                        //that.toSend();
                     });
                 }
                 if(res.OutTx){
