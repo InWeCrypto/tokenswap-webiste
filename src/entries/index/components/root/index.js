@@ -206,22 +206,23 @@ export default class Root extends PureComponent {
         }
     }
     toSend(){
-        if(!this.state.sendable){
-            return;
-        }
+        // if(!this.state.sendable){
+        //     return;
+        // }
         let tx = this.state.tx;
         if(!tx) return;
         //判断是否扫描过二维码
-        this.props.getOrder(tx).then(res => {
-            if(res.InTx){
+        // this.props.getOrder(tx).then(res => {
+        //     if(res.InTx){
+                //直接跳转
                 window.location.hash = "step2"
                 this.setState({
                     step: 2
                 });
                 //开启状态监控
                 this.getOrderState();
-            }
-        });
+        //     }
+        // });
     }
     //获取订单详情  判断是否扫描二维码
     getOrderDetail(){
@@ -418,7 +419,7 @@ export default class Root extends PureComponent {
                                     <p className="unit">TNC</p>
                                 </div>
                             </div>
-                            <button className={sendable ? "step" : "noDoneBtn" } onClick={this.toSend.bind(this)}>Transfer complete, next</button>
+                            <button className="step"  onClick={this.toSend.bind(this)}>Transfer complete, next</button>
                         </div>
                         {/* 付款状态 */}
                         <div className={ step == 2 ? "doneBox" : "doneBox Hide"}>
