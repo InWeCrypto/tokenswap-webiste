@@ -395,9 +395,9 @@ export default class Root extends PureComponent {
                                 {/* <div className="close">
                                     <img src={close_ico} alt=""/>
                                 </div> */}
-                                <div className="backbtn" onClick={this.back2first.bind(this)}>
+                                {/* <div className="backbtn" onClick={this.back2first.bind(this)}>
                                     <img src={back_ico} alt=""/>
-                                </div>
+                                </div> */}
                                 <h1>Deposit</h1>
                                 <h2>Scan the QR Code</h2>
                                 <h2>{address}</h2>
