@@ -19,7 +19,7 @@ import yuan from "../../../../assets/images/yuan.png";
 import trinitylogo from "../../../../assets/images/trinitylogo.png";
 
 import "./index.less";
-import { setInterval, clearInterval, setTimeout } from "timers";
+// import { setInterval, clearInterval, setTimeout } from "timers";
 export default class Root extends PureComponent {
     constructor(props) {
         super(props);
@@ -239,6 +239,8 @@ export default class Root extends PureComponent {
                 if(res.InTx){
                     this.setState({
                         sendable: true
+                    },function(){
+                        that.toSend();
                     });
                 }
                 if(res.OutTx){
