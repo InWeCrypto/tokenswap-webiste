@@ -1,0 +1,98 @@
+@import "./basestyle.less";
+.container {
+	max-width: @max-width;
+	min-width: @min-width;
+	margin: 0 auto;
+}
+.ui {
+	display: flex;
+}
+.ui.start {
+	align-items: flex-start;
+}
+.ui.center {
+	align-items: center;
+}
+.ui.end {
+	align-items: flex-end;
+}
+.ui.jcenter {
+	justify-content: center;
+}
+.ui.jstart {
+	justify-content: flex-start;
+}
+.ui.jend {
+	justify-content: flex-end;
+}
+.ui .f1 {
+	flex: 1;
+	min-width: 0;
+}
+
+
+
+
+// cdy
+.mobile {
+	width: 100%;
+	overflow: hidden;
+}
+.Center {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+.Ycenter {
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+}
+.Xcenter {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+.W {
+	width: 100%;
+}
+.Hide {
+	display: none !important;
+}
+.mobile {
+	.m-hide {
+		display: none !important;
+	}
+	.container {
+		min-width: 7.5rem;
+	}
+	a {
+		color: #333;
+	}
+	.noEvent {
+		pointer-events: none;
+	}
+}
+
+@green: #0a9234;
+
+.readMoreUnderLine {
+	position: relative;
+}
+
+.readMoreUnderLine:after {
+	display: block;
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -0.04rem;
+	max-width: 0.7rem;
+	width: 0;
+	height: 1px;
+	background: #ececec;
+	transition: all 0.3s ease-in-out;
+}
+.readMoreUnderLine:hover:after {
+	width: 100%;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>InWeCrypto</title>
+    <script>
+        ;
+        (function (win) {
+            win.IsTouchDevice = null;
+
+            function IsTouchDeviceFoo() {
+                if (self != top) {
+                    return true;
+                }
+                if (null !== IsTouchDevice)
+                    return IsTouchDevice;
+                if (document.documentElement.ontouchstart)
+                    IsTouchDevice = true;
+                else {
+                    var deviceAgent = navigator.userAgent.toLowerCase();
+                    IsTouchDevice = (
+                        deviceAgent.match(/(iphone|ipod|ipad)/) ||
+                        deviceAgent.match(/(android)/) ||
+                        deviceAgent.match(/(iemobile)/) ||
+                        deviceAgent.match(/iphone/i) ||
+                        deviceAgent.match(/ipad/i) ||
+                        deviceAgent.match(/ipod/i) ||
+                        deviceAgent.match(/blackberry/i) ||
+                        deviceAgent.match(/bada/i)
+                    );
+                    //IsTouchDevice will become array we need to convert it to boolean.
+                    if (IsTouchDevice !== null)
+                        IsTouchDevice = true;
+                    else
+                        IsTouchDevice = false;
+                }
+                return IsTouchDevice;
+            };
+
+            if (!IsTouchDeviceFoo()) {
+                //设置pc根字体大小
+                dw = 90;
+                document.getElementsByTagName("html")[0].style.fontSize = dw + "px";
+                setTimeout(function () {
+                    document.getElementsByTagName("body")[0].style.paddingLeft = 54 + "px";
+                    document.getElementsByTagName("body")[0].style.paddingRight = 54 + "px";
+                }, 0)
+            } else {
+                var metaStr =
+                    '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0">'
+                document.write(metaStr);
+            }
+        })(window);
+    </script>
+<link rel="shortcut icon" href="/favicon.ico"></head>
+
+<body>
+    <!-- <img src="../src/assets/images/logoapp.png" style="width:0;height:0;display:block;" alt=""> -->
+    <div id="root" style="height:100%;"></div>
+    <!-- <div class='glob-message'>
+        <div class='glob-message-bg'></div>
+        <div class="glob-message-cont">
+            <div class="glob-message-container">
+                <div class='glob-message-text'>sdsadsa</div>
+                <div class="global-message-btn">
+                    <span class="btn cannel">取消</span>
+                    <span class="btn sure">确定</span>
+                </div>
+            </div>
+            <div class="glob-message-warn">ssss</div>
+        </div>
+    </div> -->
+
+<script type="text/javascript" src="/assets/js/vendor.b5921b5bb.js"></script><script type="text/javascript" src="/assets/js/message.b4844dab9.js"></script><script type="text/javascript" src="/assets/js/app.5d1ca6f42.js"></script></body>
+
+</html>
