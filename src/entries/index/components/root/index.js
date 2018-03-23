@@ -175,7 +175,8 @@ export default class Root extends PureComponent {
                 let valShort;
                 let valArr = res.Value.split(".");
                 if(valArr[1].substring(4) == "0000"){
-                    valShort = valArr[0] + "." + valArr[1].substring(0,4) 
+                   // valShort = valArr[0] + "." + valArr[1].substring(0,4) 
+                    valShort = res.Value;
                 }else{
                     valShort = res.Value;
                 }
@@ -205,6 +206,9 @@ export default class Root extends PureComponent {
         }
     }
     toSend(){
+        if(!this.state.sendable){
+            return;
+        }
         let tx = this.state.tx;
         if(!tx) return;
         //判断是否扫描过二维码
@@ -228,7 +232,6 @@ export default class Root extends PureComponent {
             clearInterval(this.timerDetail);
         }
         //循环使用状态
-        console.log(123);
         this.timerDetail = setInterval(() => {
             //获取订单详情，判断是否完成OutTx
             this.props.getOrder(tx).then(res => {
@@ -254,13 +257,22 @@ export default class Root extends PureComponent {
         if(this.timerState){
             clearInterval(this.timerState);
         }
+        //获取状态列表
+        this.props.getOrderState(tx).then(res => {
+            //console.log(res);
+            this.setState({
+                stateArr: res.reverse()
+            },function(){
+                that.scrollBoxToBottom();
+            });
+        });
         //循环使用状态
         this.timerState = setInterval(() => {
             //获取状态列表
             this.props.getOrderState(tx).then(res => {
                 //console.log(res);
                 this.setState({
-                    stateArr: res
+                    stateArr: res.reverse()
                 },function(){
                     that.scrollBoxToBottom();
                 });
@@ -274,7 +286,7 @@ export default class Root extends PureComponent {
                     clearInterval(this.timerState);
                 }
             })
-        },10000);
+        },5000);
     }
     back2first(){
         window.location.hash = ""
@@ -291,8 +303,12 @@ export default class Root extends PureComponent {
         this.getOrderDetail();
     }
     allDone(){
+        // this.setState({
+        //     isOnlyOrder: true
+        // })
+        window.location.hash = ""
         this.setState({
-            isOnlyOrder: true
+            step: 0
         })
     }
     render() {
@@ -395,11 +411,14 @@ export default class Root extends PureComponent {
                                     <div className="qrcode" id="qrcode"></div>
                                 </div>
                                 <div className="totleMoney">
+                                    <p className="money">Insert the amount you want to transfer</p>
+                                </div>
+                                <div className="totleMoney">
                                     <p className="money">{tncBackNum}</p>
                                     <p className="unit">TNC</p>
                                 </div>
                             </div>
-                            <button className={sendable ? "step" : "noDoneBtn" } onClick={this.toSend.bind(this)}>Send</button>
+                            <button className={sendable ? "step" : "noDoneBtn" } onClick={this.toSend.bind(this)}>Transfer complete, next</button>
                         </div>
                         {/* 付款状态 */}
                         <div className={ step == 2 ? "doneBox" : "doneBox Hide"}>
