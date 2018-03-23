@@ -1,2 +1,2 @@
-export const PORTOCAL = "https://dev.inwecrypto.com:4431/v2/";
+export const PORTOCAL = "http://101.132.93.156/";
 export const requestUrl = PORTOCAL;
