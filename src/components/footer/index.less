@@ -11,6 +11,7 @@
     color:rgba(137,175,202,1);
     line-height:0.28rem;
     letter-spacing: 50;
+    z-index: 10;
     
     ul{
         float: right;
@@ -36,12 +37,18 @@
                     display: block;
                 }
             }
-            &:hover .qrcode{
-                display: block;
+            &:hover{
+                .qrcode{
+                    display: block;
+                }
+                img{
+                    opacity: 1;
+                }
             }
             img{
                 height: 100%;
                 width: auto;
+                opacity: 0.6;
             }
         }
     }

@@ -7,7 +7,7 @@ import Footer from "../../../../components/footer/";
 import bglf from "../../../../assets/images/1.png";
 import bgrt from "../../../../assets/images/6.png";
 import "./index.less";
-import { indexRemFun,setLocalItem } from "../../../../utils/util";
+import { indexRemFun, setLocalItem } from "../../../../utils/util";
 
 
 
@@ -30,42 +30,32 @@ export default class Root extends PureComponent {
 		setLocalItem("language", "zh");
     }
     render() {
-        const { lng } = this.props;
-		// let lang = window.i18n.language;
-		lang = lng
+        let { lng } = this.props;
+       // setLocalItem("language",lng);
+       // this.props.changeLng(lng);
         return (
             <I18n>
-                {(t, {i18n}) => {
-                	console.log(lang);
-                	console.log(t('about.txt3',"en"));
-                	console.log(t('about.txt3',""));
-                	return (
+                {(t, {i18n}) => (
                   <div className="page-about" id="e-aboutBox">
-                    <Menus lng={lng}/>
-                        <div className="content">
-                            <div className="bg-lf"><img src={bglf} alt="" /></div>
-                            <div className="bg-rt"><img src={bgrt} alt="" /></div>
-                            <div className="ct">
-                                <h1 onClick={
-                                    this.cnnn.bind(this)
-                                }>Trinity通过状态通道技术对NEO进行链下扩容。</h1>
-                                <p>{t('about.txt3',lang)}</p>
-                                <p>{t('about.txt4',lang)}</p>
-                                <p>{t('about.txt5',lang)}</p>
-                                <p>{t('about.txt6',lang)}</p>
-                                <p>{t('about.txt7',lang)}</p>
-                                <p>{t('about.txt8',lang)}</p>
-                                <p>{t('about.txt9',lang)}</p>
-                                <p>{t('about.txt10',lang)}</p>
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <Footer lng={lng} />
+                  	<Menus lng={lng} changeLng={this.props.changeLng.bind(this)}/>
+										<div className="content">
+											<div className="bg-lf"><img src={bglf} alt="" /></div>
+											<div className="bg-rt"><img src={bgrt} alt="" /></div>
+											<div className="ct">
+												<h1>{t('about.txt1',lng)}<br />{t('about.txt2',lng)}</h1>
+												<p>{t('about.txt3',lng)}</p>
+												<p>{t('about.txt4',lng)}</p>
+												<p>{t('about.txt5',lng)}</p>
+												<p>{t('about.txt6',lng)}</p>
+												<p>{t('about.txt7',lng)}</p>
+												<p>{t('about.txt8',lng)}</p>
+												<p>{t('about.txt9',lng)}</p>
+												<p>{t('about.txt10',lng)}</p>
+											</div>
+										</div>
+										<Footer lng={lng} />
                   </div>
-                )
-                }}
+                )}
             </I18n>
         );
     }
