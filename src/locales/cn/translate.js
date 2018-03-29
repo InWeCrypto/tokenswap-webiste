@@ -212,8 +212,8 @@ export default {
 		txt4: "联系我们",
 	},
 	about: {
-		txt1: "Trinity is an offchain",
-		txt2: "scaling scheme for Neo",
+		txt1: "Trinity通过状态通道技术",
+		txt2: "对NEO进行链下扩容",
 		/*txt3: "Trinity 是基于状态通道技术的链下扩容方案，",
 		txt4: "用于合约资产的链下快速转账、",
 		txt5: "隐私保护和DApp操作高并发处理。",
