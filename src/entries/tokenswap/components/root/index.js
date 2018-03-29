@@ -403,7 +403,7 @@ export default class Root extends PureComponent {
                                             <div className="transferCell">
                                                 <div className="name">receive</div>
                                                 <div className="pic">
-                                                    <img src={img_11} alt=""/>
+                                                    <img src={img_12} alt=""/>
                                                 </div>
                                                 <div className="icoName">ETH</div>
                                             </div>
@@ -412,7 +412,7 @@ export default class Root extends PureComponent {
                                     {
                                         errMes && <div className="errMess"></div>
                                     }
-                                    <button className={detailsDone ? "step" : "noDoneBtn" } onClick={this.toStart.bind(this)}>Start</button>
+                                    <button className="step"  onClick={this.toStart.bind(this)}>Start</button>
                                 </div>
                                 {/* 生成订单 */}
                                 <div className={step == 0 ? "detailBox " : "detailBox Hide"}>
@@ -474,7 +474,7 @@ export default class Root extends PureComponent {
                                     {
                                         errMes && <div className="errMess"></div>
                                     }
-                                    <button className={detailsDone ? "step" : "noDoneBtn" } onClick={this.toNextStep.bind(this)}>Next Step</button>
+                                    <button className={detailsDone ? "step" : "step" } onClick={this.toNextStep.bind(this)}>Next Step</button>
                                 </div>
                                 {/* 扫描二维码 */}
                                 <div className={step == 1 ? "depositBox " : "depositBox Hide"}>

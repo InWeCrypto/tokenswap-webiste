@@ -5,6 +5,7 @@ body,html{
     overflow-x: scroll;
 }
 .e-hugeBox{
+    overflow: hidden;
     position: relative;
     height: 100%;
     width: 100%;
@@ -127,7 +128,7 @@ body,html{
         transform: translate(-50%, -50%);
         .bg_7{
             position: relative;
-            top: .5rem;
+            top: .56rem;
             width: 9.25rem;
             height: 2.67rem;
         }
@@ -341,6 +342,8 @@ body,html{
                     }
                     .pic{
                         margin-top: .2rem;
+                        padding: .1rem;
+                        box-sizing: border-box;
                         width: 1.2rem;
                         height: 1.2rem;
                         background: #EEEEEE;
@@ -357,6 +360,7 @@ body,html{
                     width: .57rem;
                     height: .47rem;
                     margin: 0 .54rem;
+                    cursor: pointer;
                 }
             }
 
@@ -364,20 +368,23 @@ body,html{
         .step{
             position: absolute;
             left: 50%;
-            bottom: -.4rem;
+            bottom: -.27rem;
             z-index: 15;
             transform: translateX(-50%);
-            width: 3rem;
-            height: .78rem;
-            border-radius: .39rem;
-            border: 0;
+            width: 2.12rem;
+            height: .54rem;
+            border-radius: .27rem;
+            border: 1px solid #229AF1;
             outline: none;
-            background: linear-gradient(to right , #602D64, #C24BA9);
+            background: #fff;
             cursor: pointer;
-            color: #EACDF2;
+            color: #229AF1;
             font-size: .2rem;
+            font-family:Gilroy-Regular;
+            transition: all .3s ease-in-out;
             &:hover,&:active{
-                background: linear-gradient(to right , #C24BA9, #602D64);
+                background: #229AF1;
+                color: #fff;
             }
         }
         .noDoneBtn{
