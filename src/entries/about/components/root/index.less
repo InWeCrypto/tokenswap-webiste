@@ -4,94 +4,6 @@ body,html{
     min-width: 1280px;
     overflow-x: auto;
 }
-.menu{
-    position: fixed;
-    top: 0;
-    width: 12rem;
-    left: 50%;
-    margin-left: -6rem;
-    text-align: center;
-    font-weight: 200;
-    
-    ul{
-        padding-top: 0.44rem;
-        height: 2.66rem;
-        width: 8.3rem;
-        margin: 0 auto;
-        position: relative;
-        box-sizing: border-box;
-        background: transparent url(../../../../assets/images/2.png) no-repeat center / 100% 100%;
-        
-        li{
-            height: 0.36rem;
-            padding: 0 0.45rem;
-            line-height: 0.36rem;
-            font-size: 0.2rem;
-            color: rgba(0,106,182,1);
-            position: relative;
-            font-family: "Gilroy-Light";
-            display: inline-block;
-            float: left;
-            letter-spacing: 50;
-            cursor: pointer;
-            
-            &:hover{
-                &:after{
-                    content: "";
-                    height: 0.02rem;
-                    width: 0.2rem;
-                    background:rgba(0,106,182,1);
-                    position: absolute;
-                    bottom: 0;
-                    left: 50%;
-                    margin-left: -0.1rem;
-                }
-            }
-            &.rl{
-                float: right;
-                &.end{
-                    margin-right: -0.75rem;
-                    &:hover .sub-menu{
-                        display: block;
-                    }
-                }
-            }
-            &.logo{
-                position: absolute;
-                left: 50%;
-                top: 0.44rem;
-                width: 0.64rem;
-                padding: 0;
-                margin-left: -0.32rem;
-                img{
-                    width: 100%;
-                    height: auto;
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                }
-            }
-            .sub-menu{
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 100%;
-                display: none;
-                &:hover{
-                    display: block;
-                }
-                p{
-                    color: #006AB6;   
-                    line-height: 0.25rem;
-                    &:hover{
-                        color: #C7005D;
-                    }
-                }
-            }
-        }
-    }
-}
 .page-about{
     height: 100%;
     width: 100%;
@@ -147,37 +59,6 @@ body,html{
                 font-family:"Gilroy-Light";
                 color:rgba(125,125,125,1);
                 line-height:0.3rem;
-            }
-        }
-    }
-}
-.footer{
-    position: fixed;
-    width: 12rem;
-    bottom: 0;
-    left: 50%;
-    margin-left: -6rem;
-    height: 0.2rem;
-    padding: 0.1rem 0;
-    font-size:0.2rem;
-    font-family:"";
-    color:rgba(137,175,202,1);
-    line-height:0.2rem;
-    letter-spacing: 50;
-    
-    ul{
-        float: right;
-        li{
-            padding: 0 0.2rem;
-            float: right;
-            height: 0.2rem;
-            &.end{
-                padding-right: 0;
-            }
-            
-            img{
-                height: 100%;
-                width: auto;
             }
         }
     }

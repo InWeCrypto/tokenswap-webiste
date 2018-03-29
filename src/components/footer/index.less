@@ -1,0 +1,48 @@
+.footer{
+    position: fixed;
+    width: 12rem;
+    bottom: 0;
+    left: 50%;
+    margin-left: -6rem;
+    height: 0.2rem;
+    padding: 0.1rem 0;
+    font-size:0.2rem;
+    font-family:"";
+    color:rgba(137,175,202,1);
+    line-height:0.2rem;
+    letter-spacing: 50;
+    
+    ul{
+        float: right;
+        li{
+            padding: 0 0.15rem;
+            float: right;
+            height: 0.2rem;
+            position: relative;
+            &.wx{
+                padding-right: 0;
+            }
+            .qrcode{
+                display: none;
+                height: 1rem;
+                width: 1rem;
+                position: absolute;
+                bottom: 0.3rem;
+                left: 50%;
+                margin-left: -0.5rem;
+                background:rgba(255,255,255,1);
+                box-shadow:0px 1px 10px rgba(195,215,229,1);
+                &:hover{
+                    display: block;
+                }
+            }
+            &:hover .qrcode{
+                display: block;
+            }
+            img{
+                height: 100%;
+                width: auto;
+            }
+        }
+    }
+}
