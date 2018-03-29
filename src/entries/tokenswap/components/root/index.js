@@ -18,6 +18,31 @@ import yes_ico from "../../../../assets/images/yes_ico.png";
 import yuan from "../../../../assets/images/yuan.png";
 import trinitylogo from "../../../../assets/images/trinitylogo.png";
 
+import img_1 from "../../../../assets/images/1.png";
+import img_2 from "../../../../assets/images/2.png";
+import img_3 from "../../../../assets/images/3.png";
+import img_4 from "../../../../assets/images/4.png";
+import img_5 from "../../../../assets/images/5.png";
+import img_6 from "../../../../assets/images/6.png";
+import img_7 from "../../../../assets/images/7.png";
+import img_8 from "../../../../assets/images/8.png";
+import img_9 from "../../../../assets/images/9.png";
+import img_10 from "../../../../assets/images/10.png";
+import img_11 from "../../../../assets/images/11.png";
+import img_12 from "../../../../assets/images/12.png";
+import img_13 from "../../../../assets/images/13.png";
+import img_14 from "../../../../assets/images/14.png";
+import img_15 from "../../../../assets/images/15.png";
+import img_16 from "../../../../assets/images/16.png";
+import img_17 from "../../../../assets/images/17.png";
+import img_18 from "../../../../assets/images/18.png";
+import img_19 from "../../../../assets/images/19.png";
+import img_21 from "../../../../assets/images/21.png";
+import img_22 from "../../../../assets/images/22.png";
+import img_23 from "../../../../assets/images/23.png";
+import img_24 from "../../../../assets/images/24.png";
+import img_20 from "../../../../assets/images/20.png";
+
 import "./index.less";
 // import { setInterval, clearInterval, setTimeout } from "timers";
 export default class Root extends PureComponent {
@@ -25,7 +50,7 @@ export default class Root extends PureComponent {
         super(props);
         this.state = {
             isNeo2Eth: true,
-            step: 0,
+            step: 3,
             tncBackNum: 0,
             stateArr: []
         };
@@ -156,6 +181,11 @@ export default class Root extends PureComponent {
                 detailsDone: false
             })
         }
+    }
+    toStart(){
+        this.setState({
+            step: 0
+        })
     }
     toNextStep(){
         const that = this;
@@ -322,181 +352,241 @@ export default class Root extends PureComponent {
         return (
             <I18n>
                 {(t, {i18n}) => (
-                    <div className="container m-container e-hugeBox" id="e-hugeBox">
-                        <img className="bgCover" src={bg} alt=""/>
-                        <div className="logoImgBox">
-                            <img src={tnc_logo} alt=""/>
+                    <div className="container m-container e-hugeBox" id="e-indexBox">
+                        <div className="bg_1">
+                            <img src={img_20} alt=""/>
                         </div>
-                        {/* 生成订单 */}
-                        <div className={step == 0 ? "detailBox" : "detailBox Hide"}>
-                            <div className="detailBoxContainer">
-                                {/* <div className="close">
-                                    <img src={close_ico} alt=""/>
-                                </div> */}
-                                <h1>Fill the details</h1>
-                                <div className="selectBox">
-                                    <div className="text">Select transfer type：</div>
-                                    {
-                                        isNeo2Eth ? (
-                                            <div className="selectContent" onClick={this.icoExchange.bind(this)}>
-                                                <div className="ico1">TNC(NEO)</div>
-                                                <div className="toImg">
-                                                    <img src={jiantou} alt=""/>
+                        <div className="bg_2">
+                            <img src={img_24} alt=""/>
+                        </div>
+                        <div className="bg_3">
+                            <img src={img_23} alt=""/>
+                        </div>
+                        <div className="bg_4">
+                            <img src={img_18} alt=""/>
+                        </div>
+                        <div className="bg_5">
+                            <img src={img_19} alt=""/>
+                        </div>
+                        <div className="bg_6">
+                            <img src={img_17} alt=""/>
+                        </div>
+                       <div className="contentAndBg">
+                            {/* 背景联动 trinity text */}
+                            <div className="bg_7">
+                                <img src={img_22} alt=""/>
+                            </div>
+                            <div className="bg_8">
+                                An Universal OffchainScaling Solution
+                            </div>
+                            {/* content */}
+                            <div className={
+                                "contentBox boxStyle"+step
+                            }>
+                                <div className={step == 3 ? "detailBox " : "detailBox Hide"}>
+                                    <div className="detailBoxContainer">
+                                        {/* <div className="close">
+                                            <img src={close_ico} alt=""/>
+                                        </div> */}
+                                        <h1>Select transfer type</h1>
+                                        <div className="transferBox">
+                                            <div className="transferCell">
+                                                <div className="name">sent</div>
+                                                <div className="pic">
+                                                    <img src={img_11} alt=""/>
                                                 </div>
-                                                <div className="ico2">TNC(ETH)</div>
-                                                {/*<div className="downicon">
-                                                    <img src={xiala} alt=""/>
-                                                </div>
-                                                <div className="selectorContainer">
-                                                    <div className="selector">
-                                                        <p>ETH</p>
-                                                        <p>BTC</p>
-                                                        <p>ETH</p>
-                                                    </div>
-                                                </div> */}
+                                                <div className="icoName">NEO</div>
                                             </div>
-                                        ) : (
-                                            <div className="selectContent" onClick={this.icoExchange.bind(this)}>
-                                                <div className="ico1">TNC(ETH)</div>
-                                                <div className="toImg">
-                                                    <img src={jiantou} alt=""/>
-                                                </div>
-                                                <div className="ico2">TNC(NEO)</div>
+                                            <div className="transferIco">
+                                                <img src={img_16} alt=""/>
                                             </div>
-                                        )
-                                    }
-                                </div>
-                                <div className="inputBox">
-                                    <div className="inputCellBox">
-                                        <div className="mess1">NEO Wallet Address（sent）：</div>
-                                        <input type="text" onChange={this.getNeoAddress.bind(this)}/>
-                                    </div>
-                                    <div className="inputCellBox2">
-                                        <div className="mess1">Amount</div>
-                                        <input type="text" onChange={this.getNeoAmount.bind(this)}/>
-                                        <div className="unit">
-                                            TNC
+                                            <div className="transferCell">
+                                                <div className="name">receive</div>
+                                                <div className="pic">
+                                                    <img src={img_11} alt=""/>
+                                                </div>
+                                                <div className="icoName">ETH</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            <div className="inputBox2">
-                                <div className="mess1">ETH Wallet Address（receive）：</div>
-                                <input type="text" onChange={this.getEthAddress.bind(this)} />
-                            </div>
-                            </div>
-                            {
-                                errMes && <div className="errMess"></div>
-                            }
-                            <button className={detailsDone ? "step" : "noDoneBtn" } onClick={this.toNextStep.bind(this)}>Next Step</button>
-                        </div>
-                        {/* 扫描二维码 */}
-                        <div className={step == 1 ? "depositBox" : "depositBox Hide"}>
-                            <div className="detailBoxContainer">
-                                {/* <div className="close">
-                                    <img src={close_ico} alt=""/>
-                                </div> */}
-                                {/* <div className="backbtn" onClick={this.back2first.bind(this)}>
-                                    <img src={back_ico} alt=""/>
-                                </div> */}
-                                <h1>Deposit</h1>
-                                <h2>Scan the QR Code</h2>
-                                <h2>{address}</h2>
-                                <div className="qrcodeBox" >
-                                    { 
-                                        sendable && (
-                                            <div className="qrcodeCover" id="qrcode">
-                                                <div className="suc">
-                                                    <img src={yes_ico} alt=""/>
-                                                </div>
-                                            </div>
-                                        )
+                                    {
+                                        errMes && <div className="errMess"></div>
                                     }
-                                    <div className="qrcode" id="qrcode"></div>
+                                    <button className={detailsDone ? "step" : "noDoneBtn" } onClick={this.toStart.bind(this)}>Start</button>
                                 </div>
-                                <div className="totleMoney">
-                                    <p className="money">Insert the amount you want to transfer</p>
-                                </div>
-                                <div className="totleMoney">
-                                    <p className="money">{tncBackNum}</p>
-                                    <p className="unit">TNC</p>
-                                </div>
-                            </div>
-                            <button className="step"  onClick={this.toSend.bind(this)}>Transfer complete, next</button>
-                        </div>
-                        {/* 付款状态 */}
-                        <div className={ step == 2 ? "doneBox" : "doneBox Hide"}>
-                            <div className="backbtn" onClick={this.back2Second.bind(this)}>
-                                <img src={back_ico} alt=""/>
-                            </div>
-                            <div className="logoRoute">
-                                <div className={isAllDone ? "bgColor " : "bgColor noMove"}>
-                                    <img src={yuan} alt=""/>
-                                </div>
-                                <div className="logo">
-                                    <div className="centerImg">
-                                        <img src={trinitylogo} alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="detailBoxContainer">
-                                <div className="holder"></div>
-                                <div className="scrollBox" id="scroll">
-                                    {
-                                        !isOnlyOrder && (
-                                            <div className="fromTo">
-                                                <div className="box">
-                                                    <div className="title1">From:</div>
-                                                    <div className="keyword">
-                                                        {neoAddress}
+                                {/* 生成订单 */}
+                                <div className={step == 0 ? "detailBox " : "detailBox Hide"}>
+                                    <div className="detailBoxContainer">
+                                        {/* <div className="close">
+                                            <img src={close_ico} alt=""/>
+                                        </div> */}
+                                        <h1>Fill the details</h1>
+                                        <div className="selectBox">
+                                            <div className="text">Select transfer type：</div>
+                                            {
+                                                isNeo2Eth ? (
+                                                    <div className="selectContent" onClick={this.icoExchange.bind(this)}>
+                                                        <div className="ico1">TNC(NEO)</div>
+                                                        <div className="toImg">
+                                                            <img src={jiantou} alt=""/>
+                                                        </div>
+                                                        <div className="ico2">TNC(ETH)</div>
+                                                        {/*<div className="downicon">
+                                                            <img src={xiala} alt=""/>
+                                                        </div>
+                                                        <div className="selectorContainer">
+                                                            <div className="selector">
+                                                                <p>ETH</p>
+                                                                <p>BTC</p>
+                                                                <p>ETH</p>
+                                                            </div>
+                                                        </div> */}
                                                     </div>
-                                                    <div className="title2">Sent Amount:</div>
-                                                    <div className="money">
-                                                        <div className="num">{tncBackNum}</div>
-                                                        <div className="nuit">TNC</div>
+                                                ) : (
+                                                    <div className="selectContent" onClick={this.icoExchange.bind(this)}>
+                                                        <div className="ico1">TNC(ETH)</div>
+                                                        <div className="toImg">
+                                                            <img src={jiantou} alt=""/>
+                                                        </div>
+                                                        <div className="ico2">TNC(NEO)</div>
                                                     </div>
-                                                </div>
-                                                <div className="box">
-                                                    <div className="title1">to:</div>
-                                                    <div className="keyword">
-                                                        {ethAddress}
-                                                    </div>
-                                                    <div className="title2">Recive Amount:</div>
-                                                    <div className="money">
-                                                        <div className="num">{tncBackNum}</div>
-                                                        <div className="nuit">TNC</div>
-                                                    </div>
+                                                )
+                                            }
+                                        </div>
+                                        <div className="inputBox">
+                                            <div className="inputCellBox">
+                                                <div className="mess1">NEO Wallet Address（sent）：</div>
+                                                <input type="text" onChange={this.getNeoAddress.bind(this)}/>
+                                            </div>
+                                            <div className="inputCellBox2">
+                                                <div className="mess1">Amount</div>
+                                                <input type="text" onChange={this.getNeoAmount.bind(this)}/>
+                                                <div className="unit">
+                                                    TNC
                                                 </div>
                                             </div>
-                                        )
-                                    } 
+                                        </div>
+                                    <div className="inputBox2">
+                                        <div className="mess1">ETH Wallet Address（receive）：</div>
+                                        <input type="text" onChange={this.getEthAddress.bind(this)} />
+                                    </div>
+                                    </div>
                                     {
-                                        stateArr.map((item, index) => {
-                                            return(
-                                                <div className="orderCreat" key={index}>
-                                                    <div className="titel">
-                                                        {/* <div className="text">Order creation</div> */}
-                                                        <div className="time">
-                                                            {new Date(item.CreateTime).format("yyyy-MM-dd hh:mm:ss")}
+                                        errMes && <div className="errMess"></div>
+                                    }
+                                    <button className={detailsDone ? "step" : "noDoneBtn" } onClick={this.toNextStep.bind(this)}>Next Step</button>
+                                </div>
+                                {/* 扫描二维码 */}
+                                <div className={step == 1 ? "depositBox " : "depositBox Hide"}>
+                                    <div className="detailBoxContainer">
+                                        {/* <div className="close">
+                                            <img src={close_ico} alt=""/>
+                                        </div> */}
+                                        {/* <div className="backbtn" onClick={this.back2first.bind(this)}>
+                                            <img src={back_ico} alt=""/>
+                                        </div> */}
+                                        <h1>Deposit</h1>
+                                        <h2>Scan the QR Code</h2>
+                                        <h2>{address}</h2>
+                                        <div className="qrcodeBox" >
+                                            { 
+                                                sendable && (
+                                                    <div className="qrcodeCover" id="qrcode">
+                                                        <div className="suc">
+                                                            <img src={yes_ico} alt=""/>
                                                         </div>
                                                     </div>
-                                                    <div className="orderContent">
-                                                        {item.Content}
+                                                )
+                                            }
+                                            <div className="qrcode" id="qrcode"></div>
+                                        </div>
+                                        <div className="totleMoney">
+                                            <p className="money">Insert the amount you want to transfer</p>
+                                        </div>
+                                        <div className="totleMoney">
+                                            <p className="money">{tncBackNum}</p>
+                                            <p className="unit">TNC</p>
+                                        </div>
+                                    </div>
+                                    <button className="step"  onClick={this.toSend.bind(this)}>Transfer complete, next</button>
+                                </div>
+                                {/* 付款状态 */}
+                                <div className={ step == 2 ? "doneBox " : "doneBox Hide"}>
+                                    <div className="backbtn" onClick={this.back2Second.bind(this)}>
+                                        <img src={back_ico} alt=""/>
+                                    </div>
+                                    <div className="logoRoute">
+                                        <div className={isAllDone ? "bgColor " : "bgColor noMove"}>
+                                            <img src={yuan} alt=""/>
+                                        </div>
+                                        <div className="logo">
+                                            <div className="centerImg">
+                                                <img src={trinitylogo} alt=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="detailBoxContainer">
+                                        <div className="holder"></div>
+                                        <div className="scrollBox" id="scroll">
+                                            {
+                                                !isOnlyOrder && (
+                                                    <div className="fromTo">
+                                                        <div className="box">
+                                                            <div className="title1">From:</div>
+                                                            <div className="keyword">
+                                                                {neoAddress}
+                                                            </div>
+                                                            <div className="title2">Sent Amount:</div>
+                                                            <div className="money">
+                                                                <div className="num">{tncBackNum}</div>
+                                                                <div className="nuit">TNC</div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="box">
+                                                            <div className="title1">to:</div>
+                                                            <div className="keyword">
+                                                                {ethAddress}
+                                                            </div>
+                                                            <div className="title2">Recive Amount:</div>
+                                                            <div className="money">
+                                                                <div className="num">{tncBackNum}</div>
+                                                                <div className="nuit">TNC</div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )
-                                        })
+                                                )
+                                            } 
+                                            {
+                                                stateArr.map((item, index) => {
+                                                    return(
+                                                        <div className="orderCreat" key={index}>
+                                                            <div className="titel">
+                                                                {/* <div className="text">Order creation</div> */}
+                                                                <div className="time">
+                                                                    {new Date(item.CreateTime).format("yyyy-MM-dd hh:mm:ss")}
+                                                                </div>
+                                                            </div>
+                                                            <div className="orderContent">
+                                                                {item.Content}
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                            {/* <div className="transfer">
+                                                <div className="text">Transfer process</div>
+                                                <div className="time">2018.01.29 11</div>
+                                            </div> */}
+                                        </div>
+                                    </div>
+                                    {
+                                        !isOnlyOrder && <button className={isAllDone ? "step" : "noDoneBtn"} onClick={this.allDone.bind(this)}>Done</button>
                                     }
-                                    {/* <div className="transfer">
-                                        <div className="text">Transfer process</div>
-                                        <div className="time">2018.01.29 11</div>
-                                    </div> */}
+                                    
                                 </div>
                             </div>
-                            {
-                                !isOnlyOrder && <button className={isAllDone ? "step" : "noDoneBtn"} onClick={this.allDone.bind(this)}>Done</button>
-                            }
-                            
-                        </div>
+                       </div>
+                        
                     </div>
                 )}
             </I18n>
