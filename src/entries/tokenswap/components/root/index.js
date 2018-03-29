@@ -50,7 +50,7 @@ export default class Root extends PureComponent {
         super(props);
         this.state = {
             isNeo2Eth: true,
-            step: 0,
+            step: 3,
             tncBackNum: 0,
             stateArr: []
         };
@@ -183,9 +183,7 @@ export default class Root extends PureComponent {
         }
     }
     toStart(){
-        this.setState({
-            step: 0
-        })
+        
     }
     toNextStep(){
         const that = this;
