@@ -50,7 +50,7 @@ export default class Root extends PureComponent {
         super(props);
         this.state = {
             isNeo2Eth: true,
-            step: 3,
+            step: 0,
             tncBackNum: 0,
             stateArr: []
         };
@@ -383,7 +383,7 @@ export default class Root extends PureComponent {
                             <div className={
                                 "contentBox boxStyle"+step
                             }>
-                                <div className={step == 3 ? "detailBox " : "detailBox Hide"}>
+                                <div className={step == 3 ? "startBox " : "startBox Hide"}>
                                     <div className="detailBoxContainer">
                                         {/* <div className="close">
                                             <img src={close_ico} alt=""/>
@@ -428,7 +428,7 @@ export default class Root extends PureComponent {
                                                     <div className="selectContent" onClick={this.icoExchange.bind(this)}>
                                                         <div className="ico1">TNC(NEO)</div>
                                                         <div className="toImg">
-                                                            <img src={jiantou} alt=""/>
+                                                            <img src={img_8} alt=""/>
                                                         </div>
                                                         <div className="ico2">TNC(ETH)</div>
                                                         {/*<div className="downicon">
@@ -446,7 +446,7 @@ export default class Root extends PureComponent {
                                                     <div className="selectContent" onClick={this.icoExchange.bind(this)}>
                                                         <div className="ico1">TNC(ETH)</div>
                                                         <div className="toImg">
-                                                            <img src={jiantou} alt=""/>
+                                                            <img src={img_8} alt=""/>
                                                         </div>
                                                         <div className="ico2">TNC(NEO)</div>
                                                     </div>
@@ -466,10 +466,10 @@ export default class Root extends PureComponent {
                                                 </div>
                                             </div>
                                         </div>
-                                    <div className="inputBox2">
-                                        <div className="mess1">ETH Wallet Address（receive）：</div>
-                                        <input type="text" onChange={this.getEthAddress.bind(this)} />
-                                    </div>
+                                        <div className="inputBox2">
+                                            <div className="mess1">ETH Wallet Address（receive）：</div>
+                                            <input type="text" onChange={this.getEthAddress.bind(this)} />
+                                        </div>
                                     </div>
                                     {
                                         errMes && <div className="errMess"></div>
