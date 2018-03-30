@@ -53,7 +53,7 @@ export default class Root extends PureComponent {
         super(props);
         this.state = {
             isNeo2Eth: true,
-            step: 0 ,
+            step: 3,
             tncBackNum: 0,
             stateArr: []
         };
@@ -488,10 +488,11 @@ export default class Root extends PureComponent {
                                             <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>ETH Wallet Address（receive）</div>
                                             <input type="text" onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                         </div>
+                                        {
+                                            errMes && <div className="errMess">Please fill out all the content</div>
+                                        }
                                     </div>
-                                    {
-                                        errMes && <div className="errMess"></div>
-                                    }
+                                    
                                     <button className={detailsDone ? "step" : "step" } onClick={this.toNextStep.bind(this)}>Next Step</button>
                                 </div>
                                 {/* 扫描二维码 */}
