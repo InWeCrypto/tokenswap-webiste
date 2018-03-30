@@ -44,13 +44,16 @@ import img_24 from "../../../../assets/images/24.png";
 import img_20 from "../../../../assets/images/20.png";
 
 import "./index.less";
+import Menus from "../../../../components/menus";
+import Footer from "../../../../components/footer";
+
 // import { setInterval, clearInterval, setTimeout } from "timers";
 export default class Root extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             isNeo2Eth: true,
-            step: 3,
+            step: 0 ,
             tncBackNum: 0,
             stateArr: []
         };
@@ -183,7 +186,9 @@ export default class Root extends PureComponent {
         }
     }
     toStart(){
-        
+        this.setState({
+            step: 0
+        })
     }
     toNextStep(){
         const that = this;
@@ -342,15 +347,32 @@ export default class Root extends PureComponent {
             step: 0
         })
     }
+    sendAddFoucs(){
+        this.setState({
+            isSendAddFoucsed: true
+        })
+    }
+    amountFoucs(){
+        this.setState({
+            isAmountFoucs: true
+        })
+    }
+    receiveAddFoucs(){
+        this.setState({
+            isReceiveAddFoucs: true
+        })
+    }
+    
     render() {
         const {lng, changeLng, registerUser, userInfo} = this.props;
-        const {isNeo2Eth, step, tncBackNum, fromKeyWord, toKeyWord, neoAddress, ethAddress, errMes, stateArr, isAllDone, detailsDone, depositDone, address, isOnlyOrder, sendable} = this.state;
+        const {isReceiveAddFoucs, isAmountFoucs, isSendAddFoucsed, isNeo2Eth, step, tncBackNum, fromKeyWord, toKeyWord, neoAddress, ethAddress, errMes, stateArr, isAllDone, detailsDone, depositDone, address, isOnlyOrder, sendable} = this.state;
         let isEnAndTouch = ((window.i18n.language == "en") && IsTouchDevice);
 
         return (
             <I18n>
                 {(t, {i18n}) => (
                     <div className="container m-container e-hugeBox" id="e-indexBox">
+                    	<Menus lng={lng} changeLng={this.props.changeLng.bind(this)}/>
                         <div className="bg_1">
                             <img src={img_20} alt=""/>
                         </div>
@@ -450,23 +472,21 @@ export default class Root extends PureComponent {
                                                     </div>
                                                 )
                                             }
+                                        </div >
+                                        <div className="inputCellBox">
+                                            <div className={isSendAddFoucsed ? "mess1 hei" : "mess1"}>NEO Wallet Address（sent）</div>
+                                            <input type="text" onFocus={this.sendAddFoucs.bind(this)} onChange={this.getNeoAddress.bind(this)}/>
                                         </div>
-                                        <div className="inputBox">
-                                            <div className="inputCellBox">
-                                                <div className="mess1">NEO Wallet Address（sent）：</div>
-                                                <input type="text" onChange={this.getNeoAddress.bind(this)}/>
-                                            </div>
-                                            <div className="inputCellBox2">
-                                                <div className="mess1">Amount</div>
-                                                <input type="text" onChange={this.getNeoAmount.bind(this)}/>
-                                                <div className="unit">
-                                                    TNC
-                                                </div>
+                                        <div className="inputCellBox amount">
+                                            <div className={isAmountFoucs ? "mess1 hei" : "mess1"}>Amount</div>
+                                            <input type="text" onFocus={this.amountFoucs.bind(this)} onChange={this.getNeoAmount.bind(this)}/>
+                                            <div className={isAmountFoucs ? "unit focus" : "unit"}>
+                                                TNC
                                             </div>
                                         </div>
-                                        <div className="inputBox2">
-                                            <div className="mess1">ETH Wallet Address（receive）：</div>
-                                            <input type="text" onChange={this.getEthAddress.bind(this)} />
+                                        <div className="inputCellBox">
+                                            <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>ETH Wallet Address（receive）</div>
+                                            <input type="text" onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                         </div>
                                     </div>
                                     {
@@ -584,7 +604,7 @@ export default class Root extends PureComponent {
                                 </div>
                             </div>
                        </div>
-                        
+                       <Footer lng={lng} />
                     </div>
                 )}
             </I18n>
