@@ -37,8 +37,9 @@ export default class Root extends PureComponent {
             <I18n>
                 {(t, {i18n}) => (
                   <div className="page-about" id="e-aboutBox">
-                  	<Menus lng={lng} changeLng={this.props.changeLng.bind(this)}/>
+                  	<Menus lng={lng}/>
 										<div className="content">
+											<div className="menu-bg"></div>
 											<div className="bg-lf"><img src={bglf} alt="" /></div>
 											<div className="bg-rt"><img src={bgrt} alt="" /></div>
 											<div className="ct">
