@@ -68,14 +68,16 @@ export default class Root extends PureComponent {
     }
     componentDidMount() {
         const that = this;
-        let hash = this.props.location.hash;
+        // let hash = this.props.location.hash;
+        let hash = window.localStorage.getItem("inwe_order_hash");
         if(hash){
-            hash = hash.substring(1);
+            //hash = hash.substring(1);
             let tx = window.localStorage.getItem("inwe_order_TX");
             let tncBackNum = window.localStorage.getItem("inwe_order_Value");
             let address = window.localStorage.getItem("inwe_order_Address");
             let neoAddress = window.localStorage.getItem("inwe_order_neoAddress");
             let ethAddress = window.localStorage.getItem("inwe_order_ethAddress");
+            
             this.setState({
                 tx,
                 tncBackNum,
@@ -90,7 +92,10 @@ export default class Root extends PureComponent {
                     if(address){
                         //设置初始化二维码
                         let dom = document.getElementById('qrcode');
-                        if(dom)new QRCode(dom, address);
+                        if(dom){
+                            dom.innerHTML = '';
+                            new QRCode(dom, address);
+                        }
                         that.getOrderDetail();
                     }
                 });
@@ -204,7 +209,9 @@ export default class Root extends PureComponent {
             })
             //创建订单
             this.props.postOrder(param).then(res => {
-                window.location.hash = "step";
+                console.log(res)
+                //window.location.hash = "step";
+                window.localStorage.setItem("inwe_order_hash", "step");
                 let valShort;
                 let valArr = res.Value.split(".");
                 if(valArr[1].substring(4) == "0000"){
@@ -227,7 +234,10 @@ export default class Root extends PureComponent {
                 },function(){
                     //设置初始化二维码
                     let dom = document.getElementById('qrcode');
-                    if(dom)new QRCode(dom, address);
+                    if(dom){
+                        dom.innerHTML = '';
+                        new QRCode(dom, res.Address);
+                    }
                     that.getOrderDetail();
                 });
                 
@@ -248,7 +258,8 @@ export default class Root extends PureComponent {
         // this.props.getOrder(tx).then(res => {
         //     if(res.InTx){
                 //直接跳转
-                window.location.hash = "step2"
+               // window.location.hash = "step2"
+                window.localStorage.setItem("inwe_order_hash", "step2");
                 this.setState({
                     step: 2
                 });
@@ -325,16 +336,28 @@ export default class Root extends PureComponent {
         },5000);
     }
     back2first(){
-        window.location.hash = ""
+        //window.location.hash = ""
+        window.localStorage.setItem("inwe_order_hash", "step");
         this.setState({
             step: 0
         })
     }
     back2Second(){
-        window.location.hash = "step"
+       // window.location.hash = "step"
+        window.localStorage.setItem("inwe_order_hash", "step");
+        let address = window.localStorage.getItem("inwe_order_Address");
+        if(address){
+            //设置初始化二维码
+            let dom = document.getElementById('qrcode');
+            if(dom){
+                dom.innerHTML = '';
+                new QRCode(dom, address);
+            }
+        }
         this.setState({
             step: 1
-        })
+        });
+
         this.getOrderState();
         this.getOrderDetail();
     }
@@ -342,9 +365,10 @@ export default class Root extends PureComponent {
         // this.setState({
         //     isOnlyOrder: true
         // })
-        window.location.hash = ""
+        //window.location.hash = ""
+        window.localStorage.setItem("inwe_order_hash", "");
         this.setState({
-            step: 0
+            step: 3
         })
     }
     sendAddFoucs(){
@@ -532,11 +556,11 @@ export default class Root extends PureComponent {
                                 {/* 付款状态 */}
                                 <div className={ step == 2 ? "doneBox " : "doneBox Hide"}>
                                     <div className="backbtn" onClick={this.back2Second.bind(this)}>
-                                        <img src={back_ico} alt=""/>
+                                        <img src={img_10} alt=""/>
                                     </div>
                                     <div className="logoRoute">
                                         <div className={isAllDone ? "bgColor " : "bgColor noMove"}>
-                                            <img src={yuan} alt=""/>
+                                            <img src={img_7} alt=""/>
                                         </div>
                                         <div className="logo">
                                             <div className="centerImg">
@@ -599,9 +623,8 @@ export default class Root extends PureComponent {
                                         </div>
                                     </div>
                                     {
-                                        !isOnlyOrder && <button className={isAllDone ? "step" : "noDoneBtn"} onClick={this.allDone.bind(this)}>Done</button>
+                                        !isOnlyOrder && <button className={isAllDone ? "step" : "step"} onClick={this.allDone.bind(this)}>Done</button>
                                     }
-                                    
                                 </div>
                             </div>
                        </div>

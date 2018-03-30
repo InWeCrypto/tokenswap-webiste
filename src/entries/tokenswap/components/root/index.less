@@ -149,9 +149,10 @@ body,html{
         position: relative;
         z-index: 10;
         margin: 0 auto;
-        transition: all .3s ease-in-out;
         background: #fff;
         border-radius: .1rem;
+        box-shadow: 0 0 60px rgba(70,178,255,.3);
+        font-family: Gilroy;
         &.boxStyle3{
             width: 5.16rem;
             height: 4.77rem;
@@ -164,6 +165,11 @@ body,html{
             width: 5.7rem;
             height: 5.3rem;
         }
+        &.boxStyle2{
+            width: 6.8rem;
+            height: 5.48rem;
+        }
+        transition: all .3s ease-in-out;
     }
     .startBox, .detailBox, .depositBox, .doneBox{
         width: 100%;
@@ -419,6 +425,7 @@ body,html{
                 width: 100%;
                 height: 100%;
                 background: #000;
+                overflow: hidden;
             }
         }
         .totleMoney{
@@ -453,26 +460,27 @@ body,html{
         button.step{
             width:2.86rem;
             height:0.54rem; 
+            font-weight: 200;
         }
     }
     .doneBox{
         .backbtn{
             position: absolute;
-            left: .2rem;
+            left: .4rem;
             top:.2rem;
             z-index: 10;
-            width: .15rem;
-            height: .28rem;
+            width: .26rem;
+            height: .26rem;
             cursor: pointer;
         }
         .logoRoute{
             position: absolute;
             left: 50%;
-            top: -.8rem;
+            top: -.9rem;
             z-index: 20;
             transform: translateX(-50%);
-            width: 1.6rem;
-            height: 1.6rem;
+            width: 1.8rem;
+            height: 1.8rem;
             border-radius: 100%;
             overflow: hidden;
             .bgColor{
@@ -491,7 +499,7 @@ body,html{
                         }
                         to {transform:  rotate(360deg)}
                     }
-                    animation: logomove 1s linear infinite;
+                    animation: logomove 4s linear infinite;
                 }
             }
             .logo{
@@ -500,8 +508,8 @@ body,html{
                 top: 50%;
                 z-index: 30;
                 transform: translate(-50%, -50%);
-                width: 1.4rem;
-                height: 1.4rem;
+                width: 1.72rem;
+                height: 1.72rem;
                 background: #fff;
                 border-radius: 100%;
                 .centerImg{
@@ -509,8 +517,8 @@ body,html{
                     left: 50%;
                     top: 50%;
                     transform: translate(-50%, -50%);
-                    width: .7rem;
-                    height: .7rem;
+                    width: 1.2rem;
+                    height: 1.02rem;
                     img{
                         object-fit: contain;
                     }
@@ -520,14 +528,12 @@ body,html{
         
         .detailBoxContainer{
             .holder{
-                height: 1.14rem;
+                height: 1.4rem;
             }
             .scrollBox{
-                width: 6.8rem;
-                box-sizing: border-box;
-                padding: 0 .62rem;
+                width: 6rem;
                 margin: 0 auto;
-                height: 4rem;
+                height: 3.7rem;
                 overflow-y: scroll;
                 // &::-webkit-scrollbar{
                 //     width: .06rem;
@@ -539,48 +545,47 @@ body,html{
                     position: relative;
                     width: 100%;
                     height: auto;
-                    background: #583460;
-                    color: #EACDF2;
                     font-size: .18rem;
                     line-height: .22rem;
                     display: flex;
+                    justify-content: space-between;
                     font-weight: 200;
-                    &:after{
-                        display: block;
-                        content: "";
-                        width: 1px;
-                        height: 1.63rem;
-                        background: #4D2856;
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate(-50%, -50%);
-                    }
                     .box{
-                        width: 50%;
+                        position: relative;
+                        width: 2.9rem;
+                        height: 2.76rem;
+                        background:rgba(166,218,255,1);
+                        border-radius: 4px ;
                         .title1{
                             text-align: center;
-                            padding-top: .14rem;
+                            padding-top: .58rem;
                         }
                         .keyword{
                             min-height: .66rem;
                             margin-top: .14rem;
-                            padding: 0 .28rem;
+                            padding: 0 .2rem;
                             box-sizing: border-box;
                             color: #fff;
                             word-break: break-all;
                             white-space: normal;
                             font-weight: 200;
                             letter-spacing: .1em;
+                            line-height: .27rem;
                         }
                         .title2{
+                            position: absolute;
+                            left: 0;
+                            bottom: 0.82rem;
+                            width: 100%;
                             text-align: center;
-                            padding-top: .1rem;
                         }
                         .money{
-                            margin-top: .14rem;
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            width: 100%;
                             color: #fff;
-                            padding-bottom: .22rem;
+                            padding-bottom: .5rem;
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -591,11 +596,13 @@ body,html{
                     }
                 }
                 .orderCreat{
-                    margin-top: .2rem;
-                    color: #EACDF2;
-                    background: #583460;
-                    padding: .14rem;
+                    margin-top: .13rem;
+                    color: #fff;
+                    background: #A6DAFF;
+                    padding: .14rem .2rem;
                     box-sizing: border-box;
+                    font-size: .18rem;
+                    border-radius: 4px;
                     .titel{
                         display: flex;
                         justify-content: space-between;
@@ -605,14 +612,13 @@ body,html{
                             line-height: .25rem;
                         }
                         .time{
-                            color: #EACDF2;
+                            color: #fff;
                         }
                     }
                     .orderContent{
                         margin-top: .06rem;
                         white-space: normal;
                         word-break: break-all;
-                        
                     }
                 }
                 .transfer{
