@@ -53,7 +53,9 @@ export default class Root extends PureComponent {
         super(props);
         this.state = {
             isNeo2Eth: true,
-            step: 0 ,
+            //step: 0,
+            step: 1,
+
             tncBackNum: 0,
             stateArr: []
         };
@@ -505,7 +507,7 @@ export default class Root extends PureComponent {
                                         </div> */}
                                         <h1>Deposit</h1>
                                         <h2>Scan the QR Code</h2>
-                                        <h2>{address}</h2>
+                                        <h2 className="address">{address}</h2>
                                         <div className="qrcodeBox" >
                                             { 
                                                 sendable && (
@@ -522,7 +524,7 @@ export default class Root extends PureComponent {
                                             <p className="money">Insert the amount you want to transfer</p>
                                         </div>
                                         <div className="totleMoney">
-                                            <p className="money">{tncBackNum}</p>
+                                            <p className="unit">{tncBackNum}</p>
                                             <p className="unit">TNC</p>
                                         </div>
                                     </div>

@@ -11,7 +11,8 @@ body,html{
     width: 100%;
     min-width: 100%;
     max-width: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(165,218,255,1), rgba(165,218,255,0.7),rgba(165,218,255,0),rgba(165,218,255,0),rgba(165,218,255,0),rgba(165,218,255,0)) ;
+    //background: radial-gradient(circle at 50% 50%, rgba(165,218,255,1), rgba(165,218,255,0.2),rgba(165,218,255,0),rgba(165,218,255,0),rgba(165,218,255,0)) ;
+     background: radial-gradient(circle at 50% 50%, rgba(165,218,255,1), rgba(165,218,255,0.7),rgba(165,218,255,0),rgba(165,218,255,0),rgba(165,218,255,0),rgba(165,218,255,0)) ;
     
     //background: radial-gradient(circle at 0 0, #562E5D, #342549) ;
     .bg_1{
@@ -154,12 +155,15 @@ body,html{
         transition: all .3s ease-in-out;
         background: #fff;
         border-radius: .1rem;
-        box-shadow: 0 0 60px rgba(70,178,255,.3);
         &.boxStyle3{
             width: 5.16rem;
             height: 4.77rem;
         }
         &.boxStyle0{
+            width: 5.7rem;
+            height: 5.3rem;
+        }
+        &.boxStyle1{
             width: 5.7rem;
             height: 5.3rem;
         }
@@ -209,7 +213,7 @@ body,html{
                         box-sizing: border-box;
                         width: 1.2rem;
                         height: 1.2rem;
-                        background: #fff;
+                        background: #EEEEEE;
                     }
                     .icoName{
                         width: 1.2rem;
@@ -379,13 +383,12 @@ body,html{
         .qrcodeBox{
             position: relative;
             margin: 0 auto;
-            margin-top: .15rem;
-            padding: .24rem;
+            margin-top: 0.1rem;
+            padding: 0.1rem;
             box-sizing: border-box;
-            width: 3.18rem;
-            height: 3.18rem;
-            border-radius: .08rem;
-            background: #fff;
+            width: 2.46rem;
+            height: 2.46rem;
+            background: #EEEEEE;
             .qrcodeCover{
                 position: absolute;
                 left: 0;
@@ -412,16 +415,37 @@ body,html{
             }
         }
         .totleMoney{
-            margin-top: .14rem;
-            font-size: .18rem;
-            color: #EACDF2;
+            margin-top: 0.1rem;
+            font-size: 0.16rem;
+            color: #A0A0A0;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: 200;
             .unit{
-                margin-left: .06rem;
+                font-size: 0.18rem;
+                color: #229AF1;
             }
+        }
+        .detailBoxContainer{
+            h1{
+                color: #333333;
+                font-size: 0.28rem;
+                margin-top: 0.54rem;
+            }
+            h2{
+                color: #A0A0A0;
+                font-size: 0.16rem;
+                margin-top: 0.2rem;
+                &.address{
+                    color: #A6DAFF;
+                    font-size: 0.18rem;
+                }
+            }
+        }
+        button.step{
+            width:2.86rem;
+            height:0.54rem; 
         }
     }
     .doneBox{
