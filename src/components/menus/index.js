@@ -29,6 +29,9 @@ export default class Menus extends PureComponent {
             headerIsShowMenu: false
         }
     }
+    componentDidMount(){
+        
+    }
     change(lng){
         setLocalItem("language",lng);
         window.i18n.changeLanguage(lng);
@@ -44,17 +47,35 @@ export default class Menus extends PureComponent {
         })
     }
     closeMenu(){
+       
         this.setState({
             headerIsShowMenu: false
         })
     }
+    showQrcodeWx(e){
+        e.stopPropagation();
+        this.setState({
+            isShowQrcodeWx: true
+        })
+        e.nativeEvent.stopImmediatePropagation();
+        
+    }
+    clickQrcode(e){
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+    }
+    clickMenuAnyWhere(){
+        this.setState({
+            isShowQrcodeWx: false
+        })
+    }
     render(){
         const { lng } = this.props;
-        const {headerIsShowMenu} = this.state
+        const {headerIsShowMenu,isShowQrcodeWx} = this.state
         return (
           <I18n>
               {(t, {i18n}) => (
-                <div className="menu">
+                <div className="menu" onClick={this.clickMenuAnyWhere.bind(this)}>
                     {IsTouchDevice ? (
                          <div className="touchDevHeader">
                             <div className="headerOnClose">
@@ -90,17 +111,21 @@ export default class Menus extends PureComponent {
                                     <li onClick={this.change.bind(this,"en")}>English</li>
                                     <li onClick={this.change.bind(this,"zh")}>中文</li>
                                 </ul>
-                                <div className="qrcodeWx">
-                                    <img src={wechatQrcode} alt=""/>
-                                </div>
+                                {
+                                    isShowQrcodeWx && (
+                                        <div className="qrcodeWx" onClick={this.clickQrcode.bind(this)}>
+                                            <img src={wechatQrcode} alt=""/>
+                                        </div>
+                                    )
+                                } 
                                 <ul className="shareList">
                                     <li><a href="mailto:support@trinity.tech"><img src={m_4} alt=""/></a></li>
                                     <li><a href="https://t.me/TrinityStateChannels"><img src={m_3} alt=""/></a></li>
                                     <li><a href="https://twitter.com/TrinityProtocol"><img src={m_5} alt=""/></a></li>
+                                    <li onClick={this.showQrcodeWx.bind(this)}><img src={m_11} alt=""/></li>
                                     <li><a href="https://www.reddit.com/r/TrinityTNC/"><img src={m_10} alt=""/></a></li>
                                     <li><a href="https://medium.com/@TrinityProtocol"><img src={m_12} alt=""/></a></li>
                                     <li><a href="https://github.com/trinity-project"><img src={m_9} alt=""/></a></li>
-                                    {/* <li><a href=""><img src={m_11} alt=""/></a></li> */}
                                 </ul>
                                 <div className="ying">©Trinity 2018</div>
                             </div>
@@ -114,7 +139,9 @@ export default class Menus extends PureComponent {
                                 <li>{t('menus.txt2',lng)}</li>
                             </Link>
                             <li className="logo">
-                                <img src={logo} alt="logo" />
+                                <Link to="/">
+                                    <img src={logo} alt="logo" />
+                                </Link>
                             </li>
                             <li className="rl end">
                                 {t('menus.txt3',lng)}

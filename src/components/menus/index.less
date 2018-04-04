@@ -36,22 +36,26 @@
             
             &:hover{
                 &:after{
-                    content: "";
-                    height: 0.02rem;
-                    width: 0.2rem;
-                    background:rgba(0,106,182,1);
-                    position: absolute;
-                    bottom: 0;
-                    left: 50%;
-                    margin-left: -0.1rem;
+                    // content: "";
+                    // height: 0.02rem;
+                    // width: 0.2rem;
+                    // background:rgba(0,106,182,1);
+                    // position: absolute;
+                    // bottom: 0;
+                    // left: 50%;
+                    // margin-left: -0.1rem;
                 }
             }
             &.rl{
                 float: right;
                 &.end{
+                    &:after{
+                        display: none;
+                    }
                     margin-right: -0.75rem;
                     &:hover .sub-menu{
                         display: block;
+                        
                     }
                 }
             }
@@ -66,7 +70,7 @@
                     width: 100%;
                     height: auto;
                     position: absolute;
-                    bottom: 0;
+                    bottom: 0.08rem;
                     left: 0;
                     right: 0;
                 }
@@ -83,7 +87,7 @@
                 }
                 p{
                     color: #006AB6;   
-                    line-height: 0.25rem;
+                    line-height: 0.3rem;
                     &:hover{
                         color: #C7005D;
                     }
@@ -94,6 +98,7 @@
 }
 .mobile{
     .menu{
+        position: relative;
         left: 0;
         top: 0;
         width: 100%;
@@ -124,6 +129,7 @@
                     height: .54rem;
                 }
                 .name{
+                    font-weight: 500;
                     margin-left: .16rem;
                     line-height: .28rem;
                     font-size: .3rem;
@@ -139,15 +145,16 @@
         .headerOnOpen{
             position: fixed;
             left: 0;
-            top: -100%;
+            top: 0;
             z-index: 110;
             height: 100%;
             width: 100%;
             background: #4393DF;
             transition: all .4s ease-in-out;
             overflow: hidden;
+            transform: translate(0,-100%);
             &.open{
-                top: 0;
+                transform: translate(0,0);
             }
             .openLogoCont{
                 width: 100%;
@@ -163,9 +170,9 @@
                     .pic{
                         width: .63rem;
                         height: .54rem;
-                        
                     }
                     .name{
+                        font-weight: 500;
                         margin-left: .16rem;
                         line-height: .28rem;
                         font-size: .3rem;
@@ -186,15 +193,16 @@
                 li{
                     display: block;
                     float: initial;
-                    margin-bottom: .72rem;
+                    margin-bottom: .62rem;
                     color: #fff;
                     text-align: center;
+                    font-weight: normal;
                 }
             }
             .qrcodeWx{
                 position: absolute;
                 left: 50%;
-                bottom: 2.2rem;
+                bottom: 1.8rem;
                 width: 1.6rem;
                 height: 1.6rem;
                 transform: translateX(-50%)
@@ -224,6 +232,7 @@
                 color: #7CBAF5;
                 text-align: center;
                 font-family: PingFangSC-Regular;
+                font-weight: normal
             }
         }
     }

@@ -33,11 +33,13 @@ import "./assets/less/app.less";
 import i18n from "./i18n";
 import { changeLng, setReduxUserInfo } from "./globalactions";
 import { getLocalItem, remFun, addClass,dateFormat } from "./utils/util";
+import { setTimeout } from "timers";
 remFun();
 dateFormat();
 if (IsTouchDevice) {
 	let body = document.getElementsByTagName("body")[0];
-	addClass(body, "mobile");
+    addClass(body, "mobile");
+    body.style.minHeight = "13.34rem"
 } else {
 	let body = document.getElementsByTagName("body")[0];
     addClass(body, "pc");
@@ -45,10 +47,15 @@ if (IsTouchDevice) {
 }
 window.addEventListener("orientationchange", function(event) {
     if (window.orientation == 180 || window.orientation == 0) {
-        remFun();
+        setTimeout(function(){
+            remFun();
+        },100)
+        
     }
     if (window.orientation == 90 || window.orientation == -90) {
-        remFun();
+        setTimeout(function(){
+            remFun();
+        },100)
     }
 });
 // window.addEventListener("orientationchange", function(event) {

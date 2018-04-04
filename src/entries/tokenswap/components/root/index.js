@@ -25,7 +25,8 @@ import img_4 from "../../../../assets/images/4.png";
 import img_5 from "../../../../assets/images/5.png";
 import img_6 from "../../../../assets/images/6.png";
 import img_7 from "../../../../assets/images/7.png";
-import img_8 from "../../../../assets/images/8.png";
+import img_8 from "../../../../assets/images/m_2.png";
+
 import img_9 from "../../../../assets/images/9.png";
 import img_10 from "../../../../assets/images/10.png";
 import img_11 from "../../../../assets/images/11.png";
@@ -42,6 +43,7 @@ import img_22 from "../../../../assets/images/22.png";
 import img_23 from "../../../../assets/images/23.png";
 import img_24 from "../../../../assets/images/24.png";
 import img_20 from "../../../../assets/images/20.png";
+import m_beijing from "../../../../assets/images/m_beijing.png";
 
 import "./index.less";
 import Menus from "../../../../components/menus";
@@ -394,36 +396,51 @@ export default class Root extends PureComponent {
         const {lng, changeLng, registerUser, userInfo} = this.props;
         const {isReceiveAddFoucs, isAmountFoucs, isSendAddFoucsed, isNeo2Eth, step, tncBackNum, fromKeyWord, toKeyWord, neoAddress, ethAddress, errMes, stateArr, isAllDone, detailsDone, depositDone, address, isOnlyOrder, sendable} = this.state;
         let isEnAndTouch = ((window.i18n.language == "en") && IsTouchDevice);
-
+        let isCnAndTouch = ((window.i18n.language == "zh") && IsTouchDevice);
         return (
             <I18n>
                 {(t, {i18n}) => (
                     <div className="container m-container e-hugeBox" id="e-indexBox">
                     	<Menus lng={lng} changeLng={this.props.changeLng.bind(this)}/>
-                        <div className="bg_1">
-                            <img src={img_20} alt=""/>
-                        </div>
-                        <div className="bg_2">
-                            <img src={img_24} alt=""/>
-                        </div>
-                        <div className="bg_3">
-                            <img src={img_23} alt=""/>
-                        </div>
-                        <div className="bg_4">
-                            <img src={img_18} alt=""/>
-                        </div>
-                        <div className="bg_5">
-                            <img src={img_19} alt=""/>
-                        </div>
-                        <div className="bg_6">
-                            <img src={img_17} alt=""/>
-                        </div>
+                        {
+                            !IsTouchDevice ? (
+                                <div>
+                                    <div className="bg_1">
+                                        <img src={img_20} alt=""/>
+                                    </div>
+                                    <div className="bg_2">
+                                        <img src={img_24} alt=""/>
+                                    </div>
+                                    <div className="bg_3">
+                                        <img src={img_23} alt=""/>
+                                    </div>
+                                    <div className="bg_4">
+                                        <img src={img_18} alt=""/>
+                                    </div>
+                                    <div className="bg_5">
+                                        <img src={img_19} alt=""/>
+                                    </div>
+                                    <div className="bg_6">
+                                        <img src={img_17} alt=""/>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="m_bg">
+                                    <img src={m_beijing} alt=""/>
+                                </div>
+                            )
+                        }
+                        
                        <div className="contentAndBg">
                             {/* 背景联动 trinity text */}
-                            <div className="bg_7">
-                                <img src={img_22} alt=""/>
-                            </div>
-                            <div className="bg_8">
+                            {
+                                !IsTouchDevice && (
+                                    <div className="bg_7">
+                                        <img src={img_22} alt=""/>
+                                    </div>
+                                ) 
+                            }
+                            <div className={isCnAndTouch ? "bg_8 cn" : "bg_8"}>
                                 {t('home.txt1',lng)}
                             </div>
                             {/* content */}
@@ -569,7 +586,7 @@ export default class Root extends PureComponent {
                                             <img src={img_7} alt=""/>
                                         </div>
                                         <div className="logo">
-                                            <div className="centerImg">
+                                            <div className={isAllDone ? "centerImg " : "centerImg filter"}>
                                                 <img src={trinitylogo} alt=""/>
                                             </div>
                                         </div>
@@ -596,7 +613,7 @@ export default class Root extends PureComponent {
                                                             <div className="keyword">
                                                                 {ethAddress}
                                                             </div>
-                                                            <div className="title2">{t('home.txt18',lng)}:</div>
+                                                            <div className="title2">{t('home.txt18',lng)}</div>
                                                             <div className="money">
                                                                 <div className="num">{tncBackNum}</div>
                                                                 <div className="nuit">TNC</div>

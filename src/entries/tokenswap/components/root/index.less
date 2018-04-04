@@ -1,7 +1,7 @@
 body,html{
     padding: 0 !important;
     height: 100%;
-   
+    //min-height: 13.34rem;
     overflow-x: auto;
 }
 .e-hugeBox{
@@ -203,6 +203,9 @@ body,html{
                 align-items: center;
                 .transferCell{
                     width: 1.2rem;
+                    img{
+                        object-fit: contain
+                    }
                     .name{
                         width: 1.2rem;
                         color: #959595;
@@ -252,6 +255,7 @@ body,html{
             box-shadow: 0 10px 20px rgba(70,178,255,.3);
             background: #229AF1;
             color: #fff;
+            letter-spacing: .1em;
             &:hover,&:active{
                 background: #fff;
                 color: #229AF1;
@@ -288,7 +292,7 @@ body,html{
             width: 4.7rem;
             .text{
                 color: #A0A0A0;
-                font-size: .18rem;
+                font-size: .16rem;
                 font-weight: 200;
             }
             .selectContent{
@@ -301,8 +305,11 @@ body,html{
                 }
                 .toImg{
                     width: .18rem;
-                    height: .15rem;
+                    height: .18rem;
                     margin: 0 .2rem;
+                    img{
+                        object-fit: contain
+                    }
                 }
             }
         }
@@ -324,6 +331,7 @@ body,html{
                 transition: all .3s ease-in-out;
                 &.hei{
                     bottom: .24rem;
+                    font-size: .16rem;
                 }
             }
             input{
@@ -332,11 +340,13 @@ body,html{
                 bottom: 0;
                 z-index: 10;
                 width: 100%;
-                height: .36rem;
-                line-height: .36rem;
+                height: .20rem;
+                line-height: .20rem;
                 font-size: .18rem;
+                padding: .09rem 0 .06rem;
                 color: #333333;
                 border: 0;
+                border-radius: 0;
                 outline: none;
                 border-bottom: 1px solid #DCDCDC;
                 background: transparent;
@@ -521,6 +531,10 @@ body,html{
                     img{
                         object-fit: contain;
                     }
+                    &.filter{
+                        filter: grayscale(1);
+                        opacity: .5;
+                    }
                 }
             }
         }
@@ -549,6 +563,7 @@ body,html{
                     display: flex;
                     justify-content: space-between;
                     font-weight: 200;
+                    color: #333;
                     .box{
                         position: relative;
                         width: 2.9rem;
@@ -556,10 +571,12 @@ body,html{
                         background:rgba(166,218,255,1);
                         border-radius: 4px ;
                         .title1{
+                            font-size: .18rem;
                             text-align: center;
                             padding-top: .58rem;
                         }
                         .keyword{
+                            font-size: .18rem;
                             min-height: .66rem;
                             margin-top: .14rem;
                             padding: 0 .2rem;
@@ -572,6 +589,7 @@ body,html{
                             line-height: .27rem;
                         }
                         .title2{
+                            font-size: .18rem;
                             position: absolute;
                             left: 0;
                             bottom: 0.82rem;
@@ -579,6 +597,7 @@ body,html{
                             text-align: center;
                         }
                         .money{
+                            font-size: .18rem;
                             position: absolute;
                             left: 0;
                             bottom: 0;
@@ -643,7 +662,7 @@ body,html{
 
 .mobile{
     #e-indexBox{
-        background: radial-gradient(circle at 50% 50%, rgba(165,218,255,1), rgba(165,218,255,0.7),rgba(165,218,255,0.1),rgba(165,218,255,0),rgba(165,218,255,0)) ;
+       // background: radial-gradient(circle at 50% 50%, rgba(165,218,255,1), rgba(165,218,255,0.7),rgba(165,218,255,0.1),rgba(165,218,255,0),rgba(165,218,255,0)) ;
         .bg_5{
             left: -1rem;
             top: 3.8rem;
@@ -663,16 +682,19 @@ body,html{
                 margin: 0 auto;
             }
             .bg_8{
-                top: .8rem;
+                top: -.6rem;
                 width: 6rem;
                 transform: translate(-50%, -50%);
                 font-size: .48rem;
                 font-family: Gilroy-UltraLight;
                 color: #229AF1;
                 text-align: left;
+                &.cn{
+                    text-align: center;
+                }
             }
             .contentBox{
-                top: .2rem;
+                top: .9rem;
                 &.boxStyle3{
                     width: 6.36rem;
                     height: 5.88rem;
@@ -765,12 +787,14 @@ body,html{
                             color: #A0A0A0;
                             &.hei{
                                 bottom: .32rem;
+                                font-size: .22rem;
                             }
                         }
                         input{
-                            height: .48rem;
-                            line-height: .48rem;
+                            height: .20rem;
+                            line-height: .20rem;
                             font-size: .28rem;
+                            padding: .09rem 0 .06rem;
                             font-weight: 200;
                         }
                         &.amount{
@@ -807,7 +831,7 @@ body,html{
                         padding: .2rem;
                     }
                     .totleMoney{
-                        margin-top: .02rem;
+                        margin-top: .06rem;
                         .money{
                             font-size: .24rem;
                         }
@@ -841,6 +865,13 @@ body,html{
                             .fromTo{
                                 .box{
                                     height: 3.62rem;
+                                    .title1,.title2{
+                                        font-size: .24rem;
+                                    }
+                                    .keyword{
+                                        font-size: .26rem;
+                                        margin-top: .4rem;
+                                    }
                                 }
                             }
                         }
