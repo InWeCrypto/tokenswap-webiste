@@ -340,7 +340,7 @@ export default class Root extends PureComponent {
     }
     back2first(){
         //window.location.hash = ""
-        window.sessionStorage.setItem("inwe_order_hash", "step");
+        window.sessionStorage.setItem("inwe_order_hash", "");
         this.setState({
             step: 0
         })
@@ -524,13 +524,16 @@ export default class Root extends PureComponent {
                                 </div>
                                 {/* 扫描二维码 */}
                                 <div className={step == 1 ? "depositBox " : "depositBox Hide"}>
+                                    {/* <div className="backbtn" onClick={this.back2first.bind(this)}>
+                                        <img src={img_10} alt=""/>
+                                    </div> */}
                                     <div className="detailBoxContainer">
                                         {/* <div className="close">
                                             <img src={close_ico} alt=""/>
                                         </div> */}
-                                        {/* <div className="backbtn" onClick={this.back2first.bind(this)}>
-                                            <img src={back_ico} alt=""/>
-                                        </div> */}
+                                        <div className="backbtn" onClick={this.back2first.bind(this)}>
+                                            <img src={img_10} alt=""/>
+                                        </div>
                                         <h1>{t('home.txt11',lng)}</h1>
                                         <h2>{t('home.txt12',lng)}</h2>
                                         <h2 className="address">{address}</h2>
