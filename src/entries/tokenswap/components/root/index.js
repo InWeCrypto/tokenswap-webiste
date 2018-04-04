@@ -69,14 +69,14 @@ export default class Root extends PureComponent {
     componentDidMount() {
         const that = this;
         // let hash = this.props.location.hash;
-        let hash = window.localStorage.getItem("inwe_order_hash");
+        let hash = window.sessionStorage.getItem("inwe_order_hash");
         if(hash){
             //hash = hash.substring(1);
-            let tx = window.localStorage.getItem("inwe_order_TX");
-            let tncBackNum = window.localStorage.getItem("inwe_order_Value");
-            let address = window.localStorage.getItem("inwe_order_Address");
-            let neoAddress = window.localStorage.getItem("inwe_order_neoAddress");
-            let ethAddress = window.localStorage.getItem("inwe_order_ethAddress");
+            let tx = window.sessionStorage.getItem("inwe_order_TX");
+            let tncBackNum = window.sessionStorage.getItem("inwe_order_Value");
+            let address = window.sessionStorage.getItem("inwe_order_Address");
+            let neoAddress = window.sessionStorage.getItem("inwe_order_neoAddress");
+            let ethAddress = window.sessionStorage.getItem("inwe_order_ethAddress");
             
             this.setState({
                 tx,
@@ -117,7 +117,10 @@ export default class Root extends PureComponent {
         // setTimeout(() => {
         //     that.pageScrollFun();
         // },1000)
+
+       
     }
+   
     //盒子滚动到最底部
     scrollBoxToBottom(){
         var e=document.getElementById("scroll");  
@@ -211,7 +214,7 @@ export default class Root extends PureComponent {
             this.props.postOrder(param).then(res => {
                 console.log(res)
                 //window.location.hash = "step";
-                window.localStorage.setItem("inwe_order_hash", "step");
+                window.sessionStorage.setItem("inwe_order_hash", "step");
                 let valShort;
                 let valArr = res.Value.split(".");
                 if(valArr[1].substring(4) == "0000"){
@@ -221,11 +224,11 @@ export default class Root extends PureComponent {
                     valShort = res.Value;
                 }
                 //信息保存至本地
-                window.localStorage.setItem("inwe_order_Value", valShort);
-                window.localStorage.setItem("inwe_order_TX", res.TX);
-                window.localStorage.setItem("inwe_order_Address", res.Address);
-                window.localStorage.setItem("inwe_order_neoAddress", neoAddress);
-                window.localStorage.setItem("inwe_order_ethAddress", ethAddress);
+                window.sessionStorage.setItem("inwe_order_Value", valShort);
+                window.sessionStorage.setItem("inwe_order_TX", res.TX);
+                window.sessionStorage.setItem("inwe_order_Address", res.Address);
+                window.sessionStorage.setItem("inwe_order_neoAddress", neoAddress);
+                window.sessionStorage.setItem("inwe_order_ethAddress", ethAddress);
                 this.setState({
                     step: 1,
                     tncBackNum: valShort,
@@ -259,7 +262,7 @@ export default class Root extends PureComponent {
         //     if(res.InTx){
                 //直接跳转
                // window.location.hash = "step2"
-                window.localStorage.setItem("inwe_order_hash", "step2");
+                window.sessionStorage.setItem("inwe_order_hash", "step2");
                 this.setState({
                     step: 2
                 });
@@ -337,15 +340,15 @@ export default class Root extends PureComponent {
     }
     back2first(){
         //window.location.hash = ""
-        window.localStorage.setItem("inwe_order_hash", "step");
+        window.sessionStorage.setItem("inwe_order_hash", "step");
         this.setState({
             step: 0
         })
     }
     back2Second(){
        // window.location.hash = "step"
-        window.localStorage.setItem("inwe_order_hash", "step");
-        let address = window.localStorage.getItem("inwe_order_Address");
+        window.sessionStorage.setItem("inwe_order_hash", "step");
+        let address = window.sessionStorage.getItem("inwe_order_Address");
         if(address){
             //设置初始化二维码
             let dom = document.getElementById('qrcode');
@@ -366,7 +369,7 @@ export default class Root extends PureComponent {
         //     isOnlyOrder: true
         // })
         //window.location.hash = ""
-        window.localStorage.setItem("inwe_order_hash", "");
+        window.sessionStorage.setItem("inwe_order_hash", "");
         this.setState({
             step: 3
         })
@@ -421,7 +424,7 @@ export default class Root extends PureComponent {
                                 <img src={img_22} alt=""/>
                             </div>
                             <div className="bg_8">
-                                An Universal OffchainScaling Solution
+                                {t('home.txt1',lng)}
                             </div>
                             {/* content */}
                             <div className={
@@ -432,10 +435,10 @@ export default class Root extends PureComponent {
                                         {/* <div className="close">
                                             <img src={close_ico} alt=""/>
                                         </div> */}
-                                        <h1>Select transfer type</h1>
+                                        <h1>{t('home.txt2',lng)}</h1>
                                         <div className="transferBox">
                                             <div className="transferCell">
-                                                <div className="name">sent</div>
+                                                <div className="name">{t('home.txt3',lng)}</div>
                                                 <div className="pic">
                                                     <img src={img_11} alt=""/>
                                                 </div>
@@ -445,7 +448,7 @@ export default class Root extends PureComponent {
                                                 <img src={img_16} alt=""/>
                                             </div>
                                             <div className="transferCell">
-                                                <div className="name">receive</div>
+                                                <div className="name">{t('home.txt4',lng)}</div>
                                                 <div className="pic">
                                                     <img src={img_12} alt=""/>
                                                 </div>
@@ -456,7 +459,7 @@ export default class Root extends PureComponent {
                                     {
                                         errMes && <div className="errMess"></div>
                                     }
-                                    <button className="step"  onClick={this.toStart.bind(this)}>Start</button>
+                                    <button className="step"  onClick={this.toStart.bind(this)}>{t('home.txt5',lng)}</button>
                                 </div>
                                 {/* 生成订单 */}
                                 <div className={step == 0 ? "detailBox " : "detailBox Hide"}>
@@ -464,9 +467,9 @@ export default class Root extends PureComponent {
                                         {/* <div className="close">
                                             <img src={close_ico} alt=""/>
                                         </div> */}
-                                        <h1>Fill the details</h1>
+                                        <h1>{t('home.txt6',lng)}</h1>
                                         <div className="selectBox">
-                                            <div className="text">Select transfer type：</div>
+                                            <div className="text">{t('home.txt2',lng)}：</div>
                                             {
                                                 isNeo2Eth ? (
                                                     <div className="selectContent" onClick={this.icoExchange.bind(this)}>
@@ -498,26 +501,26 @@ export default class Root extends PureComponent {
                                             }
                                         </div >
                                         <div className="inputCellBox">
-                                            <div className={isSendAddFoucsed ? "mess1 hei" : "mess1"}>NEO Wallet Address（sent）</div>
+                                            <div className={isSendAddFoucsed ? "mess1 hei" : "mess1"}>{t('home.txt7',lng)}</div>
                                             <input type="text" onFocus={this.sendAddFoucs.bind(this)} onChange={this.getNeoAddress.bind(this)}/>
                                         </div>
                                         <div className="inputCellBox amount">
-                                            <div className={isAmountFoucs ? "mess1 hei" : "mess1"}>Amount</div>
+                                            <div className={isAmountFoucs ? "mess1 hei" : "mess1"}>{t('home.txt8',lng)}</div>
                                             <input type="text" onFocus={this.amountFoucs.bind(this)} onChange={this.getNeoAmount.bind(this)}/>
                                             <div className={isAmountFoucs ? "unit focus" : "unit"}>
                                                 TNC
                                             </div>
                                         </div>
                                         <div className="inputCellBox">
-                                            <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>ETH Wallet Address（receive）</div>
+                                            <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{t('home.txt9',lng)}</div>
                                             <input type="text" onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                         </div>
                                         {
-                                            errMes && <div className="errMess">Please fill out all the content</div>
+                                            errMes && <div className="errMess">{t('home.txt9_1',lng)}</div>
                                         }
                                     </div>
                                     
-                                    <button className={detailsDone ? "step" : "step" } onClick={this.toNextStep.bind(this)}>Next Step</button>
+                                    <button className={detailsDone ? "step" : "step" } onClick={this.toNextStep.bind(this)}>{t('home.txt10',lng)}</button>
                                 </div>
                                 {/* 扫描二维码 */}
                                 <div className={step == 1 ? "depositBox " : "depositBox Hide"}>
@@ -528,8 +531,8 @@ export default class Root extends PureComponent {
                                         {/* <div className="backbtn" onClick={this.back2first.bind(this)}>
                                             <img src={back_ico} alt=""/>
                                         </div> */}
-                                        <h1>Deposit</h1>
-                                        <h2>Scan the QR Code</h2>
+                                        <h1>{t('home.txt11',lng)}</h1>
+                                        <h2>{t('home.txt12',lng)}</h2>
                                         <h2 className="address">{address}</h2>
                                         <div className="qrcodeBox" >
                                             { 
@@ -544,14 +547,14 @@ export default class Root extends PureComponent {
                                             <div className="qrcode" id="qrcode"></div>
                                         </div>
                                         <div className="totleMoney">
-                                            <p className="money">Insert the amount you want to transfer</p>
+                                            <p className="money">{t('home.txt13',lng)}</p>
                                         </div>
                                         <div className="totleMoney">
                                             <p className="unit">{tncBackNum}</p>
                                             <p className="unit">TNC</p>
                                         </div>
                                     </div>
-                                    <button className="step"  onClick={this.toSend.bind(this)}>Transfer complete, next</button>
+                                    <button className="step"  onClick={this.toSend.bind(this)}>{t('home.txt14',lng)}</button>
                                 </div>
                                 {/* 付款状态 */}
                                 <div className={ step == 2 ? "doneBox " : "doneBox Hide"}>
@@ -575,22 +578,22 @@ export default class Root extends PureComponent {
                                                 !isOnlyOrder && (
                                                     <div className="fromTo">
                                                         <div className="box">
-                                                            <div className="title1">From:</div>
+                                                            <div className="title1">{t('home.txt15',lng)}:</div>
                                                             <div className="keyword">
                                                                 {neoAddress}
                                                             </div>
-                                                            <div className="title2">Sent Amount:</div>
+                                                            <div className="title2">{t('home.txt17',lng)}</div>
                                                             <div className="money">
                                                                 <div className="num">{tncBackNum}</div>
                                                                 <div className="nuit">TNC</div>
                                                             </div>
                                                         </div>
                                                         <div className="box">
-                                                            <div className="title1">to:</div>
+                                                            <div className="title1">{t('home.txt16',lng)}:</div>
                                                             <div className="keyword">
                                                                 {ethAddress}
                                                             </div>
-                                                            <div className="title2">Recive Amount:</div>
+                                                            <div className="title2">{t('home.txt18',lng)}:</div>
                                                             <div className="money">
                                                                 <div className="num">{tncBackNum}</div>
                                                                 <div className="nuit">TNC</div>
@@ -623,7 +626,7 @@ export default class Root extends PureComponent {
                                         </div>
                                     </div>
                                     {
-                                        !isOnlyOrder && <button className={isAllDone ? "step" : "step"} onClick={this.allDone.bind(this)}>Done</button>
+                                        !isOnlyOrder && <button className={isAllDone ? "step" : "step"} onClick={this.allDone.bind(this)}>{t('home.txt19',lng)}</button>
                                     }
                                 </div>
                             </div>

@@ -6,6 +6,8 @@ import Menus from "../../../../components/menus/";
 import Footer from "../../../../components/footer/";
 import bglf from "../../../../assets/images/1.png";
 import bgrt from "../../../../assets/images/6.png";
+
+import m_1 from "../../../../assets/images/m_1.png";
 import "./index.less";
 import { indexRemFun, setLocalItem } from "../../../../utils/util";
 
@@ -39,9 +41,17 @@ export default class Root extends PureComponent {
                   <div className="page-about" id="e-aboutBox">
                   	<Menus lng={lng}/>
 										<div className="content">
-											<div className="menu-bg"></div>
-											<div className="bg-lf"><img src={bglf} alt="" /></div>
-											<div className="bg-rt"><img src={bgrt} alt="" /></div>
+                                            {
+                                                IsTouchDevice ? (
+                                                    <div className="menu-bg_1">
+                                                        <img src={m_1} alt=""/>
+                                                    </div>
+                                                ) : (
+                                                    <div className="menu-bg"></div>
+                                                )
+                                            }
+											<div className="bg-lf m-hide"><img src={bglf} alt="" /></div>
+											<div className="bg-rt m-hide"><img src={bgrt} alt="" /></div>
 											<div className="ct">
 												<h1>{t('about.txt1',lng)}<br />{t('about.txt2',lng)}</h1>
 												<p>{t('about.txt3',lng)}</p>

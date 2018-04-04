@@ -40,7 +40,8 @@ if (IsTouchDevice) {
 	addClass(body, "mobile");
 } else {
 	let body = document.getElementsByTagName("body")[0];
-	addClass(body, "pc");
+    addClass(body, "pc");
+    body.style.minWidth = "1280px"
 }
 window.addEventListener("orientationchange", function(event) {
     if (window.orientation == 180 || window.orientation == 0) {

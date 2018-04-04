@@ -1,7 +1,7 @@
 body,html{
     padding: 0 !important;
     height: 100%;
-    min-width: 1280px;
+   
     overflow-x: auto;
 }
 .e-hugeBox{
@@ -216,7 +216,6 @@ body,html{
                         box-sizing: border-box;
                         width: 1.2rem;
                         height: 1.2rem;
-                        background: #EEEEEE;
                     }
                     .icoName{
                         width: 1.2rem;
@@ -643,7 +642,210 @@ body,html{
 }
 
 .mobile{
-    #e-hugeBox{
-       
+    #e-indexBox{
+        background: radial-gradient(circle at 50% 50%, rgba(165,218,255,1), rgba(165,218,255,0.7),rgba(165,218,255,0.1),rgba(165,218,255,0),rgba(165,218,255,0)) ;
+        .bg_5{
+            left: -1rem;
+            top: 3.8rem;
+        }
+        .bg_6{
+            right: -1.4rem;
+            bottom: -1.8rem;
+        }
+        .contentAndBg{
+            width: 100%;
+            .bg_7{
+                top: -.5rem;
+                width: 100%;
+                height: auto;
+                box-sizing: border-box;
+                padding: 0 .2rem;
+                margin: 0 auto;
+            }
+            .bg_8{
+                top: .8rem;
+                width: 6rem;
+                transform: translate(-50%, -50%);
+                font-size: .48rem;
+                color: #229AF1;
+                text-align: left;
+            }
+            .contentBox{
+                top: .2rem;
+                &.boxStyle3{
+                    width: 6.36rem;
+                    height: 5.88rem;
+                }
+                &.boxStyle0{
+                    width: 6.36rem;
+                    height: 6.88rem;
+                }
+                &.boxStyle1{
+                    width: 6.36rem;
+                    height: 6.88rem;
+                }
+                &.boxStyle2{
+                    width: 6.36rem;
+                    height: 7.66rem;
+                }
+                .startBox, .detailBox, .depositBox, .doneBox{
+                    h1{
+                        margin-top: .6rem;
+                        color: #333;
+                        font-weight: normal;
+                        font-size: .38rem;
+                        line-height: 1;
+                    }
+                    .step{
+                        width: 3rem;
+                        height: .8rem;
+                        border-radius: .4rem;
+                        font-size: .26rem;
+                        bottom: -.4rem;
+                        font-family: Gilroy;
+                    }
+                }
+                .startBox {
+                   
+                    .transferBox{
+                        margin-top: 1.04rem;
+                        .transferCell{
+                            .name{
+                                font-size: .28rem;
+                                color: #959595;
+                            }
+                            .pic{
+                                height: 1.4rem;
+                            }
+                            .icoName{
+                                font-size: .28rem;
+                                font-family: Gilroy-Light;
+                            }
+                        }
+                        .transferIco{
+                            margin: 0 1rem;
+                            width: .7rem;
+                            height: .58rem;
+                        }
+                    }
+                }
+                .detailBox {
+                    .selectBox{
+                        margin-top: .8rem;
+                        margin-bottom: 0;
+                        width: 5.56rem;
+                        .text{
+                            color: #A0A0A0;
+                            font-family: Gilroy-Light;
+                            font-size: .26rem;
+                        }
+                        .selectContent{
+                            font-size: .28rem;
+                            line-height: 0;
+                            color: #333;
+                            font-family: Gilroy-Regular;
+                            .ico1, .ico2{
+                                font-size: .28rem;
+                                color: #333;
+                                font-family: Gilroy-Regular;
+                            }
+                            .toImg{
+                                width: .32rem;
+                                height: .26rem;
+                            }
+                        }
+                    }
+                    .inputCellBox{
+                        height: 1.06rem;
+                        width: 5.56rem;
+                        .mess1{
+                            height: .48rem;
+                            font-size: .26rem;
+                            color: #A0A0A0;
+                            &.hei{
+                                bottom: .32rem;
+                            }
+                        }
+                        input{
+                            height: .48rem;
+                            line-height: .48rem;
+                            font-size: .28rem;
+                            font-weight: 200;
+                        }
+                        &.amount{
+                            .mess1, input{
+                                width: 4.7rem;
+                            }
+                            
+                            .unit{
+                                font-size: .26rem;
+                            }
+                        }
+                    }
+                    .errMess{
+                        width: 100%;
+                        bottom: .47rem;
+                    }
+                }
+                .depositBox {
+                    h2{
+                        margin-top: .12rem;
+                        font-size: .26rem;
+                        font-weight: 200;
+                        line-height: 1;
+                    }
+                    .address{
+                        margin-top: .56rem;
+                        color: #A6DAFF;
+                        font-size: .26rem;
+                        font-family: Gilroy-Regular;
+                    }
+                    .qrcodeBox{
+                        width: 3rem;
+                        height: 3rem;
+                        padding: .2rem;
+                    }
+                    .totleMoney{
+                        margin-top: .02rem;
+                        .money{
+                            font-size: .24rem;
+                        }
+                        .unit{
+                            font-size: .28rem;
+                            color: #229AF1;
+                        }
+                    }
+                    .step{
+                        width: 3.8rem;
+                    }
+                }
+                .doneBox {
+                    .logoRoute{
+                        top: -.7rem;
+                        width: 2.2rem;
+                        height: 2.2rem;
+                        .logo{
+                            width: 2.1rem;
+                            height: 2.1rem;
+                            
+                        }
+                    }
+                    .detailBoxContainer{
+                        .holder{
+                            height: 2rem;
+                        }
+                        .scrollBox{
+                            height: 4.87rem;
+                            width: 6.04rem;
+                            .fromTo{
+                                .box{
+                                    height: 3.62rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

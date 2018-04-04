@@ -1,4 +1,26 @@
 export default {
+    home: {
+		txt1: "通用的链下扩容方案",
+        txt2: "选择转账类型",
+        txt3: "发送",
+        txt4: "接收",
+        txt5: "开始",
+        txt6: "填写具体信息",
+        txt7: "NEO钱包地址（发送）",
+        txt8: "金额",
+        txt9: "ETH钱包地址",
+        txt9_1: "请填写完整内容",
+        txt10: "下一步",
+        txt11: "押金",
+        txt12: "扫描二维码",
+        txt13: "填写转账金额",
+        txt14: "转账完成，下一步",
+        txt15: "从",
+        txt16: "到",
+        txt17: "发送金额：",
+        txt18: "接收金额：",
+        txt19: "完成",
+	},
     index: {
         downloadMess: "下载查看更多资讯",
         downloadBtnMess: "下载",
@@ -50,13 +72,7 @@ export default {
         txt7: "打开App",
         txt8: "信任应用完毕后，打开App，就可以尽情体验了。"
     },
-	home: {
-		news: "新闻",
-		candy: "糖果盒",
-		anno: "交易所公告",
-		follow: "收藏",
-		project: "项目动态"
-	},
+	
 	header: {
 		member: "个人中心",
 		quit: "退出"

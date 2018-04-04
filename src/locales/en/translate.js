@@ -1,4 +1,26 @@
 export default {
+    home: {
+		txt1: "An Universal OffchainScaling Solution",
+        txt2: "Select transfer type",
+        txt3: "sent",
+        txt4: "receive",
+        txt5: "start",
+        txt6: "Fill the details",
+        txt7: "NEO Wallet Address（sent）",
+        txt8: "Amount",
+        txt9: "ETH Wallet Address",
+        txt9_1: "Please fill out all the content",
+        txt10: "Next Step",
+        txt11: "Deposit",
+        txt12: "Scan the QR Code",
+        txt13: "Insert the amount you want to transfer",
+        txt14: "Transfer complete,next",
+        txt15: "from",
+        txt16: "to",
+        txt17: "Sent Amount:",
+        txt18: "Recive Amount:",
+        txt19: "Done",
+	},
     index: {
         downloadMess: "Download to view more info",
         downloadBtnMess: "Download",
@@ -50,13 +72,6 @@ export default {
         txt7: "Open the App",
         txt8: "After the app is trusted, you can open the app and start your experience."
     },
-	home: {
-		news: "News",
-		candy: "Candybowl",
-		anno: "Exchange",
-		follow: "Follow",
-		project: "Project Updates"
-	},
 	header: {
 		member: "Profile",
 		quit: "Log out"
