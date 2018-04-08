@@ -378,23 +378,40 @@ export default class Root extends PureComponent {
     }
     sendAddFoucs(){
         this.setState({
-            isSendAddFoucsed: true
+            isSendAddFoucsed: true,
+            isSendAddFoucsedLine: true
+        })
+    }
+    sendAddBlur(){
+        this.setState({
+            isSendAddFoucsedLine: false
         })
     }
     amountFoucs(){
         this.setState({
-            isAmountFoucs: true
+            isAmountFoucs: true,
+            isAmountFoucsLine: true
+        })
+    }
+    amountBlur(){
+        this.setState({
+            isAmountFoucsLine: false
         })
     }
     receiveAddFoucs(){
         this.setState({
-            isReceiveAddFoucs: true
+            isReceiveAddFoucs: true,
+            isReceiveAddFoucsLine: true
         })
     }
-    
+    receiveAddBlur(){
+        this.setState({
+            isReceiveAddFoucsLine: false
+        })
+    }
     render() {
         const {lng, changeLng, registerUser, userInfo} = this.props;
-        const {isReceiveAddFoucs, isAmountFoucs, isSendAddFoucsed, isNeo2Eth, step, tncBackNum, fromKeyWord, toKeyWord, neoAddress, ethAddress, errMes, stateArr, isAllDone, detailsDone, depositDone, address, isOnlyOrder, sendable} = this.state;
+        const {isSendAddFoucsedLine,isAmountFoucsLine,isReceiveAddFoucsLine,isReceiveAddFoucs, isAmountFoucs, isSendAddFoucsed, isNeo2Eth, step, tncBackNum, fromKeyWord, toKeyWord, neoAddress, ethAddress, errMes, stateArr, isAllDone, detailsDone, depositDone, address, isOnlyOrder, sendable} = this.state;
         let isEnAndTouch = ((window.i18n.language == "en") && IsTouchDevice);
         let isCnAndTouch = ((window.i18n.language == "zh") && IsTouchDevice);
         return (
@@ -517,22 +534,22 @@ export default class Root extends PureComponent {
                                                 )
                                             }
                                         </div >
-                                        <div className={isSendAddFoucsed ? "inputCellBox foc" : "inputCellBox"}>
+                                        <div className={isSendAddFoucsedLine ? "inputCellBox foc" : "inputCellBox"}>
                                             <div className={isSendAddFoucsed ? "mess1 hei" : "mess1"}>{t('home.txt7',lng)}</div>
-                                            <input  type="text" onFocus={this.sendAddFoucs.bind(this)} onChange={this.getNeoAddress.bind(this)}/>
+                                            <input  type="text" onBlur={this.sendAddBlur.bind(this)} onFocus={this.sendAddFoucs.bind(this)} onChange={this.getNeoAddress.bind(this)}/>
                                             <span className="line"></span>
                                         </div>
-                                        <div className={isAmountFoucs ? "inputCellBox foc amount" : "inputCellBox amount"}>
+                                        <div className={isAmountFoucsLine ? "inputCellBox foc amount" : "inputCellBox amount"}>
                                             <div className={isAmountFoucs ? "mess1 hei" : "mess1"}>{t('home.txt8',lng)}</div>
-                                            <input type="text" onFocus={this.amountFoucs.bind(this)} onChange={this.getNeoAmount.bind(this)}/>
+                                            <input type="text" onBlur={this.amountBlur.bind(this)} onFocus={this.amountFoucs.bind(this)} onChange={this.getNeoAmount.bind(this)}/>
                                             <span className="line"></span>
                                             <div className={isAmountFoucs ? "unit focus" : "unit"}>
                                                 TNC
                                             </div>
                                         </div>
-                                        <div  className={isReceiveAddFoucs ? "inputCellBox foc" : "inputCellBox"}>
+                                        <div  className={isReceiveAddFoucsLine ? "inputCellBox foc" : "inputCellBox"}>
                                             <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{t('home.txt9',lng)}</div>
-                                            <input  type="text" onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
+                                            <input  type="text" onBlur={this.receiveAddBlur.bind(this)} onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                             <span className="line"></span>
                                         </div>
                                         {
