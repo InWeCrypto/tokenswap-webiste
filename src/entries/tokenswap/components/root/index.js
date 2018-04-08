@@ -517,20 +517,23 @@ export default class Root extends PureComponent {
                                                 )
                                             }
                                         </div >
-                                        <div className="inputCellBox">
+                                        <div className={isSendAddFoucsed ? "inputCellBox foc" : "inputCellBox"}>
                                             <div className={isSendAddFoucsed ? "mess1 hei" : "mess1"}>{t('home.txt7',lng)}</div>
-                                            <input type="text" onFocus={this.sendAddFoucs.bind(this)} onChange={this.getNeoAddress.bind(this)}/>
+                                            <input  type="text" onFocus={this.sendAddFoucs.bind(this)} onChange={this.getNeoAddress.bind(this)}/>
+                                            <span className="line"></span>
                                         </div>
-                                        <div className="inputCellBox amount">
+                                        <div className={isAmountFoucs ? "inputCellBox foc amount" : "inputCellBox amount"}>
                                             <div className={isAmountFoucs ? "mess1 hei" : "mess1"}>{t('home.txt8',lng)}</div>
                                             <input type="text" onFocus={this.amountFoucs.bind(this)} onChange={this.getNeoAmount.bind(this)}/>
+                                            <span className="line"></span>
                                             <div className={isAmountFoucs ? "unit focus" : "unit"}>
                                                 TNC
                                             </div>
                                         </div>
-                                        <div className="inputCellBox">
+                                        <div  className={isReceiveAddFoucs ? "inputCellBox foc" : "inputCellBox"}>
                                             <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{t('home.txt9',lng)}</div>
-                                            <input type="text" onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
+                                            <input  type="text" onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
+                                            <span className="line"></span>
                                         </div>
                                         {
                                             errMes && <div className="errMess">{t('home.txt9_1',lng)}</div>
