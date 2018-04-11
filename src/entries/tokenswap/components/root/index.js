@@ -151,7 +151,7 @@ export default class Root extends PureComponent {
     }
     icoExchange(){
         //暂时只有NEO转ETH
-        return;
+       // return;
         this.setState({
             isNeo2Eth: !this.state.isNeo2Eth
         })
@@ -409,6 +409,7 @@ export default class Root extends PureComponent {
             isReceiveAddFoucsLine: false
         })
     }
+    
     render() {
         const {lng, changeLng, registerUser, userInfo} = this.props;
         const {isSendAddFoucsedLine,isAmountFoucsLine,isReceiveAddFoucsLine,isReceiveAddFoucs, isAmountFoucs, isSendAddFoucsed, isNeo2Eth, step, tncBackNum, fromKeyWord, toKeyWord, neoAddress, ethAddress, errMes, stateArr, isAllDone, detailsDone, depositDone, address, isOnlyOrder, sendable} = this.state;
@@ -470,25 +471,50 @@ export default class Root extends PureComponent {
                                             <img src={close_ico} alt=""/>
                                         </div> */}
                                         <h1>{t('home.txt2',lng)}</h1>
-                                        <div className="transferBox">
-                                            <div className="transferCell">
-                                                <div className="name">{t('home.txt3',lng)}</div>
-                                                <div className="pic">
-                                                    <img src={img_11} alt=""/>
+                                        {
+                                            isNeo2Eth ? (
+                                                <div className="transferBox">
+                                                    <div className="transferCell">
+                                                        <div className="name">{t('home.txt3',lng)}</div>
+                                                        <div className="pic">
+                                                            <img src={img_11} alt=""/>
+                                                        </div>
+                                                        <div className="icoName">NEO</div>
+                                                    </div>
+                                                    <div className="transferIco" onClick={this.icoExchange.bind(this)}>
+                                                        <img src={img_16} alt=""/>
+                                                    </div>
+                                                    <div className="transferCell">
+                                                        <div className="name">{t('home.txt4',lng)}</div>
+                                                        <div className="pic">
+                                                            <img src={img_12} alt=""/>
+                                                        </div>
+                                                        <div className="icoName">ETH</div>
+                                                    </div>
                                                 </div>
-                                                <div className="icoName">NEO</div>
-                                            </div>
-                                            <div className="transferIco">
-                                                <img src={img_16} alt=""/>
-                                            </div>
-                                            <div className="transferCell">
-                                                <div className="name">{t('home.txt4',lng)}</div>
-                                                <div className="pic">
-                                                    <img src={img_12} alt=""/>
+                                            ) : (
+                                                <div className="transferBox">
+                                                    <div className="transferCell">
+                                                        <div className="name">{t('home.txt3',lng)}</div>
+                                                        <div className="pic">
+                                                            <img src={img_12} alt=""/>
+                                                        </div>
+                                                        <div className="icoName">ETH</div>
+                                                    </div>
+                                                    <div className="transferIco" onClick={this.icoExchange.bind(this)}>
+                                                        <img src={img_16} alt=""/>
+                                                    </div>
+                                                    <div className="transferCell">
+                                                        <div className="name">{t('home.txt4',lng)}</div>
+                                                        <div className="pic">
+                                                            <img src={img_11} alt=""/>
+                                                        </div>
+                                                        <div className="icoName">NEO</div>
+                                                    </div>
                                                 </div>
-                                                <div className="icoName">ETH</div>
-                                            </div>
-                                        </div>
+                                            )
+                                        }
+                                        
                                     </div>
                                     {
                                         errMes && <div className="errMess"></div>
@@ -535,7 +561,7 @@ export default class Root extends PureComponent {
                                             }
                                         </div >
                                         <div className={isSendAddFoucsedLine ? "inputCellBox foc" : "inputCellBox"}>
-                                            <div className={isSendAddFoucsed ? "mess1 hei" : "mess1"}>{t('home.txt7',lng)}</div>
+                                            <div className={isSendAddFoucsed ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "NEO" : "ETH"}{t('home.txt7',lng)}</div>
                                             <input  type="text" onBlur={this.sendAddBlur.bind(this)} onFocus={this.sendAddFoucs.bind(this)} onChange={this.getNeoAddress.bind(this)}/>
                                             <span className="line"></span>
                                         </div>
@@ -548,7 +574,7 @@ export default class Root extends PureComponent {
                                             </div>
                                         </div>
                                         <div  className={isReceiveAddFoucsLine ? "inputCellBox foc" : "inputCellBox"}>
-                                            <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{t('home.txt9',lng)}</div>
+                                            <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "ETH" : "NEO"}{t('home.txt9',lng)}</div>
                                             <input  type="text" onBlur={this.receiveAddBlur.bind(this)} onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                             <span className="line"></span>
                                         </div>
