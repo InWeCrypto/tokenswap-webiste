@@ -269,7 +269,7 @@ export default class Root extends PureComponent {
         this.props.getOrder(tx).then(res => {
             if(res.Data.InTx){
                 //直接跳转
-               window.location.hash = "step2"
+                window.location.hash = "step2"
                 window.sessionStorage.setItem("inwe_order_hash", "step2");
                 this.setState({
                     step: 0
@@ -295,7 +295,7 @@ export default class Root extends PureComponent {
                     this.setState({
                         sendable: true
                     },function(){
-                        that.toSend();
+                        // that.toSend();
                     });
                 }
                 if(res.Data.OutTx){
