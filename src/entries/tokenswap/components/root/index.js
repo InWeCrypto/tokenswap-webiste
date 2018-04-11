@@ -264,6 +264,7 @@ export default class Root extends PureComponent {
             step: 2
         });
         this.getOrderState();
+        this.getOrderDetail();
         // let tx = this.state.tx;
         // if(!tx) return;
         //     判断是否扫描过二维码
@@ -282,6 +283,7 @@ export default class Root extends PureComponent {
     }
     //获取订单详情  判断是否扫描二维码
     getOrderDetail(){
+        console.log(this.state);
         const that = this;
         let tx = this.state.tx;
         if(!tx) return;
