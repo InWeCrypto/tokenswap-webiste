@@ -260,24 +260,28 @@ export default class Root extends PureComponent {
         }
     }
     toSend(){
-        if(!this.state.sendable){
-            return;
-        }
-        let tx = this.state.tx;
-        if(!tx) return;
-       // 判断是否扫描过二维码
-        this.props.getOrder(tx).then(res => {
-            if(res.Data.InTx){
-                //直接跳转
-                window.location.hash = "step2"
-                window.sessionStorage.setItem("inwe_order_hash", "step2");
-                this.setState({
-                    step: 0
-                });
-                //开启状态监控
-                this.getOrderState();
-            }
+        // if(!this.state.sendable){
+        //     return;
+        // }
+        console.log(this.state, '------');
+        this.setState({
+            step: 2
         });
+        // let tx = this.state.tx;
+        // if(!tx) return;
+        //     判断是否扫描过二维码
+        //     this.props.getOrder(tx).then(res => {
+        //         if(res.Data.InTx){
+        //             //直接跳转
+        //             window.location.hash = "step2"
+        //             window.sessionStorage.setItem("inwe_order_hash", "step2");
+        //             this.setState({
+        //                 step: 0
+        //             });
+        //             //开启状态监控
+        //             this.getOrderState();
+        //         }
+        //     });
     }
     //获取订单详情  判断是否扫描二维码
     getOrderDetail(){
@@ -378,14 +382,28 @@ export default class Root extends PureComponent {
         this.getOrderDetail();
     }
     allDone(){
+        console.log(this.state);
+        const { tx } = this.state; 
+        this.props.getOrder(tx).then(res => {
+            if(res.Data.InTx){
+                //直接跳转
+                // window.location.hash = "step2"
+                window.sessionStorage.setItem("inwe_order_hash", "");
+                this.setState({
+                    step: 3
+                });
+                //开启状态监控
+                this.getOrderState();
+            }
+        });
         // this.setState({
         //     isOnlyOrder: true
         // })
         //window.location.hash = ""
-        window.sessionStorage.setItem("inwe_order_hash", "");
-        this.setState({
-            step: 3
-        })
+        // window.sessionStorage.setItem("inwe_order_hash", "");
+        // this.setState({
+        //     step: 3
+        // })
     }
     sendAddFoucs(){
         this.setState({
