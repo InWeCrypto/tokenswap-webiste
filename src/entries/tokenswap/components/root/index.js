@@ -30,7 +30,8 @@ import img_8 from "../../../../assets/images/m_2.png";
 import img_9 from "../../../../assets/images/9.png";
 import img_10 from "../../../../assets/images/10.png";
 import img_11 from "../../../../assets/images/11.png";
-import img_12 from "../../../../assets/images/12.png";
+import pc_12 from "../../../../assets/images/pc-12.jpg";
+import m_12 from "../../../../assets/images/m-12.jpg";
 import img_13 from "../../../../assets/images/13.png";
 import img_14 from "../../../../assets/images/14.png";
 import img_15 from "../../../../assets/images/15.png";
@@ -214,7 +215,12 @@ export default class Root extends PureComponent {
             })
             //创建订单
             this.props.postOrder(param).then(res => {
-                console.log(res)
+                let errMsg = null;
+                if(res.Error) errMsg = res.Error;
+                this.setState({
+                    errMes: errMsg
+                })
+                res = res.Data;
                 //window.location.hash = "step";
                 window.sessionStorage.setItem("inwe_order_hash", "step");
                 let valShort;
@@ -487,7 +493,9 @@ export default class Root extends PureComponent {
                                                     <div className="transferCell">
                                                         <div className="name">{t('home.txt4',lng)}</div>
                                                         <div className="pic">
-                                                            <img src={img_12} alt=""/>
+                                                        {
+                                                            IsTouchDevice ? <img src={pc_12} alt=""/> : <img src={m_12} alt=""/>
+                                                        }
                                                         </div>
                                                         <div className="icoName">ETH</div>
                                                     </div>
@@ -497,7 +505,9 @@ export default class Root extends PureComponent {
                                                     <div className="transferCell">
                                                         <div className="name">{t('home.txt3',lng)}</div>
                                                         <div className="pic">
-                                                            <img src={img_12} alt=""/>
+                                                        {
+                                                            IsTouchDevice ? <img src={pc_12} alt=""/> : <img src={m_12} alt=""/>
+                                                        }
                                                         </div>
                                                         <div className="icoName">ETH</div>
                                                     </div>
@@ -579,7 +589,7 @@ export default class Root extends PureComponent {
                                             <span className="line"></span>
                                         </div>
                                         {
-                                            errMes && <div className="errMess">{t('home.txt9_1',lng)}</div>
+                                            errMes && <div className="errMess">{errMes}</div>
                                         }
                                     </div>
                                     
