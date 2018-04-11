@@ -260,24 +260,24 @@ export default class Root extends PureComponent {
         }
     }
     toSend(){
-        // if(!this.state.sendable){
-        //     return;
-        // }
+        if(!this.state.sendable){
+            return;
+        }
         let tx = this.state.tx;
         if(!tx) return;
-        //判断是否扫描过二维码
-        // this.props.getOrder(tx).then(res => {
-        //     if(res.InTx){
+       // 判断是否扫描过二维码
+        this.props.getOrder(tx).then(res => {
+            if(res.Data.InTx){
                 //直接跳转
-               // window.location.hash = "step2"
+               window.location.hash = "step2"
                 window.sessionStorage.setItem("inwe_order_hash", "step2");
                 this.setState({
-                    step: 2
+                    step: 0
                 });
                 //开启状态监控
                 this.getOrderState();
-        //     }
-        // });
+            }
+        });
     }
     //获取订单详情  判断是否扫描二维码
     getOrderDetail(){
@@ -291,14 +291,14 @@ export default class Root extends PureComponent {
         this.timerDetail = setInterval(() => {
             //获取订单详情，判断是否完成OutTx
             this.props.getOrder(tx).then(res => {
-                if(res.InTx){
+                if(res.Data.InTx){
                     this.setState({
                         sendable: true
                     },function(){
-                        //that.toSend();
+                        that.toSend();
                     });
                 }
-                if(res.OutTx){
+                if(res.Data.OutTx){
                     this.setState({
                         isAllDone: true
                     })
@@ -317,9 +317,12 @@ export default class Root extends PureComponent {
         }
         //获取状态列表
         this.props.getOrderState(tx).then(res => {
-            //console.log(res);
+            let stateArr = [];
+            const data = res.Data;
+            stateArr = [...data];
+            console.log(stateArr, '-------');
             this.setState({
-                stateArr: res.reverse()
+                stateArr: stateArr
             },function(){
                 that.scrollBoxToBottom();
             });
@@ -328,16 +331,18 @@ export default class Root extends PureComponent {
         this.timerState = setInterval(() => {
             //获取状态列表
             this.props.getOrderState(tx).then(res => {
-                //console.log(res);
+                let stateArr = [];
+                const data = res.Data;
+                stateArr = [...data];
                 this.setState({
-                    stateArr: res.reverse()
+                    stateArr: stateArr
                 },function(){
                     that.scrollBoxToBottom();
                 });
             });
             //获取订单详情，判断是否完成OutTx
             this.props.getOrder(tx).then(res => {
-                if(res.OutTx){
+                if(res.Data.OutTx){
                     this.setState({
                         isAllDone: true
                     })
