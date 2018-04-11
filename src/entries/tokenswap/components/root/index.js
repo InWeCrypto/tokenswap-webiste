@@ -260,13 +260,10 @@ export default class Root extends PureComponent {
         }
     }
     toSend(){
-        // if(!this.state.sendable){
-        //     return;
-        // }
-        console.log(this.state, '------');
         this.setState({
             step: 2
         });
+        this.getOrderState();
         // let tx = this.state.tx;
         // if(!tx) return;
         //     判断是否扫描过二维码
@@ -382,7 +379,6 @@ export default class Root extends PureComponent {
         this.getOrderDetail();
     }
     allDone(){
-        console.log(this.state);
         const { tx } = this.state; 
         this.props.getOrder(tx).then(res => {
             if(res.Data.InTx){
@@ -393,7 +389,7 @@ export default class Root extends PureComponent {
                     step: 3
                 });
                 //开启状态监控
-                this.getOrderState();
+                // this.getOrderState();
             }
         });
         // this.setState({
