@@ -58,7 +58,8 @@ export default class Root extends PureComponent {
             isNeo2Eth: true,
             step: 3,
             tncBackNum: 0,
-            stateArr: []
+            stateArr: [],
+            sendable: false
         };
     }
     componentWillReceiveProps(nextProps) {}
