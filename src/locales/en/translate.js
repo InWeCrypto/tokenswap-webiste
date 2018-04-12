@@ -22,7 +22,8 @@ export default {
 		txt19: "Done",
 		txt20: 'Minimum transfer limit:',
 		txt21: 'Fees:',
-		txt22: 'Please fill out all the content'
+		txt22: 'Please fill out all the content',
+		txt23: '(fees'
 	},
     index: {
         downloadMess: "Download to view more info",

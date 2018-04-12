@@ -65,7 +65,7 @@ const initialObj = {
     tx: '',
     limitAmount: '',
     eth2neotax: '',
-    neo2ethtax: ''
+    neo2ethtax: '',
 };
 export default class Root extends PureComponent {
     constructor(props) {
@@ -260,7 +260,8 @@ export default class Root extends PureComponent {
                     step: 1,
                     tncBackNum: valShort,
                     tx: res.TX,
-                    address: res.Address
+                    address: res.Address,
+                    isClick: true
                 }, function () {
                     //设置初始化二维码
                     let dom = document.getElementById('qrcode');
@@ -280,7 +281,8 @@ export default class Root extends PureComponent {
     }
     toSend() {
         this.setState({
-            step: 2
+            step: 2,
+            isClick : true 
         });
         window.sessionStorage.setItem("inwe_order_hash", "step2");
         this.getOrderState();
@@ -359,13 +361,13 @@ export default class Root extends PureComponent {
     }
     back2first() {
         //window.location.hash = ""
-        const { isAllDone } = this.state;
-        if(!isAllDone) {
-            window.sessionStorage.setItem("inwe_order_hash", "");
-            this.setState({
-                step: 0
-            })
-        }
+        const { sendable, isClick } = this.state;
+        // if(!sendable && !isClick) {
+        window.sessionStorage.setItem("inwe_order_hash", "");
+        this.setState({
+            step: 0
+        })
+        // }
     }
     back2Second() {
         // window.location.hash = "step"
@@ -441,7 +443,7 @@ export default class Root extends PureComponent {
     }
 
     render() {
-        console.log(this.state, '11111');
+        console.log(this.state, '-------')
         const { lng, changeLng, registerUser, userInfo } = this.props;
         const { 
             isSendAddFoucsedLine, 
@@ -467,7 +469,8 @@ export default class Root extends PureComponent {
             sendable,
             limitAmount,
             eth2neotax,
-            neo2ethtax
+            neo2ethtax,
+            isClick
         } = this.state;
         let isEnAndTouch = ((window.i18n.language == "en") && IsTouchDevice);
         let isCnAndTouch = ((window.i18n.language == "zh") && IsTouchDevice);
@@ -633,13 +636,20 @@ export default class Root extends PureComponent {
                                                 TNC
                                             </div>
                                         </div>
-                                        <div className={isReceiveAddFoucsLine ? "inputCellBox foc" : "inputCellBox"}>
+                                        <div className = "inputCellBox limit">
                                             <div className="limit-tip">{ t('home.txt20', lng) + limitAmount }</div>
+                                        </div>
+                                        <div className={isReceiveAddFoucsLine ? "inputCellBox foc" : "inputCellBox"}>
+                                            
                                             <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "ETH" : "NEO"}{t('home.txt9', lng)}</div>
                                             <input type="text" onBlur={this.receiveAddBlur.bind(this)} onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                             <span className="line"></span>
                                         </div>
-                                        <div className={isReceiveAddFoucsLine ? 'rate blue' : 'rate'}>{`${t('home.txt21', lng)}${isNeo2Eth ? neo2ethtax : eth2neotax}`}</div>
+                                        {/* {`${t('home.txt21', lng)}${}TNC${t('home.txt23', lng)}${isNeo2Eth ? neo2ethtax : eth2neotax}`} */}
+                                        <div className={isReceiveAddFoucsLine ? 'rate blue' : 'rate'}>
+                                            <span className={isReceiveAddFoucsLine ? 'black' : ''}>{t('home.txt21', lng)}</span>
+                                            {`${isNeo2Eth ? (Number(neo2ethtax) * 100) : (Number(eth2neotax) * 100)}%`}
+                                        </div>
                                         {
                                             errMes && <div className="errMess">{ `${errMes}` === 'true' ? t('home.txt22', lng) :  errMes }</div>
                                         }
@@ -655,9 +665,11 @@ export default class Root extends PureComponent {
                                         {/* <div className="close">
                                             <img src={close_ico} alt=""/>
                                         </div> */}
-                                        <div className="backbtn" onClick={this.back2first.bind(this)}>
-                                            <img src={img_10} alt="" />
-                                        </div>
+                                        {
+                                            isClick ? '' : <div className="backbtn" onClick={this.back2first.bind(this)}>
+                                                <img src={img_10} alt="" />
+                                            </div>
+                                        }
                                         <h1>{t('home.txt11', lng)}</h1>
                                         <h2>{t('home.txt12', lng)}</h2>
                                         <h2 className="address">{address}</h2>

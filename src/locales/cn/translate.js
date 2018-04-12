@@ -22,7 +22,8 @@ export default {
 		txt19: "完成",
 		txt20: '最低限额',
 		txt21: '手续费：',
-		txt22: '清将信息填写完整'
+		txt22: '清将信息填写完整',
+		txt23: '(利率'
 	},
     index: {
         downloadMess: "下载查看更多资讯",
