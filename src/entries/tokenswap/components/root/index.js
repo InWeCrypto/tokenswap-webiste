@@ -1,11 +1,11 @@
-import React, {PureComponent} from "react";
-import {I18n, Trans} from "react-i18next";
-import {NavLink, Link} from "react-router-dom";
+import React, { PureComponent } from "react";
+import { I18n, Trans } from "react-i18next";
+import { NavLink, Link } from "react-router-dom";
 import Slider from "react-slick";
 
 import QRCode from "../../../../assets/js/qcode.js";
 
-import {getMainMinHeight, getQuery,indexRemFun,setLocalItem, addClass, hasClass, removeClass, toPosition,getLocalItem,remFun} from "../../../../utils/util";
+import { getMainMinHeight, getQuery, indexRemFun, setLocalItem, addClass, hasClass, removeClass, toPosition, getLocalItem, remFun } from "../../../../utils/util";
 
 import bg from "../../../../assets/images/bg.png";
 import back_ico from "../../../../assets/images/back_ico.png";
@@ -51,22 +51,29 @@ import Menus from "../../../../components/menus";
 import Footer from "../../../../components/footer";
 
 // import { setInterval, clearInterval, setTimeout } from "timers";
+const initialObj = {
+    isNeo2Eth: true,
+    step: 3,
+    tncBackNum: 0,
+    stateArr: [],
+    sendable: false,
+    isOnlyOrder: false,
+    neoAmount: '',
+    ethAddress: '',
+    neoAddress: ''
+};
 export default class Root extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            isNeo2Eth: true,
-            step: 3,
-            tncBackNum: 0,
-            stateArr: [],
-            sendable: false
-        };
+        this.state = { ...initialObj };
     }
-    componentWillReceiveProps(nextProps) {}
-    componentWillMount(){
+    componentWillReceiveProps(nextProps) {
+
+    }
+    componentWillMount() {
         const that = this;
         indexRemFun();
-        window.addEventListener("resize",function() {
+        window.addEventListener("resize", function () {
             indexRemFun();
         });
     }
@@ -74,14 +81,14 @@ export default class Root extends PureComponent {
         const that = this;
         // let hash = this.props.location.hash;
         let hash = window.sessionStorage.getItem("inwe_order_hash");
-        if(hash){
+        if (hash) {
             //hash = hash.substring(1);
             let tx = window.sessionStorage.getItem("inwe_order_TX");
             let tncBackNum = window.sessionStorage.getItem("inwe_order_Value");
             let address = window.sessionStorage.getItem("inwe_order_Address");
             let neoAddress = window.sessionStorage.getItem("inwe_order_neoAddress");
             let ethAddress = window.sessionStorage.getItem("inwe_order_ethAddress");
-            
+
             this.setState({
                 tx,
                 tncBackNum,
@@ -89,28 +96,28 @@ export default class Root extends PureComponent {
                 neoAddress,
                 ethAddress
             });
-            if(hash === "step"){
+            if (hash === "step") {
                 this.setState({
                     step: 1
-                },function(){
-                    if(address){
+                }, function () {
+                    if (address) {
                         //设置初始化二维码
                         let dom = document.getElementById('qrcode');
-                        if(dom){
+                        if (dom) {
                             dom.innerHTML = '';
                             new QRCode(dom, address);
                         }
                         that.getOrderDetail();
                     }
                 });
-            }else if(hash === "step2"){
+            } else if (hash === "step2") {
                 this.setState({
                     step: 2
-                },function(){
+                }, function () {
                     //开启状态监控
                     this.getOrderState();
                 })
-            }else{
+            } else {
                 this.setState({
                     step: 0
                 })
@@ -122,102 +129,102 @@ export default class Root extends PureComponent {
         //     that.pageScrollFun();
         // },1000)
 
-       
+
     }
-   
+
     //盒子滚动到最底部
-    scrollBoxToBottom(){
-        var e=document.getElementById("scroll");  
-        e.scrollTop=e.scrollHeight;
+    scrollBoxToBottom() {
+        var e = document.getElementById("scroll");
+        e.scrollTop = e.scrollHeight;
     }
-    pageScrollMover(){
+    pageScrollMover() {
         const pageBox = document.getElementById("e-hugeBox");
         parent.addEventListener("scroll", this.pageScrollFun)
     }
-    pageScrollFun(){
+    pageScrollFun() {
         var showBoxList = document.getElementsByClassName("showFlowBox");
         var winHei = document.documentElement.clientHeight;
-        for(var i = 0; i < showBoxList.length; i++){
+        for (var i = 0; i < showBoxList.length; i++) {
             var boxDom = showBoxList[i];
-            if(boxDom.getBoundingClientRect().top < winHei - 100){
+            if (boxDom.getBoundingClientRect().top < winHei - 100) {
                 addClass(boxDom, "showTogger")
-            }else if(boxDom.getBoundingClientRect().top > winHei - 100){
+            } else if (boxDom.getBoundingClientRect().top > winHei - 100) {
                 removeClass(boxDom, "showTogger")
             }
         }
     }
     changeLanguage(type) {
-		this.props.changeLng(type);
-		window.i18n.changeLanguage(type);
-		setLocalItem("language", type);
+        this.props.changeLng(type);
+        window.i18n.changeLanguage(type);
+        setLocalItem("language", type);
     }
-    icoExchange(){
+    icoExchange() {
         //暂时只有NEO转ETH
-       // return;
+        // return;
         this.setState({
             isNeo2Eth: !this.state.isNeo2Eth
         })
     }
-    getNeoAddress(e){
+    getNeoAddress(e) {
         const that = this;
         let val = e.target.value;
         this.setState({
             neoAddress: val
-        },function(){
+        }, function () {
             that.checkDetailsBtnDone()
         })
     }
-    getEthAddress(e){
+    getEthAddress(e) {
         const that = this;
         let val = e.target.value;
         this.setState({
             ethAddress: val
-        },function(){
+        }, function () {
             that.checkDetailsBtnDone()
         })
     }
-    getNeoAmount(e){
+    getNeoAmount(e) {
         const that = this;
         let val = e.target.value;
         this.setState({
             neoAmount: val
-        },function(){
+        }, function () {
             that.checkDetailsBtnDone()
         })
     }
-    checkDetailsBtnDone(){
-        let {neoAmount, ethAddress, neoAddress} = this.state;
-        if(neoAmount && ethAddress && neoAddress){
+    checkDetailsBtnDone() {
+        let { neoAmount, ethAddress, neoAddress } = this.state;
+        if (neoAmount && ethAddress && neoAddress) {
             this.setState({
                 detailsDone: true
             })
-        }else{
+        } else {
             this.setState({
                 detailsDone: false
             })
         }
     }
-    toStart(){
+    toStart() {
         this.setState({
             step: 0
         })
-    }
-    toNextStep(){
+    };
+    toNextStep() {
         const that = this;
-        let {neoAddress, ethAddress, neoAmount} = this.state;
+        let { neoAddress, ethAddress, neoAmount } = this.state;
         let param = {
             from: neoAddress,
             to: ethAddress,
             value: neoAmount
         };
-        if(neoAddress && ethAddress && neoAmount){
+        if (neoAddress && ethAddress && neoAmount) {
             this.setState({
                 errMes: false
             })
             //创建订单
             this.props.postOrder(param).then(res => {
                 let errMsg = null;
-                if(res.Error) errMsg = res.Error;
+                if (res.Error) errMsg = res.Error;
                 this.setState({
                     errMes: errMsg
                 })
@@ -226,10 +233,10 @@ export default class Root extends PureComponent {
                 window.sessionStorage.setItem("inwe_order_hash", "step");
                 let valShort;
                 let valArr = res.Value.split(".");
-                if(valArr[1].substring(4) == "0000"){
-                   // valShort = valArr[0] + "." + valArr[1].substring(0,4) 
+                if (valArr[1].substring(4) == "0000") {
+                    // valShort = valArr[0] + "." + valArr[1].substring(0,4) 
                     valShort = res.Value;
-                }else{
+                } else {
                     valShort = res.Value;
                 }
                 //信息保存至本地
@@ -243,80 +250,65 @@ export default class Root extends PureComponent {
                     tncBackNum: valShort,
                     tx: res.TX,
                     address: res.Address
-                },function(){
+                }, function () {
                     //设置初始化二维码
                     let dom = document.getElementById('qrcode');
-                    if(dom){
+                    if (dom) {
                         dom.innerHTML = '';
                         new QRCode(dom, res.Address);
                     }
                     that.getOrderDetail();
                 });
-                
+
             })
-        }else{
+        } else {
             this.setState({
                 errMes: true
             })
         }
     }
-    toSend(){
+    toSend() {
         this.setState({
             step: 2
         });
+        window.sessionStorage.setItem("inwe_order_hash", "step2");
         this.getOrderState();
         this.getOrderDetail();
-        // let tx = this.state.tx;
-        // if(!tx) return;
-        //     判断是否扫描过二维码
-        //     this.props.getOrder(tx).then(res => {
-        //         if(res.Data.InTx){
-        //             //直接跳转
-        //             window.location.hash = "step2"
-        //             window.sessionStorage.setItem("inwe_order_hash", "step2");
-        //             this.setState({
-        //                 step: 0
-        //             });
-        //             //开启状态监控
-        //             this.getOrderState();
-        //         }
-        //     });
     }
     //获取订单详情  判断是否扫描二维码
-    getOrderDetail(){
-        console.log(this.state);
+    getOrderDetail() {
         const that = this;
         let tx = this.state.tx;
-        if(!tx) return;
-        if(this.timerDetail){
+        if (!tx) return;
+        if (this.timerDetail) {
             clearInterval(this.timerDetail);
         }
         //循环使用状态
         this.timerDetail = setInterval(() => {
             //获取订单详情，判断是否完成OutTx
             this.props.getOrder(tx).then(res => {
-                if(res.Data.InTx){
+                if (res.Data.InTx) {
                     this.setState({
                         sendable: true
-                    },function(){
+                    }, function () {
                         // that.toSend();
                     });
                 }
-                if(res.Data.OutTx){
+                if (res.Data.OutTx) {
                     this.setState({
                         isAllDone: true
                     })
                     clearInterval(this.timerDetail);
                 }
             })
-        },3000);
+        }, 3000);
     }
     //获取订单处理状态
-    getOrderState(){
+    getOrderState() {
         const that = this;
         let tx = this.state.tx;
-        if(!tx) return;
-        if(this.timerState){
+        if (!tx) return;
+        if (this.timerState) {
             clearInterval(this.timerState);
         }
         //获取状态列表
@@ -324,10 +316,9 @@ export default class Root extends PureComponent {
             let stateArr = [];
             const data = res.Data;
             stateArr = [...data];
-            console.log(stateArr, '-------');
             this.setState({
                 stateArr: stateArr
-            },function(){
+            }, function () {
                 that.scrollBoxToBottom();
             });
         });
@@ -340,36 +331,36 @@ export default class Root extends PureComponent {
                 stateArr = [...data];
                 this.setState({
                     stateArr: stateArr
-                },function(){
+                }, function () {
                     that.scrollBoxToBottom();
                 });
             });
             //获取订单详情，判断是否完成OutTx
             this.props.getOrder(tx).then(res => {
-                if(res.Data.OutTx){
+                if (res.Data.OutTx) {
                     this.setState({
                         isAllDone: true
                     })
                     clearInterval(this.timerState);
                 }
             })
-        },5000);
+        }, 5000);
     }
-    back2first(){
+    back2first() {
         //window.location.hash = ""
         window.sessionStorage.setItem("inwe_order_hash", "");
         this.setState({
             step: 0
         })
     }
-    back2Second(){
-       // window.location.hash = "step"
+    back2Second() {
+        // window.location.hash = "step"
         window.sessionStorage.setItem("inwe_order_hash", "step");
         let address = window.sessionStorage.getItem("inwe_order_Address");
-        if(address){
+        if (address) {
             //设置初始化二维码
             let dom = document.getElementById('qrcode');
-            if(dom){
+            if (dom) {
                 dom.innerHTML = '';
                 new QRCode(dom, address);
             }
@@ -381,177 +372,175 @@ export default class Root extends PureComponent {
         this.getOrderState();
         this.getOrderDetail();
     }
-    allDone(){
-        const { tx } = this.state; 
+    allDone() {
+        const { tx } = this.state;
+        // window.sessionStorage.setItem("inwe_order_hash", "");
+        // this.setState({
+        //     ...Object.assign({ isOnlyOrder: true }, { ...initialObj })
+        // });
         this.props.getOrder(tx).then(res => {
-            if(res.Data.InTx){
-                //直接跳转
-                // window.location.hash = "step2"
+            if(res.Data.InTx && res.Data.OutTx){
                 window.sessionStorage.setItem("inwe_order_hash", "");
                 this.setState({
-                    step: 3
+                   ...Object.assign({ isOnlyOrder: true }, { ...initialObj })
                 });
                 //开启状态监控
                 // this.getOrderState();
             }
         });
-        // this.setState({
-        //     isOnlyOrder: true
-        // })
-        //window.location.hash = ""
-        // window.sessionStorage.setItem("inwe_order_hash", "");
-        // this.setState({
-        //     step: 3
-        // })
     }
-    sendAddFoucs(){
+    componentDidUpdate() {
+        console.log(this.state);
+    }
+    sendAddFoucs() {
         this.setState({
             isSendAddFoucsed: true,
             isSendAddFoucsedLine: true
         })
     }
-    sendAddBlur(){
+    sendAddBlur() {
         this.setState({
             isSendAddFoucsedLine: false
         })
     }
-    amountFoucs(){
+    amountFoucs() {
         this.setState({
             isAmountFoucs: true,
             isAmountFoucsLine: true
         })
     }
-    amountBlur(){
+    amountBlur() {
         this.setState({
             isAmountFoucsLine: false
         })
     }
-    receiveAddFoucs(){
+    receiveAddFoucs() {
         this.setState({
             isReceiveAddFoucs: true,
             isReceiveAddFoucsLine: true
         })
     }
-    receiveAddBlur(){
+    receiveAddBlur() {
         this.setState({
             isReceiveAddFoucsLine: false
         })
     }
-    
+
     render() {
-        const {lng, changeLng, registerUser, userInfo} = this.props;
-        const {isSendAddFoucsedLine,isAmountFoucsLine,isReceiveAddFoucsLine,isReceiveAddFoucs, isAmountFoucs, isSendAddFoucsed, isNeo2Eth, step, tncBackNum, fromKeyWord, toKeyWord, neoAddress, ethAddress, errMes, stateArr, isAllDone, detailsDone, depositDone, address, isOnlyOrder, sendable} = this.state;
+        console.log(this.state, '11111');
+        const { lng, changeLng, registerUser, userInfo } = this.props;
+        const { isSendAddFoucsedLine, isAmountFoucsLine, isReceiveAddFoucsLine, isReceiveAddFoucs, isAmountFoucs, isSendAddFoucsed, isNeo2Eth, step, tncBackNum, fromKeyWord, toKeyWord, neoAddress, ethAddress, errMes, stateArr, isAllDone, detailsDone, depositDone, address, isOnlyOrder, sendable } = this.state;
         let isEnAndTouch = ((window.i18n.language == "en") && IsTouchDevice);
         let isCnAndTouch = ((window.i18n.language == "zh") && IsTouchDevice);
         return (
             <I18n>
-                {(t, {i18n}) => (
+                {(t, { i18n }) => (
                     <div className="container m-container e-hugeBox" id="e-indexBox">
-                    	<Menus lng={lng} changeLng={this.props.changeLng.bind(this)}/>
+                        <Menus lng={lng} changeLng={this.props.changeLng.bind(this)} />
                         {
                             !IsTouchDevice ? (
                                 <div>
                                     <div className="bg_1">
-                                        <img src={img_20} alt=""/>
+                                        <img src={img_20} alt="" />
                                     </div>
                                     <div className="bg_2">
-                                        <img src={img_24} alt=""/>
+                                        <img src={img_24} alt="" />
                                     </div>
                                     <div className="bg_3">
-                                        <img src={img_23} alt=""/>
+                                        <img src={img_23} alt="" />
                                     </div>
                                     <div className="bg_4">
-                                        <img src={img_18} alt=""/>
+                                        <img src={img_18} alt="" />
                                     </div>
                                     <div className="bg_5">
-                                        <img src={img_19} alt=""/>
+                                        <img src={img_19} alt="" />
                                     </div>
                                     <div className="bg_6">
-                                        <img src={img_17} alt=""/>
+                                        <img src={img_17} alt="" />
                                     </div>
                                 </div>
                             ) : (
-                                <div className="m_bg">
-                                    <img src={m_beijing} alt=""/>
-                                </div>
-                            )
+                                    <div className="m_bg">
+                                        <img src={m_beijing} alt="" />
+                                    </div>
+                                )
                         }
-                        
-                       <div className="contentAndBg">
+
+                        <div className="contentAndBg">
                             {/* 背景联动 trinity text */}
                             {
                                 !IsTouchDevice && (
                                     <div className="bg_7">
-                                        <img src={img_22} alt=""/>
+                                        <img src={img_22} alt="" />
                                     </div>
-                                ) 
+                                )
                             }
                             <div className={isCnAndTouch ? "bg_8 cn" : "bg_8"}>
-                                {t('home.txt1',lng)}
+                                {t('home.txt1', lng)}
                             </div>
                             {/* content */}
                             <div className={
-                                "contentBox boxStyle"+step
+                                "contentBox boxStyle" + step
                             }>
                                 <div className={step == 3 ? "startBox " : "startBox Hide"}>
                                     <div className="detailBoxContainer">
                                         {/* <div className="close">
                                             <img src={close_ico} alt=""/>
                                         </div> */}
-                                        <h1>{t('home.txt2',lng)}</h1>
+                                        <h1>{t('home.txt2', lng)}</h1>
                                         {
                                             isNeo2Eth ? (
                                                 <div className="transferBox">
                                                     <div className="transferCell">
-                                                        <div className="name">{t('home.txt3',lng)}</div>
+                                                        <div className="name">{t('home.txt3', lng)}</div>
                                                         <div className="pic">
-                                                            <img src={img_11} alt=""/>
+                                                            <img src={img_11} alt="" />
                                                         </div>
                                                         <div className="icoName">NEO</div>
                                                     </div>
                                                     <div className="transferIco" onClick={this.icoExchange.bind(this)}>
-                                                        <img src={img_16} alt=""/>
+                                                        <img src={img_16} alt="" />
                                                     </div>
                                                     <div className="transferCell">
-                                                        <div className="name">{t('home.txt4',lng)}</div>
+                                                        <div className="name">{t('home.txt4', lng)}</div>
                                                         <div className="pic">
-                                                        {
-                                                            IsTouchDevice ? <img src={pc_12} alt=""/> : <img src={m_12} alt=""/>
-                                                        }
+                                                            {
+                                                                IsTouchDevice ? <img src={pc_12} alt="" /> : <img src={m_12} alt="" />
+                                                            }
                                                         </div>
                                                         <div className="icoName">ETH</div>
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div className="transferBox">
-                                                    <div className="transferCell">
-                                                        <div className="name">{t('home.txt3',lng)}</div>
-                                                        <div className="pic">
-                                                        {
-                                                            IsTouchDevice ? <img src={pc_12} alt=""/> : <img src={m_12} alt=""/>
-                                                        }
+                                                    <div className="transferBox">
+                                                        <div className="transferCell">
+                                                            <div className="name">{t('home.txt3', lng)}</div>
+                                                            <div className="pic">
+                                                                {
+                                                                    IsTouchDevice ? <img src={pc_12} alt="" /> : <img src={m_12} alt="" />
+                                                                }
+                                                            </div>
+                                                            <div className="icoName">ETH</div>
                                                         </div>
-                                                        <div className="icoName">ETH</div>
-                                                    </div>
-                                                    <div className="transferIco" onClick={this.icoExchange.bind(this)}>
-                                                        <img src={img_16} alt=""/>
-                                                    </div>
-                                                    <div className="transferCell">
-                                                        <div className="name">{t('home.txt4',lng)}</div>
-                                                        <div className="pic">
-                                                            <img src={img_11} alt=""/>
+                                                        <div className="transferIco" onClick={this.icoExchange.bind(this)}>
+                                                            <img src={img_16} alt="" />
                                                         </div>
-                                                        <div className="icoName">NEO</div>
+                                                        <div className="transferCell">
+                                                            <div className="name">{t('home.txt4', lng)}</div>
+                                                            <div className="pic">
+                                                                <img src={img_11} alt="" />
+                                                            </div>
+                                                            <div className="icoName">NEO</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )
+                                                )
                                         }
-                                        
+
                                     </div>
                                     {
                                         errMes && <div className="errMess"></div>
                                     }
-                                    <button className="step"  onClick={this.toStart.bind(this)}>{t('home.txt5',lng)}</button>
+                                    <button className="step" onClick={this.toStart.bind(this)}>{t('home.txt5', lng)}</button>
                                 </div>
                                 {/* 生成订单 */}
                                 <div className={step == 0 ? "detailBox " : "detailBox Hide"}>
@@ -559,15 +548,15 @@ export default class Root extends PureComponent {
                                         {/* <div className="close">
                                             <img src={close_ico} alt=""/>
                                         </div> */}
-                                        <h1>{t('home.txt6',lng)}</h1>
+                                        <h1>{t('home.txt6', lng)}</h1>
                                         <div className="selectBox">
-                                            <div className="text">{t('home.txt2',lng)}：</div>
+                                            <div className="text">{t('home.txt2', lng)}：</div>
                                             {
                                                 isNeo2Eth ? (
                                                     <div className="selectContent" onClick={this.icoExchange.bind(this)}>
                                                         <div className="ico1">TNC(NEO)</div>
                                                         <div className="toImg">
-                                                            <img src={img_8} alt=""/>
+                                                            <img src={img_8} alt="" />
                                                         </div>
                                                         <div className="ico2">TNC(ETH)</div>
                                                         {/*<div className="downicon">
@@ -582,40 +571,40 @@ export default class Root extends PureComponent {
                                                         </div> */}
                                                     </div>
                                                 ) : (
-                                                    <div className="selectContent" onClick={this.icoExchange.bind(this)}>
-                                                        <div className="ico1">TNC(ETH)</div>
-                                                        <div className="toImg">
-                                                            <img src={img_8} alt=""/>
+                                                        <div className="selectContent" onClick={this.icoExchange.bind(this)}>
+                                                            <div className="ico1">TNC(ETH)</div>
+                                                            <div className="toImg">
+                                                                <img src={img_8} alt="" />
+                                                            </div>
+                                                            <div className="ico2">TNC(NEO)</div>
                                                         </div>
-                                                        <div className="ico2">TNC(NEO)</div>
-                                                    </div>
-                                                )
+                                                    )
                                             }
                                         </div >
                                         <div className={isSendAddFoucsedLine ? "inputCellBox foc" : "inputCellBox"}>
-                                            <div className={isSendAddFoucsed ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "NEO" : "ETH"}{t('home.txt7',lng)}</div>
-                                            <input  type="text" onBlur={this.sendAddBlur.bind(this)} onFocus={this.sendAddFoucs.bind(this)} onChange={this.getNeoAddress.bind(this)}/>
+                                            <div className={isSendAddFoucsed ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "NEO" : "ETH"}{t('home.txt7', lng)}</div>
+                                            <input type="text" onBlur={this.sendAddBlur.bind(this)} onFocus={this.sendAddFoucs.bind(this)} onChange={this.getNeoAddress.bind(this)} />
                                             <span className="line"></span>
                                         </div>
                                         <div className={isAmountFoucsLine ? "inputCellBox foc amount" : "inputCellBox amount"}>
-                                            <div className={isAmountFoucs ? "mess1 hei" : "mess1"}>{t('home.txt8',lng)}</div>
-                                            <input type="text" onBlur={this.amountBlur.bind(this)} onFocus={this.amountFoucs.bind(this)} onChange={this.getNeoAmount.bind(this)}/>
+                                            <div className={isAmountFoucs ? "mess1 hei" : "mess1"}>{t('home.txt8', lng)}</div>
+                                            <input type="text" onBlur={this.amountBlur.bind(this)} onFocus={this.amountFoucs.bind(this)} onChange={this.getNeoAmount.bind(this)} />
                                             <span className="line"></span>
                                             <div className={isAmountFoucs ? "unit focus" : "unit"}>
                                                 TNC
                                             </div>
                                         </div>
-                                        <div  className={isReceiveAddFoucsLine ? "inputCellBox foc" : "inputCellBox"}>
-                                            <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "ETH" : "NEO"}{t('home.txt9',lng)}</div>
-                                            <input  type="text" onBlur={this.receiveAddBlur.bind(this)} onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
+                                        <div className={isReceiveAddFoucsLine ? "inputCellBox foc" : "inputCellBox"}>
+                                            <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "ETH" : "NEO"}{t('home.txt9', lng)}</div>
+                                            <input type="text" onBlur={this.receiveAddBlur.bind(this)} onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                             <span className="line"></span>
                                         </div>
                                         {
                                             errMes && <div className="errMess">{errMes}</div>
                                         }
                                     </div>
-                                    
-                                    <button className={detailsDone ? "step" : "step" } onClick={this.toNextStep.bind(this)}>{t('home.txt10',lng)}</button>
+
+                                    <button className={detailsDone ? "step" : "step"} onClick={this.toNextStep.bind(this)}>{t('home.txt10', lng)}</button>
                                 </div>
                                 {/* 扫描二维码 */}
                                 <div className={step == 1 ? "depositBox " : "depositBox Hide"}>
@@ -627,17 +616,17 @@ export default class Root extends PureComponent {
                                             <img src={close_ico} alt=""/>
                                         </div> */}
                                         <div className="backbtn" onClick={this.back2first.bind(this)}>
-                                            <img src={img_10} alt=""/>
+                                            <img src={img_10} alt="" />
                                         </div>
-                                        <h1>{t('home.txt11',lng)}</h1>
-                                        <h2>{t('home.txt12',lng)}</h2>
+                                        <h1>{t('home.txt11', lng)}</h1>
+                                        <h2>{t('home.txt12', lng)}</h2>
                                         <h2 className="address">{address}</h2>
                                         <div className="qrcodeBox" >
-                                            { 
+                                            {
                                                 sendable && (
-                                                    <div className="qrcodeCover" id="qrcode">
+                                                    <div className="qrcodeCover">
                                                         <div className="suc">
-                                                            <img src={yes_ico} alt=""/>
+                                                            <img src={yes_ico} alt="" />
                                                         </div>
                                                     </div>
                                                 )
@@ -645,27 +634,27 @@ export default class Root extends PureComponent {
                                             <div className="qrcode" id="qrcode"></div>
                                         </div>
                                         <div className="totleMoney">
-                                            <p className="money">{t('home.txt13',lng)}</p>
+                                            <p className="money">{t('home.txt13', lng)}</p>
                                         </div>
                                         <div className="totleMoney">
                                             <p className="unit">{tncBackNum}</p>
                                             <p className="unit">TNC</p>
                                         </div>
                                     </div>
-                                    <button className="step"  onClick={this.toSend.bind(this)}>{t('home.txt14',lng)}</button>
+                                    <button className="step" onClick={this.toSend.bind(this)}>{t('home.txt14', lng)}</button>
                                 </div>
                                 {/* 付款状态 */}
-                                <div className={ step == 2 ? "doneBox " : "doneBox Hide"}>
+                                <div className={step == 2 ? "doneBox " : "doneBox Hide"}>
                                     <div className="backbtn" onClick={this.back2Second.bind(this)}>
-                                        <img src={img_10} alt=""/>
+                                        <img src={img_10} alt="" />
                                     </div>
                                     <div className="logoRoute">
                                         <div className={isAllDone ? "bgColor " : "bgColor noMove"}>
-                                            <img src={img_7} alt=""/>
+                                            <img src={img_7} alt="" />
                                         </div>
                                         <div className="logo">
                                             <div className={isAllDone ? "centerImg " : "centerImg filter"}>
-                                                <img src={trinitylogo} alt=""/>
+                                                <img src={trinitylogo} alt="" />
                                             </div>
                                         </div>
                                     </div>
@@ -676,22 +665,22 @@ export default class Root extends PureComponent {
                                                 !isOnlyOrder && (
                                                     <div className="fromTo">
                                                         <div className="box">
-                                                            <div className="title1">{t('home.txt15',lng)}:</div>
+                                                            <div className="title1">{t('home.txt15', lng)}:</div>
                                                             <div className="keyword">
                                                                 {neoAddress}
                                                             </div>
-                                                            <div className="title2">{t('home.txt17',lng)}</div>
+                                                            <div className="title2">{t('home.txt17', lng)}</div>
                                                             <div className="money">
                                                                 <div className="num">{tncBackNum}</div>
                                                                 <div className="nuit">TNC</div>
                                                             </div>
                                                         </div>
                                                         <div className="box">
-                                                            <div className="title1">{t('home.txt16',lng)}:</div>
+                                                            <div className="title1">{t('home.txt16', lng)}:</div>
                                                             <div className="keyword">
                                                                 {ethAddress}
                                                             </div>
-                                                            <div className="title2">{t('home.txt18',lng)}</div>
+                                                            <div className="title2">{t('home.txt18', lng)}</div>
                                                             <div className="money">
                                                                 <div className="num">{tncBackNum}</div>
                                                                 <div className="nuit">TNC</div>
@@ -699,10 +688,10 @@ export default class Root extends PureComponent {
                                                         </div>
                                                     </div>
                                                 )
-                                            } 
+                                            }
                                             {
                                                 stateArr.map((item, index) => {
-                                                    return(
+                                                    return (
                                                         <div className="orderCreat" key={index}>
                                                             <div className="titel">
                                                                 {/* <div className="text">Order creation</div> */}
@@ -724,12 +713,12 @@ export default class Root extends PureComponent {
                                         </div>
                                     </div>
                                     {
-                                        !isOnlyOrder && <button className={isAllDone ? "step" : "step"} onClick={this.allDone.bind(this)}>{t('home.txt19',lng)}</button>
+                                        !isOnlyOrder && <button className={isAllDone ? "step" : "step"}  onClick={this.allDone.bind(this)}>{t('home.txt19', lng)}</button>
                                     }
                                 </div>
                             </div>
-                       </div>
-                       <Footer lng={lng} />
+                        </div>
+                        <Footer lng={lng} />
                     </div>
                 )}
             </I18n>
