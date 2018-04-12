@@ -66,6 +66,7 @@ const initialObj = {
     limitAmount: '',
     eth2neotax: '',
     neo2ethtax: '',
+    isClick: false
 };
 export default class Root extends PureComponent {
     constructor(props) {
