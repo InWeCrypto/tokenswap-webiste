@@ -5,7 +5,7 @@ const PRE_FIX = "INDEX_";
 export const CREATEORDER = `${PRE_FIX}CREATEORDER`;
 export const GETORDER = `${PRE_FIX}GETORDER`;
 export const GETSTATE = `${PRE_FIX}GETSTATE`;
-
+export const GETINFO = `${PRE_FIX}GETINFO`
 export const postOrder = createAction(CREATEORDER, params => {
 	return http
 		.post({
@@ -33,3 +33,12 @@ export const getOrderState = createAction(GETSTATE, orderId => {
 			return res;
 		});
 });
+export const getTradeInfo = createAction(GETINFO, () => {
+	return http
+		.get({
+			url: "tradeinfo"
+		})
+		.then(res => {
+			return res;
+		});
+})

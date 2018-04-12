@@ -60,7 +60,9 @@ const initialObj = {
     isOnlyOrder: false,
     neoAmount: '',
     ethAddress: '',
-    neoAddress: ''
+    neoAddress: '',
+    isAllDone: false,
+    tx: ''
 };
 export default class Root extends PureComponent {
     constructor(props) {
@@ -348,10 +350,13 @@ export default class Root extends PureComponent {
     }
     back2first() {
         //window.location.hash = ""
-        window.sessionStorage.setItem("inwe_order_hash", "");
-        this.setState({
-            step: 0
-        })
+        const { isAllDone } = this.state;
+        if(!isAllDone) {
+            window.sessionStorage.setItem("inwe_order_hash", "");
+            this.setState({
+                step: 0
+            })
+        }
     }
     back2Second() {
         // window.location.hash = "step"
@@ -373,24 +378,24 @@ export default class Root extends PureComponent {
         this.getOrderDetail();
     }
     allDone() {
-        const { tx } = this.state;
-        // window.sessionStorage.setItem("inwe_order_hash", "");
-        // this.setState({
-        //     ...Object.assign({ isOnlyOrder: true }, { ...initialObj })
+        const { stateArr } = this.state;
+        if(stateArr.length === 2) {
+            window.sessionStorage.setItem("inwe_order_hash", "");
+            this.setState({
+                ...Object.assign({ isOnlyOrder: true }, { ...initialObj })
+            });
+            window.location.reload();
+        }
+        // this.props.getOrder(tx).then(res => {
+        //     if(res.Data.InTx && res.Data.OutTx){
+        //         window.sessionStorage.setItem("inwe_order_hash", "");
+        //         this.setState({
+        //            ...Object.assign({ isOnlyOrder: true }, { ...initialObj })
+        //         });
+        //         //开启状态监控
+        //         // this.getOrderState();
+        //     }
         // });
-        this.props.getOrder(tx).then(res => {
-            if(res.Data.InTx && res.Data.OutTx){
-                window.sessionStorage.setItem("inwe_order_hash", "");
-                this.setState({
-                   ...Object.assign({ isOnlyOrder: true }, { ...initialObj })
-                });
-                //开启状态监控
-                // this.getOrderState();
-            }
-        });
-    }
-    componentDidUpdate() {
-        console.log(this.state);
     }
     sendAddFoucs() {
         this.setState({
