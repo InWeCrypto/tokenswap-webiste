@@ -19,7 +19,10 @@ export default {
         txt16: "To",
         txt17: "Sent Amount:",
         txt18: "Recive Amount:",
-        txt19: "Done",
+		txt19: "Done",
+		txt20: 'Minimum transfer limit:',
+		txt21: 'Fees:',
+		txt22: 'Please fill out all the content'
 	},
     index: {
         downloadMess: "Download to view more info",

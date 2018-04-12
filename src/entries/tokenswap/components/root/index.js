@@ -62,7 +62,10 @@ const initialObj = {
     ethAddress: '',
     neoAddress: '',
     isAllDone: false,
-    tx: ''
+    tx: '',
+    limitAmount: '',
+    eth2neotax: '',
+    neo2ethtax: ''
 };
 export default class Root extends PureComponent {
     constructor(props) {
@@ -207,8 +210,14 @@ export default class Root extends PureComponent {
         }
     }
     toStart() {
-        this.setState({
-            step: 0
+        this.props.getTradeInfo().then( (res) => {
+            const { limitAmount, eth2neotax, neo2ethtax} = res.Data;
+            this.setState({
+                step: 0,
+                limitAmount,
+                eth2neotax,
+                neo2ethtax
+            })
         })
     };
     toNextStep() {
@@ -434,7 +443,32 @@ export default class Root extends PureComponent {
     render() {
         console.log(this.state, '11111');
         const { lng, changeLng, registerUser, userInfo } = this.props;
-        const { isSendAddFoucsedLine, isAmountFoucsLine, isReceiveAddFoucsLine, isReceiveAddFoucs, isAmountFoucs, isSendAddFoucsed, isNeo2Eth, step, tncBackNum, fromKeyWord, toKeyWord, neoAddress, ethAddress, errMes, stateArr, isAllDone, detailsDone, depositDone, address, isOnlyOrder, sendable } = this.state;
+        const { 
+            isSendAddFoucsedLine, 
+            isAmountFoucsLine, 
+            isReceiveAddFoucsLine, 
+            isReceiveAddFoucs, 
+            isAmountFoucs, 
+            isSendAddFoucsed, 
+            isNeo2Eth, 
+            step, 
+            tncBackNum, 
+            fromKeyWord, 
+            toKeyWord, 
+            neoAddress, 
+            ethAddress, 
+            errMes, 
+            stateArr, 
+            isAllDone, 
+            detailsDone, 
+            depositDone, 
+            address, 
+            isOnlyOrder, 
+            sendable,
+            limitAmount,
+            eth2neotax,
+            neo2ethtax
+        } = this.state;
         let isEnAndTouch = ((window.i18n.language == "en") && IsTouchDevice);
         let isCnAndTouch = ((window.i18n.language == "zh") && IsTouchDevice);
         return (
@@ -600,15 +634,16 @@ export default class Root extends PureComponent {
                                             </div>
                                         </div>
                                         <div className={isReceiveAddFoucsLine ? "inputCellBox foc" : "inputCellBox"}>
+                                            <div className="limit-tip">{ t('home.txt20', lng) + limitAmount }</div>
                                             <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "ETH" : "NEO"}{t('home.txt9', lng)}</div>
                                             <input type="text" onBlur={this.receiveAddBlur.bind(this)} onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                             <span className="line"></span>
                                         </div>
+                                        <div className={isReceiveAddFoucsLine ? 'rate blue' : 'rate'}>{`${t('home.txt21', lng)}${isNeo2Eth ? neo2ethtax : eth2neotax}`}</div>
                                         {
-                                            errMes && <div className="errMess">{errMes}</div>
+                                            errMes && <div className="errMess">{ `${errMes}` === 'true' ? t('home.txt22', lng) :  errMes }</div>
                                         }
                                     </div>
-
                                     <button className={detailsDone ? "step" : "step"} onClick={this.toNextStep.bind(this)}>{t('home.txt10', lng)}</button>
                                 </div>
                                 {/* 扫描二维码 */}

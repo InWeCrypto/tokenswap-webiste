@@ -19,7 +19,10 @@ export default {
         txt16: "收款方",
         txt17: "发送金额：",
         txt18: "接收金额：",
-        txt19: "完成",
+		txt19: "完成",
+		txt20: '最低限额',
+		txt21: '手续费：',
+		txt22: '清将信息填写完整'
 	},
     index: {
         downloadMess: "下载查看更多资讯",
