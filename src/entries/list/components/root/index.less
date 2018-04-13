@@ -1,0 +1,139 @@
+body,html{
+    padding: 0 !important;
+    height: 100%;
+    //min-width: 1280px;
+    //min-height: 13.34rem;
+    overflow-x: auto;
+}
+.page-about{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    .content{
+        padding-top: 2.86rem;
+        position: relative;
+        height: 100%;
+        box-sizing: border-box;
+        
+        .menu-bg{
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            left: 50%;
+            width: 8rem;
+            height: 2.66rem;
+            margin-left: -4rem;
+            background: transparent url(../../../../assets/images/2.png) no-repeat center / 100% 100%;
+        }
+        
+        .bg-lf{
+            position: absolute;
+            z-index: 0;
+            height: 4.81rem;
+            width: 4.51rem;
+            left: 0.48rem;
+            top: 1.81rem;
+            img{
+                height: 100%;
+                width: auto;
+                float: left;
+            }
+        }
+        .bg-rt{
+            position: absolute;
+            z-index: 0;
+            height: 4.5rem;
+            width: 3.97rem;
+            right: 0.30rem;
+            bottom: 0.56rem;
+            img{
+                height: 100%;
+                width: auto;
+                float: right;
+            }
+        }
+        .order-list{
+            margin: 0 auto;
+            width: 12rem;
+            .title{
+                margin-bottom: .2rem; 
+                width: 2.68rem;
+                height: .21rem; 
+                font-size: .28rem;
+                font-family: "Gilroy-Light";
+                color:rgba(0,106,182,1);
+            }
+            .list{
+                width: 100%;
+                border-left: 1px solid #E5E5E5;
+                border-right: 1px solid #E5E5E5;
+                .row-head{
+                    width: 100%;
+                    background:rgba(166,218,255,1);
+                    line-height: .4rem;
+                    text-align: center;
+                    .col{
+                        padding: .14rem 1.2rem;
+                        height: .12rem;
+                        color: #000;
+                        font-family: 'Gilroy-Light'
+                    }
+                }
+                .row{
+                    width: 100%;
+                    border-bottom: 1px solid #E5E5E5;
+                    .col{
+                        padding: .3rem 0;
+                        height: .16rem;
+                        font-family: "PingFangSC-Regular";
+                        text-align: center;
+                        .line{
+                            color:rgba(31,127,195,1);
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                        &.second{
+                            width: 10.7rem;
+                        }
+                        &.third{
+                            width: 1.7rem;
+                        }
+                        &.last{
+                            width: .99rem;
+                        }
+                    }
+                }
+                    
+            }
+            .pagination{
+                margin-top: .68rem;
+                margin-bottom: 1.01rem;
+                text-align: center;
+            }
+        }
+    }
+}
+.mobile{
+    #e-aboutBox{
+        .content{
+            padding-top: 2.54rem;
+            img{
+                display: block;
+                width: 100%;
+                object-fit: cover;
+            }
+            .menu-bg_1{
+                position: fixed;
+                z-index: 0;
+                top: 0;
+                left: 0;
+                width: 7.5rem;
+            }
+            .order-list{
+                .title{
+
+                }
+            }
+        }
+    }
+}

@@ -232,6 +232,7 @@ export default {
 		txt2: "关于我们",
 		txt3: "English",
 		txt4: "简体中文",
+		txt5: '交易记录'
 	},
 	about: {
 		txt1: "Trinity通过状态通道技术",
@@ -252,6 +253,14 @@ export default {
 		txt8: "",
 		txt9: "",
 		txt10: "",
+	},
+	orderList: {
+		status: '状态',
+		Txid: 'Txid',
+		Amount: '交易数量',
+		Date: '时间',
+		process: '进行中',
+		complete: '完成'
 	},
 	sure: "确定",
 	cannel: "取消",

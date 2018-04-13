@@ -34,6 +34,7 @@ import i18n from "./i18n";
 import { changeLng, setReduxUserInfo } from "./globalactions";
 import { getLocalItem, remFun, addClass,dateFormat } from "./utils/util";
 import { setTimeout } from "timers";
+import './assets/less/antd.css';
 remFun();
 dateFormat();
 if (IsTouchDevice) {

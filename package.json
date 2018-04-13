@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"scripts": {
-		"dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --progress --profile",
+		"start": "cross-env NODE_ENV=development webpack-dev-server  --inline --progress --profile",
 		"testing": "cross-env NODE_ENV=testing webpack --progress --display-error-details --profile",
 		"build": "cross-env NODE_ENV=production webpack --progress --display-error-details --profile"
 	},
@@ -44,7 +44,7 @@
 		"whatwg-fetch": "^2.0.3"
 	},
 	"dependencies": {
-		"antd": "^3.1.1",
+		"antd": "^3.4.1",
 		"babel-plugin-react-html-attrs": "^2.1.0",
 		"dsmorse-gridster": "^0.7.0",
 		"echarts": "^3.8.5",

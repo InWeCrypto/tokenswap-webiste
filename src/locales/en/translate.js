@@ -231,6 +231,7 @@ export default {
 		txt2: "About",
 		txt3: "English",
 		txt4: "简体中文",
+		txt5: "Transaction record"
 	},
 	about: {
 		txt1: "Trinity is an offchain",
@@ -243,6 +244,14 @@ export default {
 		txt8: "Together with the NEO on-chain scaling solution, ",
 		txt9: "Trinity will provide all-round support for DApp in the NEO ecosystem. In the future, ",
 		txt10: "Trinity also plans to support other blockchain projects in order to become a fully autonomous decentralized performance-enhancing network for the entire community.",
+	},
+	orderList: {
+		status: 'Status',
+		Txid: 'Txid',
+		Amount: 'Amount',
+		Date: 'Date',
+		process: 'processing',
+		complete: 'complete'
 	},
 	sure: "Confirm",
 	cannel: "Cancel",
