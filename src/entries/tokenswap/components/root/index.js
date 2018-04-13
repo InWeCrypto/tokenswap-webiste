@@ -73,8 +73,11 @@ export default class Root extends PureComponent {
         super(props);
         this.state = { ...initialObj };
     }
-    componentWillReceiveProps(nextProps) {
-
+    componentWillReceiveProps(nextProps, nextState) {
+        console.log(nextState, '111111');
+        this.setState({
+            ...nextState
+        })
     }
     componentWillMount() {
         const that = this;
@@ -94,13 +97,17 @@ export default class Root extends PureComponent {
             let address = window.sessionStorage.getItem("inwe_order_Address");
             let neoAddress = window.sessionStorage.getItem("inwe_order_neoAddress");
             let ethAddress = window.sessionStorage.getItem("inwe_order_ethAddress");
-
+            let isClick = window.sessionStorage.getItem("isClick");
+            let limitAmount = window.sessionStorage.getItem('limitAmount', limitAmount);
+            let eth2neotax = window.sessionStorage.getItem('eth2neotax', eth2neotax);
+            let neo2ethtax = window.sessionStorage.getItem('neo2ethtax', neo2ethtax);
             this.setState({
                 tx,
                 tncBackNum,
                 address,
                 neoAddress,
-                ethAddress
+                ethAddress,
+                isClick
             });
             if (hash === "step") {
                 this.setState({
@@ -123,9 +130,12 @@ export default class Root extends PureComponent {
                     //开启状态监控
                     this.getOrderState();
                 })
-            } else {
+            } else if (hash === "step0") {
                 this.setState({
-                    step: 0
+                    step: 0,
+                    limitAmount,
+                    eth2neotax,
+                    neo2ethtax
                 })
             }
         }
@@ -191,12 +201,21 @@ export default class Root extends PureComponent {
     }
     getNeoAmount(e) {
         const that = this;
-        let val = e.target.value;
-        this.setState({
-            neoAmount: val
-        }, function () {
-            that.checkDetailsBtnDone()
-        })
+        const reg = /(^[1-9]([0-9]+)?(\.[0-9]+)?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+        let val = '';
+        if (!reg.test(e.target.value)) {
+            this.setState({
+                errMes: 1,
+            })
+        } else {
+            val = e.target.value;
+            this.setState({
+                neoAmount: val,
+                errMes: '',
+            }, function () {
+                that.checkDetailsBtnDone()
+            })
+        }
     }
     checkDetailsBtnDone() {
         let { neoAmount, ethAddress, neoAddress } = this.state;
@@ -211,8 +230,13 @@ export default class Root extends PureComponent {
         }
     }
     toStart() {
-        this.props.getTradeInfo().then( (res) => {
-            const { limitAmount, eth2neotax, neo2ethtax} = res.Data;
+        this.props.getTradeInfo().then((res) => {
+            const { limitAmount, eth2neotax, neo2ethtax } = res.Data;
+
+            window.sessionStorage.setItem('inwe_order_hash', 'step0');
+            window.sessionStorage.setItem('limitAmount', limitAmount);
+            window.sessionStorage.setItem('eth2neotax', eth2neotax);
+            window.sessionStorage.setItem('neo2ethtax', neo2ethtax);
             this.setState({
                 step: 0,
                 limitAmount,
@@ -236,43 +260,47 @@ export default class Root extends PureComponent {
             //创建订单
             this.props.postOrder(param).then(res => {
                 let errMsg = null;
-                if (res.Error) errMsg = res.Error;
+                let content = null;
+                // if (res.Error) errMsg = res.Error;
                 this.setState({
-                    errMes: errMsg
+                    errMes: res.Error ? res.Error : errMsg
                 })
-                res = res.Data;
+                if (res.Error) {
+                    return false;
+                }
+                content = { ...res.Data };
                 //window.location.hash = "step";
                 window.sessionStorage.setItem("inwe_order_hash", "step");
                 let valShort;
-                let valArr = res.Value.split(".");
+                let valArr = content.Value.split(".");
                 if (valArr[1].substring(4) == "0000") {
                     // valShort = valArr[0] + "." + valArr[1].substring(0,4) 
-                    valShort = res.Value;
+                    valShort = content.Value;
                 } else {
-                    valShort = res.Value;
+                    valShort = content.Value;
                 }
                 //信息保存至本地
                 window.sessionStorage.setItem("inwe_order_Value", valShort);
-                window.sessionStorage.setItem("inwe_order_TX", res.TX);
-                window.sessionStorage.setItem("inwe_order_Address", res.Address);
+                window.sessionStorage.setItem("inwe_order_TX", content.TX);
+                window.sessionStorage.setItem("inwe_order_Address", content.Address);
                 window.sessionStorage.setItem("inwe_order_neoAddress", neoAddress);
                 window.sessionStorage.setItem("inwe_order_ethAddress", ethAddress);
+                window.sessionStorage.setItem("isClick", true);
                 this.setState({
                     step: 1,
                     tncBackNum: valShort,
-                    tx: res.TX,
-                    address: res.Address,
+                    tx: content.TX,
+                    address: content.Address,
                     isClick: true
                 }, function () {
                     //设置初始化二维码
                     let dom = document.getElementById('qrcode');
                     if (dom) {
                         dom.innerHTML = '';
-                        new QRCode(dom, res.Address);
+                        new QRCode(dom, content.Address);
                     }
                     that.getOrderDetail();
                 });
-
             })
         } else {
             this.setState({
@@ -283,7 +311,7 @@ export default class Root extends PureComponent {
     toSend() {
         this.setState({
             step: 2,
-            isClick : true 
+            isClick: true
         });
         window.sessionStorage.setItem("inwe_order_hash", "step2");
         this.getOrderState();
@@ -391,23 +419,14 @@ export default class Root extends PureComponent {
     }
     allDone() {
         const { stateArr } = this.state;
-        if(stateArr.length === 2) {
+        if (stateArr.length === 2) {
             window.sessionStorage.setItem("inwe_order_hash", "");
             this.setState({
                 ...Object.assign({ isOnlyOrder: true }, { ...initialObj })
             });
+            window.sessionStorage.clear();
             window.location.reload();
         }
-        // this.props.getOrder(tx).then(res => {
-        //     if(res.Data.InTx && res.Data.OutTx){
-        //         window.sessionStorage.setItem("inwe_order_hash", "");
-        //         this.setState({
-        //            ...Object.assign({ isOnlyOrder: true }, { ...initialObj })
-        //         });
-        //         //开启状态监控
-        //         // this.getOrderState();
-        //     }
-        // });
     }
     sendAddFoucs() {
         this.setState({
@@ -446,27 +465,27 @@ export default class Root extends PureComponent {
     render() {
         console.log(this.state, '-------')
         const { lng, changeLng, registerUser, userInfo } = this.props;
-        const { 
-            isSendAddFoucsedLine, 
-            isAmountFoucsLine, 
-            isReceiveAddFoucsLine, 
-            isReceiveAddFoucs, 
-            isAmountFoucs, 
-            isSendAddFoucsed, 
-            isNeo2Eth, 
-            step, 
-            tncBackNum, 
-            fromKeyWord, 
-            toKeyWord, 
-            neoAddress, 
-            ethAddress, 
-            errMes, 
-            stateArr, 
-            isAllDone, 
-            detailsDone, 
-            depositDone, 
-            address, 
-            isOnlyOrder, 
+        const {
+            isSendAddFoucsedLine,
+            isAmountFoucsLine,
+            isReceiveAddFoucsLine,
+            isReceiveAddFoucs,
+            isAmountFoucs,
+            isSendAddFoucsed,
+            isNeo2Eth,
+            step,
+            tncBackNum,
+            fromKeyWord,
+            toKeyWord,
+            neoAddress,
+            ethAddress,
+            errMes,
+            stateArr,
+            isAllDone,
+            detailsDone,
+            depositDone,
+            address,
+            isOnlyOrder,
             sendable,
             limitAmount,
             eth2neotax,
@@ -631,28 +650,27 @@ export default class Root extends PureComponent {
                                         </div>
                                         <div className={isAmountFoucsLine ? "inputCellBox foc amount" : "inputCellBox amount"}>
                                             <div className={isAmountFoucs ? "mess1 hei" : "mess1"}>{t('home.txt8', lng)}</div>
-                                            <input type="text" onBlur={this.amountBlur.bind(this)} onFocus={this.amountFoucs.bind(this)} onChange={this.getNeoAmount.bind(this)} />
+                                            <input type="text" onBlur={this.amountBlur.bind(this)} onFocus={this.amountFoucs.bind(this)} onInput={this.getNeoAmount.bind(this)} />
                                             <span className="line"></span>
                                             <div className={isAmountFoucs ? "unit focus" : "unit"}>
                                                 TNC
                                             </div>
                                         </div>
-                                        <div className = "inputCellBox limit">
-                                            <div className="limit-tip">{ t('home.txt20', lng) + limitAmount }</div>
+                                        <div className="inputCellBox limit">
+                                            <div className="limit-tip">{t('home.txt20', lng) + limitAmount}</div>
                                         </div>
-                                        <div className={isReceiveAddFoucsLine ? "inputCellBox foc" : "inputCellBox"}>
-                                            
+                                        <div className={isReceiveAddFoucsLine ? "inputCellBox foc lastAddress" : "inputCellBox lastAddress"}>
+
                                             <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "ETH" : "NEO"}{t('home.txt9', lng)}</div>
                                             <input type="text" onBlur={this.receiveAddBlur.bind(this)} onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                             <span className="line"></span>
                                         </div>
-                                        {/* {`${t('home.txt21', lng)}${}TNC${t('home.txt23', lng)}${isNeo2Eth ? neo2ethtax : eth2neotax}`} */}
-                                        <div className={isReceiveAddFoucsLine ? 'rate blue' : 'rate'}>
-                                            <span className={isReceiveAddFoucsLine ? 'black' : ''}>{t('home.txt21', lng)}</span>
+                                        <div className={isAmountFoucsLine ? 'rate blue' : 'rate'}>
+                                            <span className={isAmountFoucsLine ? 'black ml-10' : 'ml-10'}>{`${t('home.txt21', lng)}`}</span>
                                             {`${isNeo2Eth ? (Number(neo2ethtax) * 100) : (Number(eth2neotax) * 100)}%`}
                                         </div>
                                         {
-                                            errMes && <div className="errMess">{ `${errMes}` === 'true' ? t('home.txt22', lng) :  errMes }</div>
+                                            errMes && <div className="errMess">{`${errMes}` === 'true' ? t('home.txt22', lng) : ( errMes === 1 ? t('error.inputNumber', lng) : errMes )}</div>
                                         }
                                     </div>
                                     <button className={detailsDone ? "step" : "step"} onClick={this.toNextStep.bind(this)}>{t('home.txt10', lng)}</button>
@@ -766,7 +784,7 @@ export default class Root extends PureComponent {
                                         </div>
                                     </div>
                                     {
-                                        !isOnlyOrder && <button className={isAllDone ? "step" : "step"}  onClick={this.allDone.bind(this)}>{t('home.txt19', lng)}</button>
+                                        !isOnlyOrder && <button className={isAllDone ? "step" : "step"} onClick={this.allDone.bind(this)}>{t('home.txt19', lng)}</button>
                                     }
                                 </div>
                             </div>

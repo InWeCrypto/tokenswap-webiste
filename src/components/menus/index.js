@@ -143,14 +143,10 @@ export default class Menus extends PureComponent {
                                     <img src={logo} alt="logo" />
                                 </Link>
                             </li>
-                            <li className="rl end">
+                            <li className="rl end" onClick={this.change.bind(this,"en")}>
                                 {t('menus.txt3',lng)}
-                                <div className="sub-menu">
-                                    <p onClick={this.change.bind(this,"en")}>English</p>
-                                    <p onClick={this.change.bind(this,"zh")}>中文</p>
-                                </div>
                             </li>
-                            <li className="rl">{t('menus.txt4',lng)}</li>
+                            <li className="rl" onClick={this.change.bind(this,"zh")}>{t('menus.txt4',lng)}</li>
                         </ul>
                     )}
                    

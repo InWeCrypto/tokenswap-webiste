@@ -211,7 +211,8 @@ export default {
 		passLength: "The entered passwords are inconsistent ",
 		passError: "The entered passwords are inconsistent ",
 		codeEmpty: "Verification code cannot be empty",
-		followError: "you know the math"
+		followError: "you know the math",
+		inputNumber: 'please enter a valid number'
 	},
 	success: {
 		login: "Log in successfully",
@@ -228,8 +229,8 @@ export default {
 	menus: {
 		txt1: "Home",
 		txt2: "About",
-		txt3: "Language",
-		txt4: "Contact",
+		txt3: "English",
+		txt4: "简体中文",
 	},
 	about: {
 		txt1: "Trinity is an offchain",

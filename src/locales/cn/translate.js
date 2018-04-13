@@ -191,7 +191,8 @@ export default {
 		t4: "发送验证码",
 		btn: "确定",
 		error1: "验证码错误",
-		error2: "验证码长度不足"
+		error2: "验证码长度不足",
+		inputNumber: '请输入符合格式的数字'
 	},
 	resetPassword: {
 		title: "修改密码",
@@ -211,7 +212,8 @@ export default {
 		passLength: "密码长度不一致",
 		passError: "两次输入密码不同",
 		codeEmpty: "验证码不能为空",
-		followError: "上限值不能小于等于下限值"
+		followError: "上限值不能小于等于下限值",
+		inputNumber: '请输入符合格式的数字'
 	},
 	success: {
 		login: "登录成功",
@@ -228,8 +230,8 @@ export default {
 	menus: {
 		txt1: "主页",
 		txt2: "关于我们",
-		txt3: "选择语言",
-		txt4: "联系我们",
+		txt3: "English",
+		txt4: "简体中文",
 	},
 	about: {
 		txt1: "Trinity通过状态通道技术",
