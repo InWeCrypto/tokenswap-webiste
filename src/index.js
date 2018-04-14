@@ -33,6 +33,7 @@ import "./assets/less/app.less";
 import i18n from "./i18n";
 import { changeLng, setReduxUserInfo } from "./globalactions";
 import { getLocalItem, remFun, addClass,dateFormat } from "./utils/util";
+import './utils/list';
 import { setTimeout } from "timers";
 import './assets/less/antd.css';
 remFun();
@@ -59,17 +60,9 @@ window.addEventListener("orientationchange", function(event) {
         },100)
     }
 });
-// window.addEventListener("orientationchange", function(event) {
-// 	if (window.orientation == 180 || window.orientation == 0) {
-// 		remFun();
-// 		//location.reload();
-// 	}
-// 	if (window.orientation == 90 || window.orientation == -90) {
-// 		remFun();
-// 		//location.reload();
-// 		// remFun();
-// 	}
-// });
+window.addEventListener("load", function(event) {
+    window.sessionStorage.clear();
+})
 const history = createHistory();
 const store = storeFun(history);
 window.history = history;

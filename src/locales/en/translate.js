@@ -251,7 +251,8 @@ export default {
 		Amount: 'Amount',
 		Date: 'Date',
 		process: 'processing',
-		complete: 'complete'
+		complete: 'complete',
+		result: 'no result'
 	},
 	sure: "Confirm",
 	cannel: "Cancel",

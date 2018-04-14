@@ -260,7 +260,8 @@ export default {
 		Amount: '交易数量',
 		Date: '时间',
 		process: '进行中',
-		complete: '完成'
+		complete: '完成',
+		result: '暂无数据'
 	},
 	sure: "确定",
 	cannel: "取消",

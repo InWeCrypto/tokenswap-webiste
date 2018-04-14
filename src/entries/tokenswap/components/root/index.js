@@ -2,9 +2,8 @@ import React, { PureComponent } from "react";
 import { I18n, Trans } from "react-i18next";
 import { NavLink, Link } from "react-router-dom";
 import Slider from "react-slick";
-
 import QRCode from "../../../../assets/js/qcode.js";
-
+import '../../../../utils/list';
 import { getMainMinHeight, getQuery, indexRemFun, setLocalItem, addClass, hasClass, removeClass, toPosition, getLocalItem, remFun } from "../../../../utils/util";
 
 import bg from "../../../../assets/images/bg.png";
@@ -71,10 +70,10 @@ const initialObj = {
 export default class Root extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { ...initialObj };
+        const tx = window.sessionStorage.getItem('inwe_order_TX') ? window.sessionStorage.getItem('inwe_order_TX') : '';
+        this.state = { ...initialObj, tx };
     }
     componentWillReceiveProps(nextProps, nextState) {
-        console.log(nextState, '111111');
         this.setState({
             ...nextState
         })
@@ -87,6 +86,7 @@ export default class Root extends PureComponent {
         });
     }
     componentDidMount() {
+        const { orderId } = this.state;
         const that = this;
         // let hash = this.props.location.hash;
         let hash = window.sessionStorage.getItem("inwe_order_hash");
@@ -245,9 +245,17 @@ export default class Root extends PureComponent {
             })
         })
     };
+    storeOrderInfo(content) {
+        if(content.OutTx && content.InTx){
+            this.setState({
+                isAllDone: true
+            });
+        }
+    }
     toNextStep() {
         const that = this;
-        let { neoAddress, ethAddress, neoAmount } = this.state;
+        let o = {};
+        let { neoAddress, ethAddress, neoAmount, isNeo2eth } = this.state;
         let param = {
             from: neoAddress,
             to: ethAddress,
@@ -273,12 +281,25 @@ export default class Root extends PureComponent {
                 window.sessionStorage.setItem("inwe_order_hash", "step");
                 let valShort;
                 let valArr = content.Value.split(".");
-                if (valArr[1].substring(4) == "0000") {
+                if (valArr[1] && valArr[1].substring(4) == "0000") {
                     // valShort = valArr[0] + "." + valArr[1].substring(0,4) 
                     valShort = content.Value;
                 } else {
                     valShort = content.Value;
                 }
+                
+                o = {
+                    name: content.TX,
+                    time: '',
+                    amount: valShort,
+                    status: '进行中',
+                    address: content.Address,
+                    from: neoAddress,
+                    to: ethAddress,
+                    rate: ( isNeo2eth ? window.sessionStorage.getItem("neo2ethtax") : window.sessionStorage.getItem("eth2neotax") )
+                };
+                // 存储订单信息
+                window.orderList.addItem(o);
                 //信息保存至本地
                 window.sessionStorage.setItem("inwe_order_Value", valShort);
                 window.sessionStorage.setItem("inwe_order_TX", content.TX);
@@ -348,24 +369,29 @@ export default class Root extends PureComponent {
     //获取订单处理状态
     getOrderState() {
         const that = this;
-        let tx = this.state.tx;
+        let { tx } = this.state;
         if (!tx) return;
         if (this.timerState) {
             clearInterval(this.timerState);
         }
-        //获取状态列表
-        this.props.getOrderState(tx).then(res => {
-            let stateArr = [];
-            const data = res.Data;
-            stateArr = [...data];
-            this.setState({
-                stateArr: stateArr
-            }, function () {
-                that.scrollBoxToBottom();
-            });
-        });
+        // //获取状态列表
+        // this.props.getOrderState(tx).then(res => {
+        //     let stateArr = [];
+        //     const data = res.Data;
+        //     stateArr = [...data];
+        //     this.setState({
+        //         stateArr: stateArr
+        //     }, function () {
+        //         that.scrollBoxToBottom();
+        //     });
+        // });
         //循环使用状态
         this.timerState = setInterval(() => {
+            //获取订单详情，判断是否完成OutTx
+            this.props.getOrder(tx).then(res => {
+                this.storeOrderInfo(res.Data);
+                clearInterval(this.timerState);
+            })
             //获取状态列表
             this.props.getOrderState(tx).then(res => {
                 let stateArr = [];
@@ -377,15 +403,7 @@ export default class Root extends PureComponent {
                     that.scrollBoxToBottom();
                 });
             });
-            //获取订单详情，判断是否完成OutTx
-            this.props.getOrder(tx).then(res => {
-                if (res.Data.OutTx) {
-                    this.setState({
-                        isAllDone: true
-                    })
-                    clearInterval(this.timerState);
-                }
-            })
+            
         }, 5000);
     }
     back2first() {
@@ -670,7 +688,7 @@ export default class Root extends PureComponent {
                                             {`${isNeo2Eth ? (Number(neo2ethtax) * 100) : (Number(eth2neotax) * 100)}%`}
                                         </div>
                                         {
-                                            errMes && <div className="errMess">{`${errMes}` === 'true' ? t('home.txt22', lng) : ( errMes === 1 ? t('error.inputNumber', lng) : errMes )}</div>
+                                            errMes && <div className="errMess">{`${errMes}` === 'true' ? t('home.txt22', lng) : (errMes === 1 ? t('error.inputNumber', lng) : errMes)}</div>
                                         }
                                     </div>
                                     <button className={detailsDone ? "step" : "step"} onClick={this.toNextStep.bind(this)}>{t('home.txt10', lng)}</button>
