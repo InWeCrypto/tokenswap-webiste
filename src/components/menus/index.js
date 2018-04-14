@@ -102,17 +102,17 @@ export default class Menus extends PureComponent {
                                         </div>
                                     </div>
                                     <ul className="menuList">
-                                        <Link to="/">
-                                            <li>{t('menus.txt1', lng)}</li>
-                                        </Link>
-                                        <Link to="/about">
-                                            <li>{t('menus.txt2', lng)}</li>
-                                        </Link>
-                                        <Link to="/list">
-                                            <li>{t('menus.txt5', lng)}</li>
-                                        </Link>
-                                        <li onClick={this.change.bind(this, "en")}>English</li>
-                                        <li onClick={this.change.bind(this, "zh")}>中文</li>
+                                        <li>
+                                            <Link to="/">{t('menus.txt1', lng)}</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/about">{t('menus.txt2', lng)}</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/list">{t('menus.txt5', lng)}</Link>
+                                        </li>
+                                        <li onClick={this.change.bind(this, "en")}><a>English</a></li>
+                                        <li onClick={this.change.bind(this, "zh")}><a>中文</a></li>
                                     </ul>
                                     {
                                         isShowQrcodeWx && (
@@ -135,24 +135,26 @@ export default class Menus extends PureComponent {
                             </div>
                         ) : (
                                 <ul className="menuPcUl">
-                                    <Link to="/">
-                                        <li>{t('menus.txt1', lng)}</li>
-                                    </Link>
-                                    <Link to="/about">
-                                        <li>{t('menus.txt2', lng)}</li>
-                                    </Link>
+                                    <li className="p1">
+                                        <Link to="/">{t('menus.txt1', lng)}</Link>
+                                    </li>
+                                    <li className="p2">
+                                        <Link to="/about">{t('menus.txt2', lng)}</Link>
+                                    </li>
                                     <li className="logo">
                                         <Link to="/">
                                             <img src={logo} alt="logo" />
                                         </Link>
                                     </li>
-                                    <Link to="/list">
-                                        <li>{t('menus.txt5', lng)}</li>
-                                    </Link>
-                                    <li className="rl end" onClick={this.change.bind(this, "en")}>
-                                        {t('menus.txt3', lng)}
+                                    <li className="p4">
+                                        <Link to="/list">{t('menus.txt5', lng)}</Link>
                                     </li>
-                                    <li className="rl" onClick={this.change.bind(this, "zh")}>{t('menus.txt4', lng)}</li>
+                                    <li className="p5" onClick={this.change.bind(this, "en")}>
+                                        <a>{t('menus.txt3', lng)}</a>
+                                    </li>
+                                    <li className="p6" onClick={this.change.bind(this, "zh")}>
+                                        <a>{t('menus.txt4', lng)}</a>
+                                    </li>
                                 </ul>
                             )}
 

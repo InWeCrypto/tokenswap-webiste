@@ -16,7 +16,7 @@ body,html{
         box-sizing: border-box;
         
         .menu-bg{
-            position: fixed;
+            position: absolute;
             z-index: 100;
             top: 0;
             left: 50%;
@@ -53,12 +53,14 @@ body,html{
             }
         }
         .order-list{
-            margin: 0 auto;
+            position: absolute;
+            left: 3.6rem;
+            top: 1.88rem;
             width: 12rem;
             .title{
                 margin-bottom: .2rem; 
-                width: 2.68rem;
-                height: .21rem; 
+                height: .28rem;
+                line-height: .28rem;
                 font-size: .28rem;
                 font-family: "Gilroy-Light";
                 color:rgba(0,106,182,1);
@@ -123,7 +125,7 @@ body,html{
 .mobile{
     #e-aboutBox{
         .content{
-            padding-top: 2.54rem;
+            padding: 1.92rem .3rem 0 .3rem;
             img{
                 display: block;
                 width: 100%;
@@ -137,8 +139,25 @@ body,html{
                 width: 7.5rem;
             }
             .order-list{
-                .title{
-
+                position: relative;
+                z-index: 2;
+                background-color: #FFF;
+                width: 100%;
+                .list{
+                    width: 100%;
+                    .row-head {
+                        height: .4rem;
+                        .col{
+                            padding: 0;
+                        }
+                    }
+                    .row{
+                        height: .9rem;
+                        .col{
+                            padding: .25rem 0;
+                            font-size: .2rem
+                        }
+                    }
                 }
             }
         }

@@ -136,7 +136,7 @@ export default class Root extends PureComponent {
                                                         <td className="col link second"  key={`${index}_1`}>
                                                             <Link to="/" className='line' onClick={() => this.hashChange(item.name)}>{translateStr(item.name)}</Link>
                                                         </td>
-                                                        <td className="col third" key={`${index}_2`}>{`${item.amount} TNC`} <br />{`(fees:${item.amount * item.rate} TNC)`}</td>
+                                                        <td className="col third" key={`${index}_2`}>{`${item.amount} TNC`} <br />{`(fees:${Math.round(parseFloat(item.amount * item.rate)*10000)/10000} TNC)`}</td>
                                                         <td className="col last" key={`${index}_3`}>{item.time && item.time.split('T')[0]}<br/>{item.time && item.time.split('T')[1].replace('Z', '')}</td>
                                                     </tr>
                                                 )
