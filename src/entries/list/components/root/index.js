@@ -33,7 +33,7 @@ export default class Root extends PureComponent {
         page = page ? page : 1;
         let list = window.localStorage.getItem('Inwe_OrderList') ? JSON.parse(window.localStorage.getItem('Inwe_OrderList')) : [];
         let result = [];
-        const size = 8;
+        const size = 2;
         for (var x = 0; x < Math.ceil(list.length / size); x++) {
             var start = x * size;
             var end = start + size;
@@ -85,6 +85,9 @@ export default class Root extends PureComponent {
             const i = window.orderList.updateStatus();
             if (i === list.length) {
                 clearInterval(this.timer);
+                this.setState({
+                    ..._this.sliceArray(page)
+                })
             }
         }, 5000);
     }
@@ -148,7 +151,7 @@ export default class Root extends PureComponent {
                                     </tbody>
                                 </table>
                                 <div className="pagination">
-                                    <Pagination size="small" total={total} pageSize={8} onChange={(page, size) => this.handleChange(page, size)} current={page} />
+                                    <Pagination size="small" total={total} pageSize={2} onChange={(page, size) => this.handleChange(page, size)} current={page} />
                                 </div>
                             </div>
                         </div>

@@ -772,7 +772,7 @@ export default class Root extends PureComponent {
                                                             </div>
                                                             <div className="title2">{t('home.txt18', lng)}</div>
                                                             <div className="money">
-                                                                <div className="num">{tncBackNum}</div>
+                                                                <div className="num">{tncBackNum -  tncBackNum* Number(window.sessionStorage.getItem('inwe_order_rate'))}</div>
                                                                 <div className="nuit">TNC</div>
                                                             </div>
                                                         </div>
