@@ -304,4 +304,11 @@ export const dateFormat = () => {
        return fmt; 
     } 
 }
+export const translateStr = str => {
+	if(str) {
+		str = str.length > 9 ? str.substr(0, 4) + '...' + str.substr(-5, 5) : str;
+		return str;
+	}
+	return false;
+}
        

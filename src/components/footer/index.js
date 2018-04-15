@@ -16,7 +16,7 @@ function Footer(props){
 	return (
       <I18n>
           {(t, {i18n}) => (
-            <div className="footer">
+            <div className="footer clearfix">
 				<span className="textInTouchDevice">©Trinity 2018</span>
                 {
                     !IsTouchDevice && (

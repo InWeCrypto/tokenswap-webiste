@@ -282,31 +282,39 @@ body,html{
             }
         }
     }
-    .detailBox{
+    .contentBox>.detailBox{
         h1{
-            margin-top: .5rem;
+            margin-bottom: 0;
+            margin-top: .59rem;
+            height: .22rem;
+            line-height: .22rem
+        }
+        .step{
+            bottom: -0.34rem;
         }
         .selectBox{
             margin: 0 auto;
-            margin-top: .42rem;
+            margin-top: .52rem;
             margin-bottom: .1rem;
             width: 4.7rem;
             .text{
                 color: #A0A0A0;
-                font-size: .16rem;
+                height: .18rem;
+                line-height: .18rem; 
+                font-size: .18rem;
                 font-weight: 200;
             }
             .selectContent{
                 margin-top: .19rem;
                 display: flex;
+                height: .17rem;
                 align-items: center;
+                font-size: .17rem;
                 .ico1{
-                    font-size: .18rem;
                     color: #333;
                 }
                 .toImg{
                     width: .18rem;
-                    height: .18rem;
                     margin: 0 .2rem;
                     img{
                         object-fit: contain
@@ -318,21 +326,20 @@ body,html{
             position: relative;
             margin: 0 auto;
             width: 4.7rem;
-            height: .72rem;
+            height: .76rem;
             .mess1{
                 position: absolute;
                 left: 0;
-                bottom: 0;
+                bottom: .09rem;
                 z-index: 0;
                 width: 100%;
-                height: .36rem;
-                line-height: .36rem;
+                height: .17rem;
+                line-height: .17rem;
                 color: #A0A0A0;
-                font-size: .18rem;
+                font-size: .17rem;
                 transition: all .3s ease-in-out;
                 &.hei{
-                    bottom: .27rem;
-                    font-size: .16rem;
+                    bottom: .41rem;
                 }
             }
             input{
@@ -341,22 +348,20 @@ body,html{
                 bottom: 0;
                 z-index: 10;
                 width: 100%;
-                height: .20rem;
-                line-height: .20rem;
+                height: .33rem;
+                line-height: .33rem;
                 font-size: .18rem;
-                padding: .1rem 0 .09rem;
                 color: #333333;
-                border: 0;
-                border-radius: 0;
+                border: none;
                 outline: none;
-                border-bottom: 1px solid #DCDCDC;
-                background: transparent;
-                font-family: Gilroy-Regular;
+                border-bottom: 1px solid #DDD;
+                background-color: transparent;
+                font-family: "Gilroy-Regular";
                 letter-spacing: .08em;
             }
             span{
-                display: block;
                 position: absolute;
+                display: block;
                 left: 0;
                 bottom: 0;
                 z-index: 10;
@@ -371,8 +376,7 @@ body,html{
                 }
                 &.amount{
                     span{
-                        width: 4.7
-                        rem;
+                        width: 4rem;
                     }
                 }
             }
@@ -398,12 +402,16 @@ body,html{
                 height: .14rem;
                 top: .09rem;
             }
-           
+           &.lastAddress{
+               top: .14rem;
+           }
         }
         .errMess{
             position: absolute;
             left: 50%;
-            bottom: .42rem;
+            bottom: .49rem;
+            height: .16rem;
+            line-height: .16rem;
             transform: translateX(-50%);
             color: #FF60AB;
             font-size: .16rem;
@@ -411,6 +419,9 @@ body,html{
         }
     }
     .depositBox{
+        .step{
+            bottom: -.18rem;
+        }
         .backbtn{
             position: absolute;
             left: .4rem;
@@ -464,14 +475,19 @@ body,html{
             }
         }
         .totleMoney{
-            margin-top: 0.1rem;
+            margin-top: 0.09rem;
             font-size: 0.16rem;
+            height: .14rem;
             color: #A0A0A0;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: 200;
-            .unit{
+            p { 
+                margin: 0;
+            }
+            p.unit{
+                margin-right: .1rem;
                 font-size: 0.18rem;
                 color: #229AF1;
             }
@@ -751,7 +767,7 @@ body,html{
                 }
                 &.boxStyle0{
                     width: 6.36rem;
-                    height: 6.88rem;
+                    height: 7.5rem;
                 }
                 &.boxStyle1{
                     width: 6.36rem;
@@ -829,38 +845,44 @@ body,html{
                         }
                     }
                     .inputCellBox{
-                        height: 1.06rem;
+                        height: 1.09rem;
                         width: 5.56rem;
                         .mess1{
-                            height: .48rem;
-                            font-size: .26rem;
+                            height: .21rem;
+                            font-size: .21rem;
                             color: #A0A0A0;
                             &.hei{
-                                bottom: .32rem;
-                                font-size: .22rem;
+                                bottom: .42rem;
                             }
                         }
                         input{
-                            height: .20rem;
-                            line-height: .20rem;
-                            font-size: .28rem;
-                            padding: .1rem 0 .13rem;
+                            height: .32rem;
+                            line-height: .32rem;
+                            font-size: .21rem;
                             font-weight: 200;
-                            font-family: Gilroy-Regular;
+                            font-family: "Gilroy-Regular";
                         }
                         &.amount{
                             .mess1, input{
                                 width: 4.7rem;
                             }
-                            
                             .unit{
                                 font-size: .26rem;
                             }
                         }
+                        &.foc.amount{
+                            .line{
+                                width: 4.7rem;
+                            }
+                        }
+                        &.limit{
+                            height: .14rem;
+                            top: .15rem;
+                        }
                     }
                     .errMess{
                         width: 100%;
-                        bottom: .47rem;
+                        bottom: .59rem;
                     }
                 }
                 .depositBox {
@@ -882,12 +904,18 @@ body,html{
                         padding: .2rem;
                     }
                     .totleMoney{
-                        margin-top: .12rem;
-                        .money{
-                            font-size: .24rem;
+                        height: .18rem;
+                        line-height: .18rem;
+                        margin-top: .14rem;
+                        font-size: .18rem;
+                        &.money{
+                            margin-top: .12rem;
                         }
-                        .unit{
-                            font-size: .28rem;
+                        p { 
+                            margin: 0;
+                        }
+                        p.unit{
+                            margin-right: .1rem;
                             color: #229AF1;
                         }
                     }
@@ -932,16 +960,31 @@ body,html{
         }
     }
 }
+.mobile .limit-tip{
+    font-size: .22rem;
+}
+.mobile .rate{
+    font-size: .28rem;
+    top: .42rem;
+}
 .limit-tip{
-    font-size: .14rem;
+    font-size: .12rem;
     font-family: "Helvetica";
     color:rgba(34,154,241,1);
     line-height: .14rem;
 }
 .rate{
-    margin: .1rem auto 0 auto;
+    position: relative;
+    top: .32rem;
+    margin: 0 auto;
     width: 4.7rem;
     color: rgba(160, 160, 160, 1);
+    font-size: .17rem;
+    font-family: "Gilroy-Light";
+    line-height: .17rem;
+}
+.mobile .rate{
+    width: 5.56rem;
 }
 .rate.blue{
     color: rgba(34, 154, 241, 1);

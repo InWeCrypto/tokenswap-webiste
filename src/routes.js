@@ -6,7 +6,7 @@ import Step from "./entries/indexstep";
 import Step2 from "./entries/indexstep2";
 import Tokenswap from "./entries/tokenswap";
 import About from "./entries/about";
-
+import List from './entries/list';
 
 export default () => {
 	return (
@@ -16,6 +16,7 @@ export default () => {
 			<Route path="/about" exact component={About} />
 			<Route path="/step" exact component={Step} />
 			<Route path="/step2" exact component={Step2} />
+			<Route path="/list" exact component={List} />
 		</Switch>
 	);
 };

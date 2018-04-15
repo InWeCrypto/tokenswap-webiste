@@ -20,7 +20,7 @@ export default {
         txt17: "Sent Amount:",
         txt18: "Recive Amount:",
 		txt19: "Done",
-		txt20: 'Minimum transfer limit:',
+		txt20: 'transfer limit:',
 		txt21: 'Fees:',
 		txt22: 'Please fill out all the content',
 		txt23: '(fees'
@@ -211,7 +211,8 @@ export default {
 		passLength: "The entered passwords are inconsistent ",
 		passError: "The entered passwords are inconsistent ",
 		codeEmpty: "Verification code cannot be empty",
-		followError: "you know the math"
+		followError: "you know the math",
+		inputNumber: 'please enter a valid number'
 	},
 	success: {
 		login: "Log in successfully",
@@ -228,8 +229,9 @@ export default {
 	menus: {
 		txt1: "Home",
 		txt2: "About",
-		txt3: "Language",
-		txt4: "Contact",
+		txt3: "English",
+		txt4: "简体中文",
+		txt5: "Transaction record"
 	},
 	about: {
 		txt1: "Trinity is an offchain",
@@ -242,6 +244,17 @@ export default {
 		txt8: "Together with the NEO on-chain scaling solution, ",
 		txt9: "Trinity will provide all-round support for DApp in the NEO ecosystem. In the future, ",
 		txt10: "Trinity also plans to support other blockchain projects in order to become a fully autonomous decentralized performance-enhancing network for the entire community.",
+	},
+	orderList: {
+		status: 'Status',
+		Txid: 'Txid',
+		Amount: 'Amount',
+		Date: 'Date',
+		process: 'processing',
+		complete: 'complete',
+		result: 'no result',
+		pending: 'pending',
+		success: 'success'
 	},
 	sure: "Confirm",
 	cannel: "Cancel",
