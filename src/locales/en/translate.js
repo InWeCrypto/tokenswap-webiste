@@ -252,7 +252,9 @@ export default {
 		Date: 'Date',
 		process: 'processing',
 		complete: 'complete',
-		result: 'no result'
+		result: 'no result',
+		pending: 'pending',
+		success: 'success'
 	},
 	sure: "Confirm",
 	cannel: "Cancel",

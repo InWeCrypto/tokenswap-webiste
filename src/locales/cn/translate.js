@@ -259,9 +259,9 @@ export default {
 		Txid: 'Txid',
 		Amount: '交易数量',
 		Date: '时间',
-		process: '进行中',
-		complete: '完成',
-		result: '暂无数据'
+		pending: '进行中',
+		success: '完成',
+		result: '暂无数据',
 	},
 	sure: "确定",
 	cannel: "取消",

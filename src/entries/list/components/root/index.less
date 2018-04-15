@@ -9,12 +9,14 @@ body,html{
     position: relative;
     height: 100%;
     width: 100%;
+    .menu{
+        margin-left: -4.8rem;
+    }
     .content{
         padding-top: 2.86rem;
         position: relative;
         height: 100%;
         box-sizing: border-box;
-        
         .menu-bg{
             position: absolute;
             z-index: 100;
@@ -25,7 +27,6 @@ body,html{
             margin-left: -4rem;
             background: transparent url(../../../../assets/images/2.png) no-repeat center / 100% 100%;
         }
-        
         .bg-lf{
             position: absolute;
             z-index: 0;
@@ -57,6 +58,8 @@ body,html{
             left: 3.6rem;
             top: 1.88rem;
             width: 12rem;
+            z-index: 9999;
+            background-color: #fff;
             .title{
                 margin-bottom: .2rem; 
                 height: .28rem;
@@ -109,7 +112,6 @@ body,html{
             }
             .pagination{
                 margin-top: .68rem;
-                margin-bottom: 1.01rem;
                 text-align: center;
                 .ant-pagination-item-active{
                     border-color: #fff;
@@ -124,6 +126,9 @@ body,html{
 }
 .mobile{
     #e-aboutBox{
+        .menu{
+            margin-left: 0;
+        }
         .content{
             padding: 1.92rem .3rem 0 .3rem;
             img{
@@ -140,6 +145,8 @@ body,html{
             }
             .order-list{
                 position: relative;
+                left: 0;
+                top: 0;
                 z-index: 2;
                 background-color: #FFF;
                 width: 100%;

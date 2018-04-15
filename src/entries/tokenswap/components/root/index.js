@@ -84,11 +84,18 @@ export default class Root extends PureComponent {
         window.addEventListener("resize", function () {
             indexRemFun();
         });
+        window.addEventListener("load", function(event) {
+            that.setState({
+                ...initialObj
+            },() =>  {
+                window.sessionStorage.clear();
+                that.timerDetail && clearInterval(that.timerDetail);
+                that.timerState && clearInterval(that.timerState);
+            });
+        });
     }
     componentDidMount() {
-        const { orderId } = this.state;
         const that = this;
-        // let hash = this.props.location.hash;
         let hash = window.sessionStorage.getItem("inwe_order_hash");
         if (hash) {
             //hash = hash.substring(1);
@@ -139,6 +146,7 @@ export default class Root extends PureComponent {
                 })
             }
         }
+        
         //滚动动画
         this.pageScrollMover();
         // setTimeout(() => {
@@ -290,7 +298,7 @@ export default class Root extends PureComponent {
                 
                 o = {
                     name: content.TX,
-                    time: '',
+                    time: new Date(Number(content.CreateTime) * 1000).format('yyyy-MM-dd hh:mm:ss'),
                     amount: valShort,
                     status: '进行中',
                     address: content.Address,
@@ -722,8 +730,8 @@ export default class Root extends PureComponent {
                                             }
                                             <div className="qrcode" id="qrcode"></div>
                                         </div>
-                                        <div className="totleMoney">
-                                            <p className="money">{t('home.txt13', lng)}</p>
+                                        <div className="totleMoney money">
+                                            <p>{t('home.txt13', lng)}</p>
                                         </div>
                                         <div className="totleMoney">
                                             <p className="unit">{tncBackNum}</p>

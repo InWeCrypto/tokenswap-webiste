@@ -35,7 +35,6 @@ import methods from './ajax';
                                 i++;
                                 const { OutTx, InTx, CreateTime } = res.Data;
                                 item.status = InTx && OutTx ? '完成' : '进行中';
-                                item.time = CreateTime;
                             }
                             return item;
 		            });

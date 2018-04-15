@@ -60,9 +60,6 @@ window.addEventListener("orientationchange", function(event) {
         },100)
     }
 });
-window.addEventListener("load", function(event) {
-    window.sessionStorage.clear();
-})
 const history = createHistory();
 const store = storeFun(history);
 window.history = history;

@@ -17,20 +17,20 @@ import { locale } from "moment";
 export default class Root extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            list: this.sliceArray()[0],
-            result: this.sliceArray(),
-            page: 0,
-            total: JSON.parse(window.localStorage.getItem('Inwe_OrderList')).length || ''
-        };
+        this.state = this.sliceArray();
     }
     componentWillReceiveProps(nextProps, nextState) {
-        const { page } = nextState;
-        this.setState({
-            list: this.sliceArray()[page],
-            result: this.sliceArray(),
-            page: page
-        })
+        if (nextState.page === this.state.page) {
+            this.setState({
+                ...this.sliceArray(),
+            })
+        } else {
+            const { page } = nextState;
+            this.setState({
+                ...this.sliceArray(),
+                page
+            })
+        }
     }
     componentWillMount() {
         const that = this;
@@ -39,16 +39,24 @@ export default class Root extends PureComponent {
             indexRemFun();
         });
     }
-    sliceArray(){
-        let list = JSON.parse(window.localStorage.getItem('Inwe_OrderList')) || [];
+    sliceArray(page) {
+        let newList = [];
+        page = page ? (page - 1) : 0;
+        let list = window.localStorage.getItem('Inwe_OrderList') ? JSON.parse(window.localStorage.getItem('Inwe_OrderList')) : [];
         let result = [];
-        const size = 2;
+        const size = 8;
         for (var x = 0; x < Math.ceil(list.length / size); x++) {
             var start = x * size;
             var end = start + size;
             result.push(list.slice(start, end));
         }
-        return result;
+        newList = result[page] && result[page].length ? result[page] : [];
+        return {
+            list: newList,
+            result,
+            page,
+            total: list.length
+        };
     }
     hashChange(orderId) {
         const { list } = this.state;
@@ -63,33 +71,32 @@ export default class Root extends PureComponent {
         window.sessionStorage.setItem("inwe_order_rate", rate);
         window.sessionStorage.setItem("isClick", true);
     }
-    
+
     cnnn() {
         window.i18n.changeLanguage("zh");
         setLocalItem("language", "zh");
     }
     handleChange(page, size) {
-        clearInterval(this.timer);
-        const {result} = this.state;
         this.setState({
-            list: result[page-1],
-            page: page - 1,
-        }, () => this.getOrderDetail())
+            ...this.sliceArray(page)
+        });
     }
     getOrderDetail() {
+        const _this = this;
         const { list, page } = this.state;
+        if(list.length === 0) return;
         if (this.timer) {
             clearInterval(this.timer);
         }
         //循环使用状态
         this.timer = setInterval(() => {
             const i = window.orderList.updateStatus();
-            this.setState({
-                list: this.sliceArray()[page]
-            });
-            if( i === list.length ){
+            if (i === list.length) {
                 clearInterval(this.timer);
             }
+            this.setState({
+                 ..._this.sliceArray()
+            });
         }, 5000);
     }
     componentDidMount() {
@@ -98,9 +105,7 @@ export default class Root extends PureComponent {
     render() {
         let { lng } = this.props;
         const { list, total, page } = this.state;
-        console.log(list);
-        // setLocalItem("language",lng);
-        // this.props.changeLng(lng);
+        console.log(this.state);
         return (
             <I18n>
                 {(t, { i18n }) => (
@@ -132,16 +137,23 @@ export default class Root extends PureComponent {
                                             list.length > 0 ? list.map((item, index) => {
                                                 return (
                                                     <tr className='row' key={index}>
-                                                        <td className="col" key={`${index}_0`}>{item.status}</td>
-                                                        <td className="col link second"  key={`${index}_1`}>
+                                                        <td className="col" key={`${index}_0`}>{item.status === '进行中' ? t('orderList.pending', lng) : t('orderList.success', lng)}</td>
+                                                        <td className="col link second" key={`${index}_1`}>
                                                             <Link to="/" className='line' onClick={() => this.hashChange(item.name)}>{translateStr(item.name)}</Link>
                                                         </td>
-                                                        <td className="col third" key={`${index}_2`}>{`${item.amount} TNC`} <br />{`(fees:${Math.round(parseFloat(item.amount * item.rate)*10000)/10000} TNC)`}</td>
-                                                        <td className="col last" key={`${index}_3`}>{item.time && item.time.split('T')[0]}<br/>{item.time && item.time.split('T')[1].replace('Z', '')}</td>
+                                                        <td className="col third" key={`${index}_2`}>{`${item.amount} TNC`} <br />{`(fees:${Math.round(parseFloat(item.amount * item.rate) * 10000) / 10000} TNC)`}</td>
+                                                        <td className="col last" key={`${index}_3`}>
+                                                            {
+                                                                item.time && item.time.split('T')[0] && item.time.split('T')[0]
+                                                            }<br/>
+                                                            {
+                                                                item.time && item.time.split('T')[1] && item.time.split('T')[1].replace('Z', '')
+                                                            }
+                                                        </td>
                                                     </tr>
                                                 )
-                                            }) : <tr className='row' style={{ textAlign: 'center'}}>
-                                                    <td colspan='4'>{t('orderList.result', lng)}</td>
+                                            }) : <tr className='row' style={{ textAlign: 'center' }}>
+                                                    <td colSpan={'4'}>{t('orderList.result', lng)}</td>
                                                 </tr>
                                         }
                                     </tbody>
@@ -149,11 +161,11 @@ export default class Root extends PureComponent {
                                 {
                                     list.length > 0 ?
                                         <div className="pagination">
-                                            <Pagination size="small" total={ total } pageSize={2} onChange={ (page, size) => this.handleChange(page, size) } current = {page + 1 } />
+                                            <Pagination size="small" total={total} pageSize={2} onChange={(page, size) => this.handleChange(page, size)} current={page + 1} />
                                         </div>
                                         : ''
                                 }
-                                
+
                             </div>
                         </div>
                         <Footer lng={lng} />
