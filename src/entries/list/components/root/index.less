@@ -1,17 +1,12 @@
 body,html{
     padding: 0 !important;
     height: 100%;
-    //min-width: 1280px;
-    //min-height: 13.34rem;
-    overflow-x: auto;
+    overflow: auto;
 }
 .page-about{
     position: relative;
     height: 100%;
     width: 100%;
-    .menu{
-        margin-left: -4.8rem;
-    }
     .content{
         padding-top: 2.86rem;
         position: relative;
@@ -58,7 +53,7 @@ body,html{
             left: 3.6rem;
             top: 1.88rem;
             width: 12rem;
-            z-index: 9999;
+            z-index: 111;
             background-color: #fff;
             .title{
                 margin-bottom: .2rem; 
@@ -81,7 +76,8 @@ body,html{
                         padding: .14rem 1.2rem;
                         height: .12rem;
                         color: #000;
-                        font-family: 'Gilroy-Light'
+                        font-family: 'Gilroy-Light';
+                        font-size: .16rem;
                     }
                 }
                 .row{
@@ -94,7 +90,7 @@ body,html{
                         text-align: center;
                         .line{
                             color:rgba(31,127,195,1);
-                            text-decoration: underline;
+                            border-bottom: 1px solid #1f7fc3;
                             cursor: pointer;
                         }
                         &.second{
@@ -111,7 +107,8 @@ body,html{
                     
             }
             .pagination{
-                margin-top: .68rem;
+                padding-top: .68rem;
+                padding-bottom: .99rem;
                 text-align: center;
                 .ant-pagination-item-active{
                     border-color: #fff;
@@ -122,10 +119,12 @@ body,html{
     }
     .footer{
         padding: 0;
+        z-index: 112;
     }
 }
 .mobile{
     #e-aboutBox{
+        overflow: auto;
         .menu{
             margin-left: 0;
         }
@@ -155,7 +154,9 @@ body,html{
                     .row-head {
                         height: .4rem;
                         .col{
-                            padding: 0;
+                            padding: .11rem 0 .14rem 0;
+                            height: .15rem;
+                            font-size: .2rem;
                         }
                     }
                     .row{
@@ -167,6 +168,9 @@ body,html{
                     }
                 }
             }
+        }
+        .footer{
+            display: none;
         }
     }
 }

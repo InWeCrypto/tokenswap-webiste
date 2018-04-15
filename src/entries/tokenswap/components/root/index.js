@@ -63,6 +63,7 @@ const initialObj = {
     isAllDone: false,
     tx: '',
     limitAmount: '',
+    maxAmount: '',
     eth2neotax: '',
     neo2ethtax: '',
     isClick: false
@@ -84,10 +85,10 @@ export default class Root extends PureComponent {
         window.addEventListener("resize", function () {
             indexRemFun();
         });
-        window.addEventListener("load", function(event) {
+        window.addEventListener("load", function (event) {
             that.setState({
                 ...initialObj
-            },() =>  {
+            }, () => {
                 window.sessionStorage.clear();
                 that.timerDetail && clearInterval(that.timerDetail);
                 that.timerState && clearInterval(that.timerState);
@@ -146,7 +147,7 @@ export default class Root extends PureComponent {
                 })
             }
         }
-        
+
         //滚动动画
         this.pageScrollMover();
         // setTimeout(() => {
@@ -239,22 +240,24 @@ export default class Root extends PureComponent {
     }
     toStart() {
         this.props.getTradeInfo().then((res) => {
-            const { limitAmount, eth2neotax, neo2ethtax } = res.Data;
+            const { limitAmount, eth2neotax, neo2ethtax, maxAmount } = res.Data;
 
             window.sessionStorage.setItem('inwe_order_hash', 'step0');
             window.sessionStorage.setItem('limitAmount', limitAmount);
+            window.sessionStorage.setItem('maxAmount', maxAmount);
             window.sessionStorage.setItem('eth2neotax', eth2neotax);
             window.sessionStorage.setItem('neo2ethtax', neo2ethtax);
             this.setState({
                 step: 0,
                 limitAmount,
                 eth2neotax,
-                neo2ethtax
+                neo2ethtax,
+                maxAmount
             })
         })
     };
     storeOrderInfo(content) {
-        if(content.OutTx && content.InTx){
+        if (content.OutTx && content.InTx) {
             this.setState({
                 isAllDone: true
             });
@@ -295,7 +298,7 @@ export default class Root extends PureComponent {
                 } else {
                     valShort = content.Value;
                 }
-                
+
                 o = {
                     name: content.TX,
                     time: new Date(Number(content.CreateTime) * 1000).format('yyyy-MM-dd hh:mm:ss'),
@@ -304,7 +307,7 @@ export default class Root extends PureComponent {
                     address: content.Address,
                     from: neoAddress,
                     to: ethAddress,
-                    rate: ( isNeo2eth ? window.sessionStorage.getItem("neo2ethtax") : window.sessionStorage.getItem("eth2neotax") )
+                    rate: (isNeo2eth ? window.sessionStorage.getItem("neo2ethtax") : window.sessionStorage.getItem("eth2neotax"))
                 };
                 // 存储订单信息
                 window.orderList.addItem(o);
@@ -411,7 +414,7 @@ export default class Root extends PureComponent {
                     that.scrollBoxToBottom();
                 });
             });
-            
+
         }, 5000);
     }
     back2first() {
@@ -514,6 +517,7 @@ export default class Root extends PureComponent {
             isOnlyOrder,
             sendable,
             limitAmount,
+            maxAmount,
             eth2neotax,
             neo2ethtax,
             isClick
@@ -647,16 +651,6 @@ export default class Root extends PureComponent {
                                                             <img src={img_8} alt="" />
                                                         </div>
                                                         <div className="ico2">TNC(ETH)</div>
-                                                        {/*<div className="downicon">
-                                                            <img src={xiala} alt=""/>
-                                                        </div>
-                                                        <div className="selectorContainer">
-                                                            <div className="selector">
-                                                                <p>ETH</p>
-                                                                <p>BTC</p>
-                                                                <p>ETH</p>
-                                                            </div>
-                                                        </div> */}
                                                     </div>
                                                 ) : (
                                                         <div className="selectContent" onClick={this.icoExchange.bind(this)}>
@@ -683,10 +677,9 @@ export default class Root extends PureComponent {
                                             </div>
                                         </div>
                                         <div className="inputCellBox limit">
-                                            <div className="limit-tip">{t('home.txt20', lng) + limitAmount}</div>
+                                            <div className="limit-tip">{t('home.txt20', lng) + limitAmount + ' TNC ~' + maxAmount + ' TNC'}</div>
                                         </div>
                                         <div className={isReceiveAddFoucsLine ? "inputCellBox foc lastAddress" : "inputCellBox lastAddress"}>
-
                                             <div className={isReceiveAddFoucs ? "mess1 hei" : "mess1"}>{isNeo2Eth ? "ETH" : "NEO"}{t('home.txt9', lng)}</div>
                                             <input type="text" onBlur={this.receiveAddBlur.bind(this)} onFocus={this.receiveAddFoucs.bind(this)} onChange={this.getEthAddress.bind(this)} />
                                             <span className="line"></span>
@@ -791,7 +784,6 @@ export default class Root extends PureComponent {
                                                     return (
                                                         <div className="orderCreat" key={index}>
                                                             <div className="titel">
-                                                                {/* <div className="text">Order creation</div> */}
                                                                 <div className="time">
                                                                     {new Date(item.CreateTime).format("yyyy-MM-dd hh:mm:ss")}
                                                                 </div>

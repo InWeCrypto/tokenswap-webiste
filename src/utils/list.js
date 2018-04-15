@@ -18,7 +18,7 @@ import methods from './ajax';
                     return item;
                 })
             } else {
-                arr.push(o);
+                arr.unshift(o);
             }
             win.localStorage.setItem('Inwe_OrderList', JSON.stringify(arr));
         },

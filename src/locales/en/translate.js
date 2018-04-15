@@ -20,7 +20,7 @@ export default {
         txt17: "Sent Amount:",
         txt18: "Recive Amount:",
 		txt19: "Done",
-		txt20: 'Minimum transfer limit:',
+		txt20: 'transfer limit:',
 		txt21: 'Fees:',
 		txt22: 'Please fill out all the content',
 		txt23: '(fees'

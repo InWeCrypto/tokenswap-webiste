@@ -20,17 +20,6 @@ export default class Root extends PureComponent {
         this.state = this.sliceArray();
     }
     componentWillReceiveProps(nextProps, nextState) {
-        if (nextState.page === this.state.page) {
-            this.setState({
-                ...this.sliceArray(),
-            })
-        } else {
-            const { page } = nextState;
-            this.setState({
-                ...this.sliceArray(),
-                page
-            })
-        }
     }
     componentWillMount() {
         const that = this;
@@ -41,7 +30,7 @@ export default class Root extends PureComponent {
     }
     sliceArray(page) {
         let newList = [];
-        page = page ? (page - 1) : 0;
+        page = page ? page : 1;
         let list = window.localStorage.getItem('Inwe_OrderList') ? JSON.parse(window.localStorage.getItem('Inwe_OrderList')) : [];
         let result = [];
         const size = 8;
@@ -50,7 +39,7 @@ export default class Root extends PureComponent {
             var end = start + size;
             result.push(list.slice(start, end));
         }
-        newList = result[page] && result[page].length ? result[page] : [];
+        newList = result[page - 1] && result[page -1 ].length ? result[page - 1 ] : [];
         return {
             list: newList,
             result,
@@ -77,8 +66,11 @@ export default class Root extends PureComponent {
         setLocalItem("language", "zh");
     }
     handleChange(page, size) {
+        console.log(page, '----');
+        const { result } = this.state;
         this.setState({
-            ...this.sliceArray(page)
+            list: result[page-1],
+            page
         });
     }
     getOrderDetail() {
@@ -94,9 +86,6 @@ export default class Root extends PureComponent {
             if (i === list.length) {
                 clearInterval(this.timer);
             }
-            this.setState({
-                 ..._this.sliceArray()
-            });
         }, 5000);
     }
     componentDidMount() {
@@ -158,14 +147,9 @@ export default class Root extends PureComponent {
                                         }
                                     </tbody>
                                 </table>
-                                {
-                                    list.length > 0 ?
-                                        <div className="pagination">
-                                            <Pagination size="small" total={total} pageSize={2} onChange={(page, size) => this.handleChange(page, size)} current={page + 1} />
-                                        </div>
-                                        : ''
-                                }
-
+                                <div className="pagination">
+                                    <Pagination size="small" total={total} pageSize={8} onChange={(page, size) => this.handleChange(page, size)} current={page} />
+                                </div>
                             </div>
                         </div>
                         <Footer lng={lng} />
