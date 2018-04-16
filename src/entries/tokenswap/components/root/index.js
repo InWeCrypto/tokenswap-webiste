@@ -261,9 +261,12 @@ export default class Root extends PureComponent {
     };
     storeOrderInfo(content) {
         if (content.OutTx && content.InTx) {
-            this.setState({
-                isAllDone: true
-            });
+            window.sessionStorage.setItem("inwe_order_hash", "");
+            // this.setState({
+            //     ...Object.assign({ isOnlyOrder: true }, { ...initialObj }),
+            //     isAllDone: true
+            // });
+            window.sessionStorage.clear();
         }
     }
     toNextStep() {
@@ -376,6 +379,7 @@ export default class Root extends PureComponent {
                     this.setState({
                         isAllDone: true
                     })
+
                     clearInterval(this.timerDetail);
                 }
             })
@@ -403,8 +407,11 @@ export default class Root extends PureComponent {
         this.timerState = setInterval(() => {
             //获取订单详情，判断是否完成OutTx
             this.props.getOrder(tx).then(res => {
-                this.storeOrderInfo(res.Data);
-                clearInterval(this.timerState);
+                if (res.Data.OutTx && res.Data.InTx) {
+                    clearInterval(this.timerState);
+                    this.storeOrderInfo(res.Data);
+
+                }
             })
             //获取状态列表
             this.props.getOrderState(tx).then(res => {

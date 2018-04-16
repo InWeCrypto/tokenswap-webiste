@@ -75,19 +75,15 @@ export default class Root extends PureComponent {
     getOrderDetail() {
         const _this = this;
         const { list, page } = this.state;
-        if(list.length === 0) return;
         if (this.timer) {
             clearInterval(this.timer);
         }
         //循环使用状态
         this.timer = setInterval(() => {
-            const i = window.orderList.updateStatus();
-            if (i === list.length) {
-                clearInterval(this.timer);
-                this.setState({
-                    ..._this.sliceArray(page)
-                })
-            }
+            window.orderList.updateStatus();
+            this.setState({
+                ..._this.sliceArray(page)
+            })
         }, 5000);
     }
     componentDidMount() {
