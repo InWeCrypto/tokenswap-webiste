@@ -140,6 +140,7 @@ export default class Root extends PureComponent {
                 }, function () {
                     //开启状态监控
                     this.getOrderState();
+                    this.getOrderDetail()
                 })
             } else if (hash === "step0") {
                 this.setState({
@@ -261,9 +262,11 @@ export default class Root extends PureComponent {
     };
     storeOrderInfo(content) {
         if (content.OutTx && content.InTx) {
-            this.setState({
-                isAllDone: true
-            });
+            window.sessionStorage.setItem("inwe_order_hash", "");
+            // this.setState({
+            //     ...Object.assign({ isOnlyOrder: true }, { ...initialObj }),
+            //     isAllDone: true
+            // });
         }
     }
     toNextStep() {
@@ -376,6 +379,7 @@ export default class Root extends PureComponent {
                     this.setState({
                         isAllDone: true
                     })
+
                     clearInterval(this.timerDetail);
                 }
             })
