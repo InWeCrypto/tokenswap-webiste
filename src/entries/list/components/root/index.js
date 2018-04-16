@@ -66,7 +66,6 @@ export default class Root extends PureComponent {
         setLocalItem("language", "zh");
     }
     handleChange(page, size) {
-        console.log(page, '----');
         const { result } = this.state;
         this.setState({
             list: result[page-1],

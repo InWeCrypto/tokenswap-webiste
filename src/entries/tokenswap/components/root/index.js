@@ -66,7 +66,8 @@ const initialObj = {
     maxAmount: '',
     eth2neotax: '',
     neo2ethtax: '',
-    isClick: false
+    isClick: false,
+    rate: ''
 };
 export default class Root extends PureComponent {
     constructor(props) {
@@ -106,16 +107,18 @@ export default class Root extends PureComponent {
             let neoAddress = window.sessionStorage.getItem("inwe_order_neoAddress");
             let ethAddress = window.sessionStorage.getItem("inwe_order_ethAddress");
             let isClick = window.sessionStorage.getItem("isClick");
-            let limitAmount = window.sessionStorage.getItem('limitAmount', limitAmount);
-            let eth2neotax = window.sessionStorage.getItem('eth2neotax', eth2neotax);
-            let neo2ethtax = window.sessionStorage.getItem('neo2ethtax', neo2ethtax);
+            let limitAmount = window.sessionStorage.getItem('limitAmount');
+            let eth2neotax = window.sessionStorage.getItem('eth2neotax');
+            let neo2ethtax = window.sessionStorage.getItem('neo2ethtax');
+            let rate = window.sessionStorage.getItem('inwe_order_rate');
             this.setState({
                 tx,
                 tncBackNum,
                 address,
                 neoAddress,
                 ethAddress,
-                isClick
+                isClick,
+                rate
             });
             if (hash === "step") {
                 this.setState({
@@ -312,6 +315,7 @@ export default class Root extends PureComponent {
                 // 存储订单信息
                 window.orderList.addItem(o);
                 //信息保存至本地
+                window.sessionStorage.setItem("inwe_order_rate", o.rate);
                 window.sessionStorage.setItem("inwe_order_Value", valShort);
                 window.sessionStorage.setItem("inwe_order_TX", content.TX);
                 window.sessionStorage.setItem("inwe_order_Address", content.Address);
@@ -385,17 +389,16 @@ export default class Root extends PureComponent {
         if (this.timerState) {
             clearInterval(this.timerState);
         }
-        // //获取状态列表
-        // this.props.getOrderState(tx).then(res => {
-        //     let stateArr = [];
-        //     const data = res.Data;
-        //     stateArr = [...data];
-        //     this.setState({
-        //         stateArr: stateArr
-        //     }, function () {
-        //         that.scrollBoxToBottom();
-        //     });
-        // });
+        //获取状态列表
+        this.props.getOrderState(tx).then(res => {
+            let stateArr = [];
+            if (res.Data) stateArr = res.Data;
+            this.setState({
+                stateArr: stateArr
+            }, function () {
+                that.scrollBoxToBottom();
+            });
+        });
         //循环使用状态
         this.timerState = setInterval(() => {
             //获取订单详情，判断是否完成OutTx
@@ -406,8 +409,7 @@ export default class Root extends PureComponent {
             //获取状态列表
             this.props.getOrderState(tx).then(res => {
                 let stateArr = [];
-                const data = res.Data;
-                stateArr = [...data];
+                if (res.Data) stateArr = res.Data;
                 this.setState({
                     stateArr: stateArr
                 }, function () {
@@ -772,7 +774,7 @@ export default class Root extends PureComponent {
                                                             </div>
                                                             <div className="title2">{t('home.txt18', lng)}</div>
                                                             <div className="money">
-                                                                <div className="num">{tncBackNum -  tncBackNum* Number(window.sessionStorage.getItem('inwe_order_rate'))}</div>
+                                                                <div className="num">{tncBackNum - tncBackNum * Number(window.sessionStorage.getItem('inwe_order_rate'))}</div>
                                                                 <div className="nuit">TNC</div>
                                                             </div>
                                                         </div>

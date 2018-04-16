@@ -18,7 +18,9 @@ function checkStatus(response) {
 }
 
 function parseJSON(response) {
-	return response.json();
+	let res = null;
+	res = response.json();
+	return res;
 }
 
 function checkRight(response) {
