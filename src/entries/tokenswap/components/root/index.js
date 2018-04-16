@@ -140,6 +140,7 @@ export default class Root extends PureComponent {
                 }, function () {
                     //开启状态监控
                     this.getOrderState();
+                    this.getOrderDetail()
                 })
             } else if (hash === "step0") {
                 this.setState({
@@ -266,7 +267,6 @@ export default class Root extends PureComponent {
             //     ...Object.assign({ isOnlyOrder: true }, { ...initialObj }),
             //     isAllDone: true
             // });
-            window.sessionStorage.clear();
         }
     }
     toNextStep() {
