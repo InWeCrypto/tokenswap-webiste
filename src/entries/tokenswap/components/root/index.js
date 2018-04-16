@@ -403,8 +403,10 @@ export default class Root extends PureComponent {
         this.timerState = setInterval(() => {
             //获取订单详情，判断是否完成OutTx
             this.props.getOrder(tx).then(res => {
-                this.storeOrderInfo(res.Data);
-                clearInterval(this.timerState);
+                if(res.Data.OutTx && res.Data.InTx){
+                	clearInterval(this.timerState);
+                	this.storeOrderInfo(res.Data);
+                }
             })
             //获取状态列表
             this.props.getOrderState(tx).then(res => {
@@ -494,7 +496,7 @@ export default class Root extends PureComponent {
     }
 
     render() {
-        console.log(this.state, '-------')
+       // console.log(this.state, '-------')
         const { lng, changeLng, registerUser, userInfo } = this.props;
         const {
             isSendAddFoucsedLine,
