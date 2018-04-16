@@ -19,9 +19,9 @@ export default class Root extends PureComponent {
         super(props);
         this.state = this.sliceArray();
     }
-    componentWillReceiveProps(nextProps, nextState) {
-    }
     componentWillMount() {
+        if(window.timerDetail) clearInterval(window.timerDetail);
+        if(window.timerState) clearInterval(window.timerState);
         const that = this;
         indexRemFun();
         window.addEventListener("resize", function () {
@@ -33,7 +33,7 @@ export default class Root extends PureComponent {
         page = page ? page : 1;
         let list = window.localStorage.getItem('Inwe_OrderList') ? JSON.parse(window.localStorage.getItem('Inwe_OrderList')) : [];
         let result = [];
-        const size = 2;
+        const size = 8;
         for (var x = 0; x < Math.ceil(list.length / size); x++) {
             var start = x * size;
             var end = start + size;
@@ -49,7 +49,6 @@ export default class Root extends PureComponent {
     }
     hashChange(orderId) {
         const { list } = this.state;
-        clearInterval(this.timer);
         const { address, amount, from, to, rate } = list.find(item => item.name === orderId);
         window.sessionStorage.setItem('inwe_order_TX', orderId);
         window.sessionStorage.setItem('inwe_order_hash', 'step2');
@@ -68,23 +67,22 @@ export default class Root extends PureComponent {
     handleChange(page, size) {
         const { result } = this.state;
         this.setState({
-            list: result[page-1],
-            page
-        });
+            ...this.sliceArray(page)
+        }, () => this.getOrderDetail());
     }
     getOrderDetail() {
         const _this = this;
         const { list, page } = this.state;
-        if (this.timer) {
+        if (window.timer) {
             clearInterval(this.timer);
         }
         //循环使用状态
-        this.timer = setInterval(() => {
+        window.timer = setInterval(() => {
             window.orderList.updateStatus();
             this.setState({
                 ..._this.sliceArray(page)
             })
-        }, 5000);
+        }, 10000);
     }
     componentDidMount() {
         this.getOrderDetail();
@@ -92,7 +90,6 @@ export default class Root extends PureComponent {
     render() {
         let { lng } = this.props;
         const { list, total, page } = this.state;
-        console.log(this.state);
         return (
             <I18n>
                 {(t, { i18n }) => (
@@ -145,9 +142,13 @@ export default class Root extends PureComponent {
                                         }
                                     </tbody>
                                 </table>
-                                <div className="pagination">
-                                    <Pagination size="small" total={total} pageSize={2} onChange={(page, size) => this.handleChange(page, size)} current={page} />
-                                </div>
+                                {
+                                    list.length > 0
+                                        ? 
+                                        <div className="pagination">
+                                            <Pagination size="small" total={total} pageSize={8} onChange={(page, size) => this.handleChange(page, size)} current={page} />
+                                        </div>: ''
+                                }
                             </div>
                         </div>
                         <Footer lng={lng} />

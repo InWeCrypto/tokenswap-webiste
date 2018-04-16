@@ -134,30 +134,38 @@ export default class Menus extends PureComponent {
                                 </div>
                             </div>
                         ) : (
-                                <ul className="menuPcUl">
-                                    <li className="p1">
-                                        <Link to="/">{t('menus.txt1', lng)}</Link>
-                                    </li>
-                                    <li className="p2">
-                                        <Link to="/about">{t('menus.txt2', lng)}</Link>
-                                    </li>
-                                    <li className="logo">
+                                <div className="menu-box clearfix">
+                                    <div className="menu-left">
+                                        <ul className="menuPcUl">
+                                            <li className="p2">
+                                                <Link to="/about">{t('menus.txt2', lng)}</Link>
+                                            </li>
+                                            <li className="p1">
+                                                <Link to="/">{t('menus.txt1', lng)}</Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="menu-right">
+                                        <ul className="menuPcUl">
+                                            <li className="p4">
+                                                <Link to="/list">{t('menus.txt5', lng)}</Link>
+                                            </li>
+                                            <li className="p5" onClick={this.change.bind(this, "en")}>
+                                                <a>{t('menus.txt3', lng)}</a>
+                                            </li>
+                                            <li className="p6" onClick={this.change.bind(this, "zh")}>
+                                                <a>{t('menus.txt4', lng)}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="logo">
                                         <Link to="/">
                                             <img src={logo} alt="logo" />
                                         </Link>
-                                    </li>
-                                    <li className="p4">
-                                        <Link to="/list">{t('menus.txt5', lng)}</Link>
-                                    </li>
-                                    <li className="p5" onClick={this.change.bind(this, "en")}>
-                                        <a>{t('menus.txt3', lng)}</a>
-                                    </li>
-                                    <li className="p6" onClick={this.change.bind(this, "zh")}>
-                                        <a>{t('menus.txt4', lng)}</a>
-                                    </li>
-                                </ul>
-                            )}
-
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
                 )}
             </I18n>
