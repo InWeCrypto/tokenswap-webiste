@@ -741,6 +741,7 @@ export default class Root extends PureComponent {
                                         </div>
                                     </div>
                                     <button className="step" onClick={this.toSend.bind(this)}>{t('home.txt14', lng)}</button>
+                                    <p className="promote-txt">{t('home.txt24', lng)}</p>
                                 </div>
                                 {/* 付款状态 */}
                                 <div className={step == 2 ? "doneBox " : "doneBox Hide"}>

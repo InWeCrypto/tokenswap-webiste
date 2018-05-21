@@ -23,7 +23,8 @@ export default {
 		txt20: 'transfer limit:',
 		txt21: 'Fees:',
 		txt22: 'Please fill out all the content',
-		txt23: '(fees'
+		txt23: '(fees',
+		txt24: "Please enter the exact amount to prevent your token loss.",
 	},
     index: {
         downloadMess: "Download to view more info",

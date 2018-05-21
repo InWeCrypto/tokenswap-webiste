@@ -23,7 +23,8 @@ export default {
 		txt20: '交易限额',
 		txt21: '手续费：',
 		txt22: '请将信息填写完整',
-		txt23: '(利率'
+		txt23: '(利率',
+		txt24: "请确保您输入的金额准确无误，否则可能会造成token遗失！",
 	},
     index: {
         downloadMess: "下载查看更多资讯",
