@@ -82,6 +82,7 @@ export default class Root extends PureComponent {
     }
     componentWillMount() {
         const that = this;
+        if(window.timer) clearInterval(window.timer);
         indexRemFun();
         window.addEventListener("resize", function () {
             indexRemFun();
@@ -91,8 +92,8 @@ export default class Root extends PureComponent {
                 ...initialObj
             }, () => {
                 window.sessionStorage.clear();
-                that.timerDetail && clearInterval(that.timerDetail);
-                that.timerState && clearInterval(that.timerState);
+                this.timerDetail && clearInterval(this.timerDetail);
+                this.timerState && clearInterval(this.timerState);
             });
         });
     }
@@ -216,12 +217,12 @@ export default class Root extends PureComponent {
         const that = this;
         const reg = /(^[1-9]([0-9]+)?(\.[0-9]+)?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
         let val = '';
-        if (!reg.test(e.target.value)) {
+        if (!reg.test(e.target.value.trim())) {
             this.setState({
                 errMes: 1,
             })
         } else {
-            val = e.target.value;
+            val = e.target.value.trim();
             this.setState({
                 neoAmount: val,
                 errMes: '',
@@ -361,11 +362,11 @@ export default class Root extends PureComponent {
         const that = this;
         let tx = this.state.tx;
         if (!tx) return;
-        if (this.timerDetail) {
-            clearInterval(this.timerDetail);
+        if (window.timerDetail) {
+            clearInterval(window.timerDetail);
         }
         //循环使用状态
-        this.timerDetail = setInterval(() => {
+        window.timerDetail = setInterval(() => {
             //获取订单详情，判断是否完成OutTx
             this.props.getOrder(tx).then(res => {
                 if (res.Data.InTx) {
@@ -380,7 +381,7 @@ export default class Root extends PureComponent {
                         isAllDone: true
                     })
 
-                    clearInterval(this.timerDetail);
+                    clearInterval(window.timerDetail);
                 }
             })
         }, 3000);
@@ -390,8 +391,8 @@ export default class Root extends PureComponent {
         const that = this;
         let { tx } = this.state;
         if (!tx) return;
-        if (this.timerState) {
-            clearInterval(this.timerState);
+        if (window.timerState) {
+            clearInterval(window.timerState);
         }
         //获取状态列表
         this.props.getOrderState(tx).then(res => {
@@ -404,11 +405,11 @@ export default class Root extends PureComponent {
             });
         });
         //循环使用状态
-        this.timerState = setInterval(() => {
+        window.timerState = setInterval(() => {
             //获取订单详情，判断是否完成OutTx
             this.props.getOrder(tx).then(res => {
                 if(res.Data.OutTx && res.Data.InTx){
-                	clearInterval(this.timerState);
+                	clearInterval(window.timerState);
                 	this.storeOrderInfo(res.Data);
                 }
             })
@@ -740,6 +741,7 @@ export default class Root extends PureComponent {
                                         </div>
                                     </div>
                                     <button className="step" onClick={this.toSend.bind(this)}>{t('home.txt14', lng)}</button>
+                                    <p className="promote-txt">{t('home.txt24', lng)}</p>
                                 </div>
                                 {/* 付款状态 */}
                                 <div className={step == 2 ? "doneBox " : "doneBox Hide"}>
